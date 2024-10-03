@@ -1,6 +1,7 @@
+import React from 'react'
 import { Svg, Path } from '@react-pdf/renderer'
 
-const SkillIcon = () => {
+const SkillIcon: React.FC = () => {
   return (
     <Svg
       style={{ width: 10, height: 10, marginTop: 2.5 }}

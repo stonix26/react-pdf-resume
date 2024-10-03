@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   },
   viewer: {
     width: '100%',
-    height: '85vh',
+    height: '95vh',
     border: 'none'
   }
 })

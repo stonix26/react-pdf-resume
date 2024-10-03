@@ -6,7 +6,7 @@ const KeySkills: React.FC<{ skills: (string | undefined)[] }> = ({
   skills
 }) => {
   return (
-    <View style={styles.section}>
+    <View wrap={false} style={styles.section}>
       <Text style={styles.subHeader}>Key Skills</Text>
       <View
         style={{

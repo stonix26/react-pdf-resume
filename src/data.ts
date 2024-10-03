@@ -48,11 +48,12 @@ export const data: Data = {
           employmentType: 'Full-time',
           startDate: '2024-07-15',
           descriptions: [
-            'Migrating GatsbyJS marketing website to NextJS.',
-            'Maintaining WordPress marketing site and accounting portal (Express.js & React.js).'
+            'Migrating the marketing website from Gatsby.js to Next.js to enhance performance and SEO.',
+            'Maintaining and updating the WordPress marketing site and accounting portal using Express.js and React.js.',
+            'Collaborating with stakeholders to deliver new features and ensure smooth deployments.'
           ],
           skills: [
-            'GatsbyJS',
+            'Gatsby.js',
             'Next.js',
             'Express.js',
             'React.js',
@@ -65,8 +66,12 @@ export const data: Data = {
           employmentType: 'Part-time',
           startDate: '2023-06-12',
           endDate: '2024-07-12',
-          descriptions: ['Managed CMS applications and posted content.'],
-          skills: ['Front-End Development', 'GatsbyJS', 'React.js', 'WordPress']
+          descriptions: [
+            'Managed CMS applications and content updates for the marketing website using Gatsby.js and React.js.',
+            'Enhanced site performance and SEO through optimized code and best practices.',
+            'Maintained the WordPress marketing site to ensure uptime and responsiveness.'
+          ],
+          skills: ['Gatsby.js', 'React.js', 'WordPress']
         }
       ]
     },
@@ -76,27 +81,83 @@ export const data: Data = {
         'https://media.licdn.com/dms/image/v2/C560BAQFiSuhnEU9Giw/company-logo_200_200/company-logo_200_200/0/1673238286771/dnamicrosoftwareinc_logo?e=1735776000&v=beta&t=GvwqVVOq_n-QZVp7nxZyRN80HyBNWByrz9RNnUmLIyI',
       location: 'St. Moritz Road, Gorordo Ave., Cebu City, Philippines',
       locationType: 'On-site',
-      roles: {
-        role: 'Software Engineer - UI',
-        employmentType: 'Full-time',
-        startDate: '2020-09-28',
-        endDate: '2024-07-04',
-        descriptions: [
-          'Developed UI components using React, TypeScript, Tailwind CSS, and documented them with Storybook for testing.',
-          'Managed monorepo using Turborepo for reusable components and published to a local private NPM registry with Verdaccio.',
-          'Automated package versioning with changesets CLI.',
-          'Integrated backend APIs to support front-end functionalities.',
-          'Assisted the marketing team in maintaining old WordPress websites.'
-        ],
-        skills: [
-          'React.js',
-          'TypeScript',
-          'JavaScript',
-          'Tailwind CSS',
-          'REST APIs',
-          'Storybook'
-        ]
-      }
+      roles: [
+        {
+          role: 'Full-stack Developer',
+          employmentType: 'Full-time',
+          startDate: '2024-01-29',
+          endDate: '2024-07-04',
+          descriptions: [
+            'Integrated backend APIs with front-end components to support user-facing features.',
+            'Developed secure REST APIs with Express.js to handle data interactions.',
+            'Collaborated with teams to ensure the functionality of new features.'
+          ],
+          skills: ['XState', 'Redux', 'Redux Toolkit', 'REST API', 'Express.js']
+        },
+        {
+          role: 'Team Lead - UI',
+          employmentType: 'Full-time',
+          startDate: '2022-10-03',
+          endDate: '2024-01-24',
+          descriptions: [
+            'Led the migration of the component library from TSDX to Turborepo to improve build and deployment times.',
+            'Guided the team in adopting best practices for UI/UX and responsive design.',
+            'Conducted code reviews and mentored junior developers.'
+          ],
+          skills: [
+            'Turborepo',
+            'Changesets CLI',
+            'PnPM',
+            'Storybook',
+            'Leadership'
+          ]
+        },
+        {
+          role: 'Assistant Team Lead - UI',
+          employmentType: 'Full-time',
+          startDate: '2021-11-01',
+          endDate: '2022-09-30',
+          descriptions: [
+            'Assisted in building and refining the component library using React.js and TypeScript.',
+            'Provided technical guidance and supported team members in UI development.',
+            'Documented and tested components using Storybook for streamlined development.'
+          ],
+          skills: ['React.js', 'TypeScript', 'Storybook', 'Leadership']
+        },
+        {
+          role: 'Senior Software Engineer - UI',
+          employmentType: 'Full-time',
+          startDate: '2021-03-01',
+          endDate: '2021-10-29',
+          descriptions: [
+            'Initiated the development of a scalable, reusable React component library for use across multiple projects.',
+            'Implemented Tailwind CSS for rapid UI development and ensured consistency in design across various projects.',
+            'Collaborated with backend teams to create seamless integrations between front-end components and APIs.'
+          ],
+          skills: [
+            'React.js',
+            'TypeScript',
+            'TSDX',
+            'Tailwind CSS',
+            'Sass',
+            'SCSS',
+            'Node.js',
+            'Yarn',
+            'NPM'
+          ]
+        },
+        {
+          role: 'Software Engineer - UI',
+          employmentType: 'Full-time',
+          startDate: '2020-09-28',
+          endDate: '2021-02-26',
+          descriptions: [
+            'Provided support for marketing by maintaining and enhancing WordPress websites to improve user engagement.',
+            'Optimized existing websites for mobile responsiveness and performance using Sass/SCSS and modern CSS practices.'
+          ],
+          skills: ['WordPress', 'Sass', 'SCSS', 'Mobile Responsive']
+        }
+      ]
     },
     {
       companyName: 'Human IQ',
@@ -109,18 +170,22 @@ export const data: Data = {
         startDate: '2019-07-03',
         endDate: '2020-08-25',
         descriptions: [
-          'Revamped old WordPress websites using GatsbyJS to improve speed and SEO.',
+          'Revamped old WordPress websites using Gatsby.js to improve speed and SEO.',
           'Developed an e-commerce food ordering website with WooCommerce.',
           'Collaborated on building portal applications with ReactJS and NodeJS (Express).',
           'Managed WordPress websites and domains with Plesk Obsidian, performing regular updates on plugins and databases.'
         ],
         skills: [
-          'E-Commerce',
+          'JavaScript',
           'React.js',
-          'GatsbyJS',
+          'Gatsby.js',
           'GraphQL',
+          'Node.js',
+          'Express.js',
+          'PHP',
           'WordPress',
-          'Woocommerce'
+          'Woocommerce',
+          'SEO'
         ]
       }
     },
@@ -147,6 +212,7 @@ export const data: Data = {
           'Elementor',
           'Laravel',
           'PHP',
+          'MySQL',
           'Vue.js',
           'Firebase'
         ]
@@ -166,7 +232,7 @@ export const data: Data = {
           'Maintained Laravel applications.',
           'Worked closely with senior developers, gaining advanced coding skills.'
         ],
-        skills: ['WordPress', 'HTML5', 'CSS3', 'Laravel', 'MySQL']
+        skills: ['WordPress', 'HTML5', 'CSS3', 'PHP', 'Laravel', 'MySQL']
       }
     },
     {
@@ -201,10 +267,6 @@ export const data: Data = {
     {
       src: 'https://www.accountable.ph',
       text: 'https://www.accountable.ph'
-    },
-    {
-      src: 'ttps://ruston-emperua.netlify.app/',
-      text: 'ttps://ruston-emperua.netlify.app'
     },
     {
       src: 'https://stonix26.github.io',

@@ -8,7 +8,7 @@ export interface PortfolioProps {
 
 const Portfolio: React.FC<PortfolioProps> = ({ links }) => {
   return (
-    <View style={styles.section}>
+    <View wrap={false} style={styles.section}>
       <Text style={styles.subHeader}>Portfolio</Text>
       {links.map((link, index) => (
         <Link style={{ textDecoration: 'none' }} src={link.src} key={index}>

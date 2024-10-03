@@ -37,12 +37,14 @@ const Experience: React.FC<ExperienceProps> = ({
   locationType,
   roles
 }) => {
+  // For single role
   if (!Array.isArray(roles)) {
     const { formattedStartDate, formattedEndDate, timeDifference } =
       formatDateRange(roles.startDate, roles.endDate)
 
     return (
       <View
+        wrap={false}
         style={{
           marginBottom: 10,
           display: 'flex',
@@ -50,7 +52,9 @@ const Experience: React.FC<ExperienceProps> = ({
           gap: 10
         }}
       >
-        <CompanyLogo src={companyLogo} />
+        <View style={{ width: 30, height: '100%' }}>
+          <CompanyLogo src={companyLogo} />
+        </View>
         <View>
           <Text style={{ fontWeight: 'bold' }}>{roles.role}</Text>
           <Text>
@@ -73,6 +77,8 @@ const Experience: React.FC<ExperienceProps> = ({
     )
   }
 
+  // For multiple roles
+
   const timeDiffInGrouped =
     roles.length > 0
       ? formatDateRange(roles[roles.length - 1].startDate, roles[0].endDate)
@@ -87,7 +93,9 @@ const Experience: React.FC<ExperienceProps> = ({
         gap: 10
       }}
     >
-      <CompanyLogo src={companyLogo} />
+      <View style={{ width: 30, height: '100%' }}>
+        <CompanyLogo src={companyLogo} />
+      </View>
       <View>
         <View style={{ paddingBottom: 5 }}>
           <Text style={{ fontWeight: 'bold' }}>{companyName}</Text>
@@ -107,6 +115,7 @@ const Experience: React.FC<ExperienceProps> = ({
           return (
             <View
               key={index}
+              wrap={false}
               style={{
                 position: 'relative',
                 paddingLeft: 15,
@@ -131,7 +140,7 @@ const Experience: React.FC<ExperienceProps> = ({
                     position: 'absolute',
                     top: 12,
                     left: 2,
-                    height: '90%',
+                    height: '93%',
                     width: 1,
                     backgroundColor: 'gray'
                   }}

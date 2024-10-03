@@ -10,7 +10,8 @@ const Skills: React.FC<{
       style={{
         display: 'flex',
         flexDirection: 'row',
-        gap: 3
+        gap: 3,
+        marginTop: 3
       }}
     >
       <SkillIcon />

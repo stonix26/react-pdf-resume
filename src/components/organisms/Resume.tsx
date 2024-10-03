@@ -22,7 +22,7 @@ const uniqueSkills = [...new Set(allSkills)]
 const Resume = () => {
   return (
     <Document>
-      <Page style={styles.page}>
+      <Page wrap={true} style={styles.page}>
         <Header {...data.header} />
 
         <Summary content={data.summary} />

@@ -14,7 +14,7 @@ const Education: React.FC<EducationProps> = ({
   schoolYear
 }) => {
   return (
-    <View style={styles.section}>
+    <View wrap={false} style={styles.section}>
       <Text style={styles.subHeader}>Education</Text>
       <Text style={{ fontWeight: 'bold' }}>{course}</Text>
       <Text>{schoolName}</Text>
