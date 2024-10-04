@@ -45,7 +45,15 @@ const Resume: React.FC<ResumeProps> = ({
 
   return (
     <Document {...metadata}>
-      <Page wrap={true} style={styles.page}>
+      <Page
+        wrap={true}
+        style={{
+          padding: 30,
+          fontFamily: 'Open Sans',
+          fontSize: 10,
+          fontWeight: 'normal'
+        }}
+      >
         <Header {...header} />
 
         <Summary content={summary} />

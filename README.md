@@ -1,50 +1,66 @@
-# React + TypeScript + Vite
+# React-PDF Resume
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a **Resume Builder** application built using Vite, React, TypeScript, and `@react-pdf/renderer`. The app allows users to generate a PDF version of their resume based on provided data. Currently, the app uses a static JavaScript object for the resume data, but future iterations will integrate a database for dynamic data fetching.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React & TypeScript**: The app is built using React with TypeScript for type safety and better developer experience.
+- **PDF Generation**: Uses `@react-pdf/renderer` to generate a downloadable PDF version of the resume.
+- **Vite**: A fast build tool to enable blazing-fast development with hot module replacement.
+- **PNPM**: A fast, disk-space efficient package manager.
+- **LinkedIn-style Experience Section**: Experience section is displayed in a grouped style, similar to LinkedIn’s layout.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend**: React, TypeScript
+- **Build Tool**: Vite
+- **PDF Rendering**: `@react-pdf/renderer`
+- **Package Manager**: PNPM
 
-- Configure the top-level `parserOptions` property like this:
+## Future Enhancements
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Dynamic Data**: Currently, the resume data is hardcoded as a static object. Future iterations will integrate a database to allow for dynamic data management.
+- **Improved UI**: Further enhancements to the UI for more customization options and a better user experience.
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/stonix26/react-pdf-resume.git
+   cd react-pdf-resume
+   ```
+
+2. Install dependencies using PNPM:
+
+   ```bash
+   pnpm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   pnpm dev
+   ```
+
+4. Open your browser and navigate to:
+
+   ```bash
+   http://localhost:5173
+   ```
+
+## Building for Production
+
+To build the app for production, run:
+
+```bash
+pnpm build
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+This will create an optimized build in the `dist/` directory.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Usage
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. **View PDF Preview**: You can preview the generated PDF directly in the browser.
+2. **Download Resume**: Click the "Download PDF" button to download the resume as a PDF file.
+3. **Customize Resume Data**: For now, you can edit the resume data in the `./src/data.ts` file. Future versions will allow you to modify data via an integrated database.

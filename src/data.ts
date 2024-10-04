@@ -15,22 +15,26 @@ export const data: ResumeProps = {
         url: 'mailto: rustonemperua26@gmail.com'
       },
       {
-        text: 'https://github.com/stonix26',
+        text: 'www.linkedin.com/in/ruston-emperua',
+        url: 'https://www.linkedin.com/in/ruston-emperua/'
+      },
+      {
+        text: 'github.com/stonix26',
         url: 'https://github.com/stonix26'
       },
       {
-        text: 'https://utopia-components-docs.vercel.app',
+        text: 'utopia-components-docs.vercel.app',
         url: 'https://utopia-components-docs.vercel.app'
       }
     ]
   },
   summary:
-    'Experienced Frontend Developer with over 7 years of professional experience, specializing in React and TypeScript for the past 3 years. Proficient in building and managing scalable UI components, optimizing web performance, and integrating front-end and back-end systems. Adept at working with modern frameworks like ReactJS, TailwindCSS, and NodeJS, with a strong foundation in full-stack development. Demonstrated expertise in delivering mobile-responsive, user-friendly web applications, and maintaining high code quality in collaborative environments.',
+    'Experienced software developer with over 8 years of professional experience, specializing in React and TypeScript for the past 4 years. Proficient in building and managing scalable UI components, optimizing web performance, and integrating front-end and back-end systems. Adept at working with modern frameworks like ReactJS, TailwindCSS, and NodeJS, with a strong foundation in full-stack development. Demonstrated expertise in delivering mobile-responsive, user-friendly web applications, and maintaining high code quality in collaborative environments.',
   experiences: [
     {
-      companyName: 'Accountable.ph',
+      companyName: 'Accountable PH',
       companyLogo: getImageURL('accountableph_logo.jpeg'),
-      location: 'London, England',
+      location: 'London, United Kingdom',
       locationType: 'Remote',
       roles: [
         {
@@ -68,7 +72,7 @@ export const data: ResumeProps = {
     {
       companyName: 'DNA Micro Software Inc.',
       companyLogo: getImageURL('dnamicrosoftwareinc_logo.jpeg'),
-      location: 'St. Moritz Road, Gorordo Ave., Cebu City, Philippines',
+      location: 'St. Moritz Rd., Gorordo Ave., Cebu City, Philippines',
       locationType: 'On-site',
       roles: [
         {
@@ -150,8 +154,8 @@ export const data: ResumeProps = {
     },
     {
       companyName: 'Human IQ',
-      location:
-        'Unit 602, 6th Floor, Ayala Life - FGU Building, Cebu Business Park, Cebu City, Philippines',
+      companyLogo: getImageURL('humaniq_logo.png'),
+      location: 'Cebu Business Park, Cebu City, Philippines',
       locationType: 'On-site',
       roles: {
         role: 'Full-stack Web Developer',
@@ -208,6 +212,7 @@ export const data: ResumeProps = {
     },
     {
       companyName: 'Binary Ideas Creative Solutions',
+      companyLogo: getImageURL('binary-ideas_logo.jpg'),
       location: 'F. Ramos Ext., Capitol Site, Cebu City, Philippines',
       locationType: 'On-site',
       roles: {
@@ -225,8 +230,7 @@ export const data: ResumeProps = {
     },
     {
       companyName: 'Biz1 Global Solutions, Inc.',
-      location:
-        '3rd Floor, Lao Building, Arnaiz Avenue, Makati City, Philippines',
+      location: 'Arnaiz Avenue, Makati City, Philippines',
       locationType: 'On-site',
       roles: {
         role: 'Back-end Developer',
@@ -250,15 +254,19 @@ export const data: ResumeProps = {
   portfolio: [
     {
       src: 'https://utopia-components-docs.vercel.app/?path=/docs/my-resume--docs',
-      text: 'https://utopia-components-docs.vercel.app'
+      text: 'utopia-components-docs.vercel.app'
+    },
+    {
+      src: 'https://react-pdf-resume.vercel.app',
+      text: 'react-pdf-resume.vercel.app'
     },
     {
       src: 'https://www.accountable.ph',
-      text: 'https://www.accountable.ph'
+      text: 'accountable.ph'
     },
     {
       src: 'https://stonix26.github.io',
-      text: 'https://stonix26.github.io'
+      text: 'stonix26.github.io'
     }
   ]
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Image, Text, Link } from '@react-pdf/renderer'
-import { styles } from '../styles'
 
 export interface HeaderProps {
   profileUrl: string
@@ -25,12 +24,34 @@ const Header: React.FC<HeaderProps> = ({
   links
 }) => {
   return (
-    <View style={styles.header}>
-      <Image src={profileUrl} style={styles.profilePic} />
+    <View
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 18,
+        marginBottom: 10
+      }}
+    >
       <View>
-        <Text style={styles.nameWrapper}>
+        <Image
+          src={profileUrl}
+          style={{
+            width: 100,
+            height: 100
+          }}
+        />
+      </View>
+      <View>
+        <Text
+          style={{
+            textTransform: 'uppercase',
+            fontSize: 22,
+            lineHeight: 1.25
+          }}
+        >
           {firstName} {middleName}{' '}
-          <Text style={styles.lastName}>{lastName}</Text>
+          <Text style={{ fontWeight: 'bold' }}>{lastName}</Text>
         </Text>
         <Text>
           {address} | {mobileNumber}
