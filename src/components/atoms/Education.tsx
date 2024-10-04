@@ -18,7 +18,7 @@ const Education: React.FC<EducationProps> = ({
       <Text style={styles.subHeader}>Education</Text>
       <Text style={{ fontWeight: 'bold' }}>{course}</Text>
       <Text>{schoolName}</Text>
-      <Text style={{ color: 'gray' }}>{schoolYear}</Text>
+      <Text style={{ color: 'gray', fontSize: 8 }}>{schoolYear}</Text>
     </View>
   )
 }

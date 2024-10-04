@@ -1,11 +1,11 @@
 import { format, differenceInMonths, differenceInYears } from 'date-fns'
 
-export const formatDateRange = (startDate: string, endDate?: string) => {
+export function formatDateRange(startDate: string, endDate?: string) {
   const start = new Date(startDate)
   const end = endDate ? new Date(endDate) : new Date()
 
-  const formattedStartDate = format(start, 'MMM yyyy')
-  const formattedEndDate = endDate ? format(end, 'MMM yyyy') : 'Present'
+  const formattedStartDate = format(start, 'MMM d, yyyy')
+  const formattedEndDate = endDate ? format(end, 'MMM d, yyyy') : 'Present'
 
   const totalYears = differenceInYears(end, start)
   const totalMonths = differenceInMonths(end, start) % 12
@@ -21,6 +21,17 @@ export const formatDateRange = (startDate: string, endDate?: string) => {
 }
 
 // Get asset images
-export const getImageURL = (name: string) => {
+export function getImageURL(name: string) {
   return new URL(`./assets/${name}`, import.meta.url).href
+}
+
+export function sortStringsAlphabetically(arr: (string | undefined)[]) {
+  return arr.sort((a, b) => {
+    // Handle if 'a' or 'b' is undefined
+    if (a === undefined) return 1 // Move undefined to the end
+    if (b === undefined) return -1 // Move undefined to the end
+
+    // Compare alphabetically, case-insensitive
+    return a.toLowerCase().localeCompare(b.toLowerCase())
+  })
 }

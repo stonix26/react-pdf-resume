@@ -29,7 +29,7 @@ export const data: ResumeProps = {
     ]
   },
   summary:
-    'Experienced software developer with over 8 years of professional experience, specializing in React and TypeScript for the past 4 years. Proficient in building and managing scalable UI components, optimizing web performance, and integrating front-end and back-end systems. Adept at working with modern frameworks like ReactJS, TailwindCSS, and NodeJS, with a strong foundation in full-stack development. Demonstrated expertise in delivering mobile-responsive, user-friendly web applications, and maintaining high code quality in collaborative environments.',
+    'Experienced software developer with over 8 years of professional experience, specializing in React and TypeScript for the past 4 years. Proficient in building and managing scalable UI components, optimizing web performance, and integrating front-end and back-end systems. Adept at working with modern frameworks and libraries like ReactJS, TailwindCSS, and NodeJS, with a strong foundation in full-stack development. Demonstrated expertise in delivering mobile-responsive, user-friendly web applications, and maintaining high code quality in collaborative environments.',
   experiences: [
     {
       companyName: 'Accountable PH',
@@ -51,8 +51,7 @@ export const data: ResumeProps = {
             'Next.js',
             'Express.js',
             'React.js',
-            'TypeScript',
-            'WordPress'
+            'TypeScript'
           ]
         },
         {
@@ -65,7 +64,7 @@ export const data: ResumeProps = {
             'Enhanced site performance and SEO through optimized code and best practices.',
             'Maintained the WordPress marketing site to ensure uptime and responsiveness.'
           ],
-          skills: ['Gatsby.js', 'React.js', 'WordPress']
+          skills: ['Gatsby.js', 'React.js', 'WordPress', 'WPGraphQL']
         }
       ]
     },
@@ -85,7 +84,14 @@ export const data: ResumeProps = {
             'Developed secure REST APIs with Express.js to handle data interactions.',
             'Collaborated with teams to ensure the functionality of new features.'
           ],
-          skills: ['XState', 'Redux', 'Redux Toolkit', 'REST API', 'Express.js']
+          skills: [
+            'XState',
+            'Redux',
+            'React Router',
+            'TanStack Query',
+            'REST API',
+            'Express.js'
+          ]
         },
         {
           role: 'Team Lead - UI',
@@ -101,6 +107,8 @@ export const data: ResumeProps = {
             'Turborepo',
             'Changesets CLI',
             'PnPM',
+            'tsup',
+            'esbuild',
             'Storybook',
             'Leadership'
           ]
@@ -120,7 +128,7 @@ export const data: ResumeProps = {
         {
           role: 'Senior Software Engineer - UI',
           employmentType: 'Full-time',
-          startDate: '2021-03-01',
+          startDate: '2021-03-30',
           endDate: '2021-10-29',
           descriptions: [
             'Initiated the development of a scalable, reusable React component library for use across multiple projects.',
@@ -130,20 +138,18 @@ export const data: ResumeProps = {
           skills: [
             'React.js',
             'TypeScript',
-            'TSDX',
             'Tailwind CSS',
             'Sass',
             'SCSS',
             'Node.js',
-            'Yarn',
-            'NPM'
+            'Webpack'
           ]
         },
         {
           role: 'Software Engineer - UI',
           employmentType: 'Full-time',
           startDate: '2020-09-28',
-          endDate: '2021-02-26',
+          endDate: '2021-03-29',
           descriptions: [
             'Provided support for marketing by maintaining and enhancing WordPress websites to improve user engagement.',
             'Optimized existing websites for mobile responsiveness and performance using Sass/SCSS and modern CSS practices.'
@@ -175,9 +181,6 @@ export const data: ResumeProps = {
           'GraphQL',
           'Node.js',
           'Express.js',
-          'PHP',
-          'WordPress',
-          'Woocommerce',
           'SEO'
         ]
       }
@@ -199,9 +202,9 @@ export const data: ResumeProps = {
         ],
         skills: [
           'WordPress',
+          'jQuery',
+          'JavaScript',
           'Woocommerce',
-          'Divi',
-          'Elementor',
           'Laravel',
           'PHP',
           'MySQL',
@@ -225,7 +228,15 @@ export const data: ResumeProps = {
           'Maintained Laravel applications.',
           'Worked closely with senior developers, gaining advanced coding skills.'
         ],
-        skills: ['WordPress', 'HTML5', 'CSS3', 'PHP', 'Laravel', 'MySQL']
+        skills: [
+          'WordPress',
+          'Mobile Responsive',
+          'PHP',
+          'Laravel',
+          'MySQL',
+          'JavaScript',
+          'jQuery'
+        ]
       }
     },
     {
@@ -242,7 +253,16 @@ export const data: ResumeProps = {
           'Created Odoo QWeb reports for data visualizations.',
           "Contributed to enhancing the system's UI/UX and responsive application development."
         ],
-        skills: ['Odoo', 'Python', 'XML', 'OpenERP', 'PostgreSQL']
+        skills: [
+          'Odoo',
+          'Python',
+          'XML',
+          'OpenERP',
+          'PostgreSQL',
+          'CSS3',
+          'HTML5',
+          'Git'
+        ]
       }
     }
   ],

@@ -1,10 +1,12 @@
 import React from 'react'
 import { View, Text } from '@react-pdf/renderer'
 import { styles } from '../styles'
+import { sortStringsAlphabetically } from '../../utils'
 
 const KeySkills: React.FC<{ skills: (string | undefined)[] }> = ({
   skills
 }) => {
+  const sortedSkills = sortStringsAlphabetically(skills)
   return (
     <View wrap={false} style={styles.section}>
       <Text style={styles.subHeader}>Key Skills</Text>
@@ -16,7 +18,7 @@ const KeySkills: React.FC<{ skills: (string | undefined)[] }> = ({
           gap: 4
         }}
       >
-        {skills.sort().map(skill => (
+        {sortedSkills.map(skill => (
           <View
             key={skill}
             style={{

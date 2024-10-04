@@ -60,10 +60,10 @@ const Experience: React.FC<ExperienceProps> = ({
           <Text>
             {companyName} · {roles.employmentType}
           </Text>
-          <Text style={{ color: 'gray' }}>
+          <Text style={{ color: 'gray', fontSize: 8 }}>
             {formattedStartDate} - {formattedEndDate} · {timeDifference}
           </Text>
-          <Text style={{ color: 'gray' }}>
+          <Text style={{ color: 'gray', fontSize: 8 }}>
             {location} · {locationType}
           </Text>
           {!Array.isArray(roles.descriptions) ? (
@@ -100,9 +100,11 @@ const Experience: React.FC<ExperienceProps> = ({
         <View style={{ paddingBottom: 5 }}>
           <Text style={{ fontWeight: 'bold' }}>{companyName}</Text>
           {timeDiffInGrouped ? (
-            <Text>{timeDiffInGrouped.timeDifference}</Text>
+            <Text style={{ fontSize: 8 }}>
+              {timeDiffInGrouped.timeDifference}
+            </Text>
           ) : null}
-          <Text style={{ color: 'gray' }}>
+          <Text style={{ color: 'gray', fontSize: 8 }}>
             {location} · {locationType}
           </Text>
         </View>
@@ -119,7 +121,7 @@ const Experience: React.FC<ExperienceProps> = ({
               style={{
                 position: 'relative',
                 paddingLeft: 15,
-                paddingBottom: 5
+                paddingBottom: roles.length - 1 !== index ? 5 : 0
               }}
             >
               <View
@@ -140,7 +142,7 @@ const Experience: React.FC<ExperienceProps> = ({
                     position: 'absolute',
                     top: 12,
                     left: 2,
-                    height: '93%',
+                    height: '91.5%',
                     width: 1,
                     backgroundColor: 'gray'
                   }}
@@ -148,8 +150,8 @@ const Experience: React.FC<ExperienceProps> = ({
               ) : null}
 
               <Text style={{ fontWeight: 'bold' }}>{item.role}</Text>
-              <Text>{item.employmentType}</Text>
-              <Text style={{ color: 'gray' }}>
+              <Text style={{ fontSize: 8 }}>{item.employmentType}</Text>
+              <Text style={{ color: 'gray', fontSize: 8 }}>
                 {formattedStartDate} - {formattedEndDate} · {timeDifference}
               </Text>
               {!Array.isArray(item.descriptions) ? (
