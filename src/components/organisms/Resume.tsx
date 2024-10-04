@@ -1,45 +1,68 @@
+import React from 'react'
 import { Document, Page, View, Text } from '@react-pdf/renderer'
-import { styles } from '../styles'
+import Header, { HeaderProps } from '../atoms/Header'
 import Summary from '../atoms/Summary'
-import Header from '../atoms/Header'
-import Experience from '../cells/Experience'
-import { data } from '../../data'
-import Education from '../atoms/Education'
-import Portfolio from '../atoms/Portfolio'
+import Education, { EducationProps } from '../atoms/Education'
 import KeySkills from '../atoms/KeySkills'
+import Portfolio, { PortfolioProps } from '../atoms/Portfolio'
+import Experience, { ExperienceProps } from '../cells/Experience'
+import { styles } from '../styles'
 
-// Extract all skills from the roles
-const allSkills = data.experiences.flatMap(
-  experience =>
-    Array.isArray(experience.roles) // Check if roles is an array
-      ? experience.roles.flatMap(role => role.skills)
-      : experience.roles.skills // For single roles, directly access skills
-)
+export interface ResumeProps {
+  header: HeaderProps
+  summary: string
+  experiences: ExperienceProps[]
+  education: EducationProps
+  portfolio: PortfolioProps['links']
+}
 
-// Remove duplicates using Set
-const uniqueSkills = [...new Set(allSkills)]
+const Resume: React.FC<ResumeProps> = ({
+  header,
+  summary,
+  experiences,
+  education,
+  portfolio
+}) => {
+  // Extract all skills from the roles
+  const allSkills = experiences.flatMap(
+    experience =>
+      Array.isArray(experience.roles) // Check if roles is an array
+        ? experience.roles.flatMap(role => role.skills)
+        : experience.roles.skills // For single roles, directly access skills
+  )
 
-const Resume = () => {
+  // Remove duplicates using Set
+  const uniqueSkills = [...new Set(allSkills)]
+
+  const metadata = {
+    title: `${header.firstName} ${header.lastName}'s Resume`,
+    author: `${header.firstName} ${header.lastName}`,
+    subject: `${header.firstName} ${header.lastName}'s Resume`,
+    keywords: uniqueSkills.sort().join(', '),
+    creator: `Ruston Emperua's react-pdf-resume app`,
+    producer: 'Ruston Emperua'
+  }
+
   return (
-    <Document>
+    <Document {...metadata}>
       <Page wrap={true} style={styles.page}>
-        <Header {...data.header} />
+        <Header {...header} />
 
-        <Summary content={data.summary} />
+        <Summary content={summary} />
 
         <View style={styles.section}>
           <Text style={styles.subHeader}>Work Experience</Text>
 
-          {data.experiences.map((item, index) => (
+          {experiences.map((item, index) => (
             <Experience key={index} {...item} />
           ))}
         </View>
 
         <KeySkills skills={uniqueSkills} />
 
-        <Education {...data.education} />
+        <Education {...education} />
 
-        <Portfolio links={data.portfolio} />
+        <Portfolio links={portfolio} />
       </Page>
     </Document>
   )

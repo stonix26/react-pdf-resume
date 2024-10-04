@@ -3,7 +3,7 @@ import { View, Text } from '@react-pdf/renderer'
 import SkillIcon from '../atoms/SkillIcon'
 
 const Skills: React.FC<{
-  content: string
+  content: string[]
 }> = ({ content }) => {
   return (
     <View
@@ -15,7 +15,7 @@ const Skills: React.FC<{
       }}
     >
       <SkillIcon />
-      <Text style={{ width: '90%' }}>{content}</Text>
+      <Text style={{ width: '90%' }}>{content.sort().join(' · ')}</Text>
     </View>
   )
 }

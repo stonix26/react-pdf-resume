@@ -30,3 +30,8 @@ export const formatDateRange = (startDate: string, endDate?: string) => {
 
   return { formattedStartDate, formattedEndDate, timeDifference }
 }
+
+// Get asset images
+export const getImageURL = (name: string) => {
+  return new URL(`./assets/${name}`, import.meta.url).href
+}

@@ -71,7 +71,7 @@ const Experience: React.FC<ExperienceProps> = ({
           ) : (
             roles.descriptions.map((i, k) => <BulletText key={k} text={i} />)
           )}
-          {!roles.skills ? null : <Skills content={roles.skills.join(' · ')} />}
+          {!roles.skills ? null : <Skills content={roles.skills} />}
         </View>
       </View>
     )
@@ -157,9 +157,7 @@ const Experience: React.FC<ExperienceProps> = ({
               ) : (
                 item.descriptions.map((i, k) => <BulletText key={k} text={i} />)
               )}
-              {!item.skills ? null : (
-                <Skills content={item.skills.join(' · ')} />
-              )}
+              {!item.skills ? null : <Skills content={item.skills} />}
             </View>
           )
         })}

@@ -1,9 +1,9 @@
 import React from 'react'
 import { View, Image, Text, Link } from '@react-pdf/renderer'
 import { styles } from '../styles'
-import ProfilePic from '../../assets/circle-profile-ruston.png'
 
 export interface HeaderProps {
+  profileUrl: string
   firstName: string
   middleName: string
   lastName: string
@@ -16,6 +16,7 @@ export interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({
+  profileUrl,
   firstName,
   middleName,
   lastName,
@@ -25,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <View style={styles.header}>
-      <Image src={ProfilePic} style={styles.profilePic} />
+      <Image src={profileUrl} style={styles.profilePic} />
       <View>
         <Text style={styles.nameWrapper}>
           {firstName} {middleName}{' '}

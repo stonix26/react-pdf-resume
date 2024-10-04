@@ -1,18 +1,9 @@
-import type { EducationProps } from './components/atoms/Education'
-import type { HeaderProps } from './components/atoms/Header'
-import type { PortfolioProps } from './components/atoms/Portfolio'
-import type { ExperienceProps } from './components/cells/Experience'
+import type { ResumeProps } from './components/organisms/Resume'
+import { getImageURL } from './utils'
 
-export interface Data {
-  header: HeaderProps
-  summary: string
-  experiences: ExperienceProps[]
-  education: EducationProps
-  portfolio: PortfolioProps['links']
-}
-
-export const data: Data = {
+export const data: ResumeProps = {
   header: {
+    profileUrl: getImageURL('circle-profile-ruston.png'),
     firstName: 'Ruston',
     middleName: 'D.',
     lastName: 'Emperua',
@@ -38,8 +29,7 @@ export const data: Data = {
   experiences: [
     {
       companyName: 'Accountable.ph',
-      companyLogo:
-        'https://media.licdn.com/dms/image/v2/C4E0BAQGRZKCNzhZTrQ/company-logo_200_200/company-logo_200_200/0/1630598732094/accountableph_logo?e=1735776000&v=beta&t=GKXTEtO_mZPgRiJ4DcagI5_SG-aQ_7ArsbnamP7qWG0',
+      companyLogo: getImageURL('accountableph_logo.jpeg'),
       location: 'London, England',
       locationType: 'Remote',
       roles: [
@@ -77,8 +67,7 @@ export const data: Data = {
     },
     {
       companyName: 'DNA Micro Software Inc.',
-      companyLogo:
-        'https://media.licdn.com/dms/image/v2/C560BAQFiSuhnEU9Giw/company-logo_200_200/company-logo_200_200/0/1673238286771/dnamicrosoftwareinc_logo?e=1735776000&v=beta&t=GvwqVVOq_n-QZVp7nxZyRN80HyBNWByrz9RNnUmLIyI',
+      companyLogo: getImageURL('dnamicrosoftwareinc_logo.jpeg'),
       location: 'St. Moritz Road, Gorordo Ave., Cebu City, Philippines',
       locationType: 'On-site',
       roles: [
@@ -191,8 +180,7 @@ export const data: Data = {
     },
     {
       companyName: 'eLink Systems & Concepts Corporation',
-      companyLogo:
-        'https://media.licdn.com/dms/image/v2/C4D0BAQFQQODmnPrPDQ/company-logo_200_200/company-logo_200_200/0/1630536716101?e=1735776000&v=beta&t=F4q6y9dMGpO-auKeXHJNaFcKp1TGx0zHTDpciDNrGcM',
+      companyLogo: getImageURL('eLink_logo.jpeg'),
       location: 'Samar Loop, Cebu Business Park, Cebu City, Philippines',
       locationType: 'On-site',
       roles: {
