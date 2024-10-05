@@ -288,5 +288,26 @@ export const data: ResumeProps = {
       src: 'https://stonix26.github.io',
       text: 'stonix26.github.io'
     }
+  ],
+  reference: [
+    {
+      name: 'Ivy Marie Quillosa',
+      company: 'DNA Micro Software, Inc.',
+      role: 'Software Engineer - UI',
+      contactNumber: '09424979695'
+    },
+    {
+      name: 'Jojie Jagonos',
+      company: 'Adaca',
+      role: 'Full-stack Developer',
+      contactNumber: '09951025364'
+    },
+    {
+      name: 'Zeffanie Dyne Tumala',
+      company:
+        'Agilis Group of Companies - (formerly Biz1 Global Solutions, Inc.)',
+      role: 'Deputy Head, Service Delivery Operations',
+      contactNumber: '09092777054'
+    }
   ]
 }

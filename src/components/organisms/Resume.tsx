@@ -5,6 +5,7 @@ import Summary from '../atoms/Summary'
 import Education, { EducationProps } from '../atoms/Education'
 import KeySkills from '../atoms/KeySkills'
 import Portfolio, { PortfolioProps } from '../atoms/Portfolio'
+import Reference, { ReferenceProp } from '../atoms/Reference'
 import Experience, { ExperienceProps } from '../cells/Experience'
 import { styles } from '../styles'
 
@@ -14,6 +15,7 @@ export interface ResumeProps {
   experiences: ExperienceProps[]
   education: EducationProps
   portfolio: PortfolioProps['links']
+  reference: ReferenceProp['data']
 }
 
 const Resume: React.FC<ResumeProps> = ({
@@ -21,7 +23,8 @@ const Resume: React.FC<ResumeProps> = ({
   summary,
   experiences,
   education,
-  portfolio
+  portfolio,
+  reference
 }) => {
   // Extract all skills from the roles
   const allSkills = experiences.flatMap(
@@ -71,6 +74,8 @@ const Resume: React.FC<ResumeProps> = ({
         <Education {...education} />
 
         <Portfolio links={portfolio} />
+
+        <Reference data={reference} />
       </Page>
     </Document>
   )
