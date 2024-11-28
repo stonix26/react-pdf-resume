@@ -72,7 +72,7 @@ const HeaderLinks: React.FC<{ control: Control<InferredResumeSchema> }> = ({
             control={control}
             render={({ field }) => (
               <FormItem className='flex-none w-32'>
-                <FormLabel>Type</FormLabel>
+                <FormLabel>Icon</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
@@ -107,9 +107,7 @@ const HeaderLinks: React.FC<{ control: Control<InferredResumeSchema> }> = ({
 
       <Button
         variant='outline'
-        onClick={() =>
-          appendLink({ text: '', url: 'https://google.com', type: 'email' })
-        }
+        onClick={() => appendLink({ text: '', url: '', type: 'Mail' })}
       >
         <AddLine />
         Add header link

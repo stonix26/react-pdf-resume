@@ -4,10 +4,21 @@ import { isValidDate } from './utils'
 export const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/
 
 export const linkTypeSchema = z.enum([
-  'email',
-  'linked-in',
-  'github',
-  'storybook'
+  'Behance',
+  'Discord',
+  'Dribbble',
+  'Facebook',
+  'Github',
+  'Gitlab',
+  'Instagram',
+  'LinkedIn',
+  'Mail',
+  'Medium',
+  'Stack Overflow',
+  'Terminal',
+  'Threads',
+  'Tiktok',
+  'Twitter / X'
 ])
 
 export const linkSchema = z.object({

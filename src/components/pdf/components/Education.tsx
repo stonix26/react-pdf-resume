@@ -9,13 +9,17 @@ const Education: React.FC<{ items: InferredEducationSchema[] }> = ({
   return (
     <View wrap={false} style={styles.section}>
       <Text style={styles.subHeader}>Education</Text>
-      {items.map((item, i) => (
-        <View key={i}>
-          <Text style={{ fontWeight: 'bold' }}>{item.course}</Text>
-          <Text>{item.schoolName}</Text>
-          <Text style={{ color: 'gray', fontSize: 8 }}>{item.schoolYear}</Text>
-        </View>
-      ))}
+      <View style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {items.map((item, i) => (
+          <View key={i}>
+            <Text style={{ fontWeight: 'bold' }}>{item.course}</Text>
+            <Text>{item.schoolName}</Text>
+            <Text style={{ color: 'gray', fontSize: 8 }}>
+              {item.schoolYear}
+            </Text>
+          </View>
+        ))}
+      </View>
     </View>
   )
 }

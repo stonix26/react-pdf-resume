@@ -2,13 +2,26 @@ import React from 'react'
 import { View, Text, Link } from '@react-pdf/renderer'
 import { InferredHeaderSchema } from '@/types'
 import { styles } from '../styles'
-import LinkedIn from './icons/LinkedIn'
-import Github from './icons/Github'
-import MapPin from './icons/MapPin'
-import Phone from './icons/Phone'
-import Mail from './icons/Mail'
-import TerminalBox from './icons/TerminalBox'
 import ProfileImage from './ProfileImage'
+import {
+  Behance,
+  Discord,
+  Dribbble,
+  Facebook,
+  Github,
+  Gitlab,
+  Instagram,
+  LinkedIn,
+  Mail,
+  MapPin,
+  Medium,
+  Phone,
+  StackOverflow,
+  TerminalBox,
+  Threads,
+  Tiktok,
+  TwitterX
+} from './icons'
 
 const Header: React.FC<InferredHeaderSchema> = ({
   profileUrl,
@@ -103,19 +116,41 @@ const Header: React.FC<InferredHeaderSchema> = ({
                   gap: 4
                 }}
               >
-                {item.type === 'email' ? (
-                  <Mail />
-                ) : item.type === 'linked-in' ? (
-                  <LinkedIn />
-                ) : item.type === 'github' ? (
+                {item.type === 'Behance' ? (
+                  <Behance />
+                ) : item.type === 'Discord' ? (
+                  <Discord />
+                ) : item.type === 'Dribbble' ? (
+                  <Dribbble />
+                ) : item.type === 'Facebook' ? (
+                  <Facebook />
+                ) : item.type === 'Github' ? (
                   <Github />
-                ) : item.type === 'storybook' ? (
+                ) : item.type === 'Gitlab' ? (
+                  <Gitlab />
+                ) : item.type === 'Instagram' ? (
+                  <Instagram />
+                ) : item.type === 'LinkedIn' ? (
+                  <LinkedIn />
+                ) : item.type === 'Mail' ? (
+                  <Mail />
+                ) : item.type === 'Medium' ? (
+                  <Medium />
+                ) : item.type === 'Stack Overflow' ? (
+                  <StackOverflow />
+                ) : item.type === 'Terminal' ? (
                   <TerminalBox />
+                ) : item.type === 'Threads' ? (
+                  <Threads />
+                ) : item.type === 'Tiktok' ? (
+                  <Tiktok />
+                ) : item.type === 'Twitter / X' ? (
+                  <TwitterX />
                 ) : null}
 
                 <Link
                   style={[styles.links, { color: 'gray', fontSize: 8 }]}
-                  src={item.type === 'email' ? `mailto: ${item.url}` : item.url}
+                  src={item.type === 'Mail' ? `mailto: ${item.url}` : item.url}
                 >
                   {item.text.trim()}
                 </Link>
