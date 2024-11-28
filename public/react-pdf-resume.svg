@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 20 160 160" width="200" height="200">
+
+  <!-- Document Icon -->
+  <rect x="65" y="60" width="70" height="80" rx="10" fill="#61dafb" />
+  <line x1="75" y1="80" x2="125" y2="80" stroke="#ffffff" stroke-width="4" />
+  <line x1="75" y1="95" x2="125" y2="95" stroke="#ffffff" stroke-width="4" />
+  <line x1="75" y1="110" x2="110" y2="110" stroke="#ffffff" stroke-width="4" />
+
+  <!-- React Ellipses -->
+  <ellipse cx="100" cy="100" rx="75" ry="30" fill="none" stroke="#61dafb" stroke-width="6"
+    transform="rotate(30 100 100)" />
+  <ellipse cx="100" cy="100" rx="75" ry="30" fill="none" stroke="#61dafb" stroke-width="6"
+    transform="rotate(90 100 100)" />
+  <ellipse cx="100" cy="100" rx="75" ry="30" fill="none" stroke="#61dafb" stroke-width="6"
+    transform="rotate(150 100 100)" />
+
+  <!-- Inner Circle -->
+  <circle cx="100" cy="100" r="12" fill="#61dafb" />
+</svg>
