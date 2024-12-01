@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Document, Page, View, Text } from '@react-pdf/renderer'
 import { InferredResumeSchema } from '@/types'
 import Header from './components/Header'
@@ -95,4 +95,4 @@ const Resume: React.FC<InferredResumeSchema> = ({
   )
 }
 
-export default Resume
+export default memo(Resume)
