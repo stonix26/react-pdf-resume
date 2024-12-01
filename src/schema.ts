@@ -118,7 +118,7 @@ export const educationSchema = z.object({
 })
 
 export const portfolioSchema = z.object({
-  src: z.string(),
+  src: z.string().url(),
   text: z.string()
 })
 
