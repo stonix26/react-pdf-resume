@@ -14,6 +14,7 @@ export const linkTypeSchema = z.enum([
   'LinkedIn',
   'Mail',
   'Medium',
+  'React',
   'Stack Overflow',
   'Terminal',
   'Threads',

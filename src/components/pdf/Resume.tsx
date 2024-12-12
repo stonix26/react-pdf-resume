@@ -29,10 +29,12 @@ const Resume: React.FC<InferredResumeSchema> = ({
     ...new Set([...allSkills, ...additionalSkills.map(i => i.skill)])
   ]
 
+  const fullName = header.firstName + ' ' + header.lastName
+
   const metadata = {
-    title: `${header.firstName} ${header.lastName} - Resume`,
-    author: `${header.firstName} ${header.lastName}`,
-    subject: `${header.firstName} ${header.lastName} - Resume`,
+    title: `${fullName} - Resume`,
+    author: `${fullName}`,
+    subject: `${fullName} - Resume`,
     keywords: uniqueSkills.sort().join(', '),
     creator: `react-pdf-resume app`,
     producer: 'Ruston Emperua'
@@ -86,7 +88,7 @@ const Resume: React.FC<InferredResumeSchema> = ({
             color: 'grey'
           }}
           render={({ pageNumber, totalPages }) =>
-            `${pageNumber} / ${totalPages}`
+            `${fullName} - ${pageNumber} / ${totalPages}`
           }
           fixed
         />

@@ -16,6 +16,7 @@ import {
   MapPin,
   Medium,
   Phone,
+  React as ReactIcon,
   StackOverflow,
   TerminalBox,
   Threads,
@@ -136,6 +137,8 @@ const Header: React.FC<InferredHeaderSchema> = ({
                   <Mail />
                 ) : item.type === 'Medium' ? (
                   <Medium />
+                ) : item.type === 'React' ? (
+                  <ReactIcon />
                 ) : item.type === 'Stack Overflow' ? (
                   <StackOverflow />
                 ) : item.type === 'Terminal' ? (
