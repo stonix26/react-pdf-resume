@@ -6,8 +6,8 @@ import FormRowGroup from './FormRowGroup'
 import { FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import DeleteBinLine from '../icons/delete-bin-line'
 import AddLine from '../icons/add-line'
+import CloseLine from '../icons/close-line'
 
 const Portfolios: React.FC<{ control: Control<InferredResumeSchema> }> = ({
   control
@@ -51,7 +51,7 @@ const Portfolios: React.FC<{ control: Control<InferredResumeSchema> }> = ({
             size='icon'
             onClick={() => remove(index)}
           >
-            <DeleteBinLine />
+            <CloseLine />
           </Button>
         </FormRowGroup>
       ))}

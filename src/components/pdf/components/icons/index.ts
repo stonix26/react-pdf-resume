@@ -1,4 +1,5 @@
 export { default as Behance } from './Behance'
+export { default as Bluesky } from './Bluesky'
 export { default as Discord } from './Discord'
 export { default as Dribbble } from './Dribbble'
 export { default as Facebook } from './Facebook'

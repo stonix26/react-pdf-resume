@@ -14,8 +14,15 @@ const Education: React.FC<{ items: InferredEducationSchema[] }> = ({
           <View key={i}>
             <Text style={{ fontWeight: 'bold' }}>{item.course}</Text>
             <Text>{item.schoolName}</Text>
-            <Text style={{ color: 'gray', fontSize: 8 }}>
-              {item.schoolYear}
+            <Text
+              style={{
+                color: 'gray',
+                fontSize: 8
+              }}
+            >
+              {item.gpa
+                ? `${item.gpa} GPA | ${item.schoolYear}`
+                : item.schoolYear}
             </Text>
           </View>
         ))}

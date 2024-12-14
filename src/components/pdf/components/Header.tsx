@@ -5,6 +5,7 @@ import { styles } from '../styles'
 import ProfileImage from './ProfileImage'
 import {
   Behance,
+  Bluesky,
   Discord,
   Dribbble,
   Facebook,
@@ -119,6 +120,8 @@ const Header: React.FC<InferredHeaderSchema> = ({
               >
                 {item.type === 'Behance' ? (
                   <Behance />
+                ) : item.type === 'Bluesky' ? (
+                  <Bluesky />
                 ) : item.type === 'Discord' ? (
                   <Discord />
                 ) : item.type === 'Dribbble' ? (

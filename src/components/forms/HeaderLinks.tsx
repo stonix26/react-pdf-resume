@@ -19,7 +19,7 @@ import {
 } from '../ui/form'
 import { Input } from '../ui/input'
 import AddLine from '../icons/add-line'
-import DeleteBinLine from '../icons/delete-bin-line'
+import CloseLine from '../icons/close-line'
 import DynamicFormGroup from './DynamicFormGroup'
 import FormRowGroup from './FormRowGroup'
 
@@ -100,7 +100,7 @@ const HeaderLinks: React.FC<{ control: Control<InferredResumeSchema> }> = ({
             size='icon'
             onClick={() => removeLink(headerLinksIndex)}
           >
-            <DeleteBinLine />
+            <CloseLine />
           </Button>
         </FormRowGroup>
       ))}

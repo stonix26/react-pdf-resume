@@ -6,8 +6,8 @@ import FormRowGroup from './FormRowGroup'
 import { FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import DeleteBinLine from '../icons/delete-bin-line'
 import AddLine from '../icons/add-line'
+import CloseLine from '../icons/close-line'
 
 const Education: React.FC<{ control: Control<InferredResumeSchema> }> = ({
   control
@@ -56,6 +56,18 @@ const Education: React.FC<{ control: Control<InferredResumeSchema> }> = ({
               </FormItem>
             )}
           />
+          <FormField
+            name={`education.${index}.gpa`}
+            control={control}
+            render={({ field }) => (
+              <FormItem className='flex-none w-32'>
+                <FormControl>
+                  <Input {...field} placeholder='GPA' />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <Button
             variant='ghost'
@@ -63,7 +75,7 @@ const Education: React.FC<{ control: Control<InferredResumeSchema> }> = ({
             size='icon'
             onClick={() => remove(index)}
           >
-            <DeleteBinLine />
+            <CloseLine />
           </Button>
         </FormRowGroup>
       ))}

@@ -5,6 +5,7 @@ export const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/
 
 export const linkTypeSchema = z.enum([
   'Behance',
+  'Bluesky',
   'Discord',
   'Dribbble',
   'Facebook',
@@ -115,6 +116,7 @@ export const experienceSchema = z.object({
 export const educationSchema = z.object({
   course: z.string(),
   schoolName: z.string(),
+  gpa: z.string().optional(),
   schoolYear: z.string()
 })
 
