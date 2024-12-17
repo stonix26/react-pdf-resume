@@ -1,7 +1,7 @@
 import React from 'react'
 import { cn } from '@/lib/utils'
-import { Button } from '../ui/button'
-import DeleteBinLine from '../icons/delete-bin-line'
+import { Button } from '../ui'
+import { DeleteBinLine } from '../icons'
 
 export const DynamicFormGroup = React.forwardRef<
   HTMLDivElement,
@@ -31,5 +31,3 @@ export const DynamicFormGroup = React.forwardRef<
   </div>
 ))
 DynamicFormGroup.displayName = 'DynamicFormGroup'
-
-export default DynamicFormGroup

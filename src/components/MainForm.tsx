@@ -1,19 +1,6 @@
 import React from 'react'
-import { Form } from '../ui/form'
-import Header from './Header'
-import HeaderLinks from './HeaderLinks'
-import Summary from './Summary'
-import Experiences from './Experiences'
-import AdditionalSkills from './AdditionalSkills'
-import Education from './Education'
-import { Button } from '../ui/button'
-import Portfolios from './Portfolios'
-import References from './References'
-import FilePdfLine from '../icons/file-pdf-line'
-import ExportLine from '../icons/export-line'
-import DeleteBinLine from '../icons/delete-bin-line'
-import Github from '../icons/github'
-import { UseResumeReturnType } from '@/hooks/useResume'
+import useResume from '@/hooks/useResume'
+import { FilePdfLine, ExportLine, DeleteBinLine, Github } from './icons'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,15 +10,23 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
-} from '../ui/alert-dialog'
+  AlertDialogTrigger,
+  Form,
+  Button
+} from './ui'
+import {
+  Header,
+  HeaderLinks,
+  Summary,
+  Experiences,
+  AdditionalSkills,
+  Education,
+  Portfolios,
+  References
+} from './forms'
 
-const MainForm: React.FC<Omit<UseResumeReturnType, 'storedData'>> = ({
-  form,
-  onSubmit,
-  handleResetData,
-  handleExport
-}) => {
+const MainForm: React.FC = () => {
+  const { form, onSubmit, handleExport, handleResetData } = useResume()
   const { control } = form
   return (
     <Form {...form}>

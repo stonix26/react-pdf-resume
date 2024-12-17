@@ -10,7 +10,7 @@ import {
 } from '../ui/form'
 import { Textarea } from '../ui/textarea'
 
-const Summary: React.FC<{ control: Control<InferredResumeSchema> }> = ({
+export const Summary: React.FC<{ control: Control<InferredResumeSchema> }> = ({
   control
 }) => (
   <FormField
@@ -31,5 +31,3 @@ const Summary: React.FC<{ control: Control<InferredResumeSchema> }> = ({
     )}
   />
 )
-
-export default Summary

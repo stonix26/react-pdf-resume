@@ -7,27 +7,23 @@ import {
   SelectTrigger,
   SelectValue,
   SelectContent,
-  SelectItem
-} from '../ui/select'
-import { Button } from '../ui/button'
-import {
+  SelectItem,
+  Button,
   FormField,
   FormItem,
   FormControl,
   FormMessage,
-  FormLabel
-} from '../ui/form'
-import { Input } from '../ui/input'
-import AddLine from '../icons/add-line'
-import CloseLine from '../icons/close-line'
-import DynamicFormGroup from './DynamicFormGroup'
-import FormRowGroup from './FormRowGroup'
+  FormLabel,
+  Input
+} from '../ui'
+import { AddLine, CloseLine } from '../icons'
+import { DynamicFormGroup, FormRowGroup } from '.'
 
 const linkTypeOptions = linkTypeSchema.options
 
-const HeaderLinks: React.FC<{ control: Control<InferredResumeSchema> }> = ({
-  control
-}) => {
+export const HeaderLinks: React.FC<{
+  control: Control<InferredResumeSchema>
+}> = ({ control }) => {
   const {
     fields,
     append: appendLink,
@@ -115,5 +111,3 @@ const HeaderLinks: React.FC<{ control: Control<InferredResumeSchema> }> = ({
     </DynamicFormGroup>
   )
 }
-
-export default HeaderLinks

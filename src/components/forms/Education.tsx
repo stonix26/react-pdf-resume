@@ -1,17 +1,20 @@
-import { InferredResumeSchema } from '@/types'
 import React from 'react'
+import { type InferredResumeSchema } from '@/types'
 import { Control, useFieldArray } from 'react-hook-form'
-import DynamicFormGroup from './DynamicFormGroup'
-import FormRowGroup from './FormRowGroup'
-import { FormControl, FormField, FormItem, FormMessage } from '../ui/form'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import AddLine from '../icons/add-line'
-import CloseLine from '../icons/close-line'
+import { DynamicFormGroup, FormRowGroup } from '.'
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+  Input,
+  Button
+} from '../ui'
+import { AddLine, CloseLine } from '../icons'
 
-const Education: React.FC<{ control: Control<InferredResumeSchema> }> = ({
-  control
-}) => {
+export const Education: React.FC<{
+  control: Control<InferredResumeSchema>
+}> = ({ control }) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'education'
@@ -95,5 +98,3 @@ const Education: React.FC<{ control: Control<InferredResumeSchema> }> = ({
     </DynamicFormGroup>
   )
 }
-
-export default Education

@@ -1,12 +1,12 @@
 import React from 'react'
-import { Control, useFieldArray } from 'react-hook-form'
-import { InferredResumeSchema } from '@/types'
-import { Button } from '../ui/button'
-import AddLine from '../icons/add-line'
-import Role from './Role'
+import { type Control, useFieldArray } from 'react-hook-form'
 import { format } from 'date-fns'
+import { type InferredResumeSchema } from '@/types'
+import { Button } from '../ui'
+import { AddLine } from '../icons'
+import { Role } from '.'
 
-const Roles: React.FC<{
+export const Roles: React.FC<{
   control: Control<InferredResumeSchema>
   experienceIndex: number
 }> = ({ control, experienceIndex }) => {
@@ -19,6 +19,7 @@ const Roles: React.FC<{
     <>
       {fields.map((roleFields, roleIndex) => (
         <Role
+          key={roleIndex}
           control={control}
           fields={roleFields}
           experienceIndex={experienceIndex}
@@ -46,5 +47,3 @@ const Roles: React.FC<{
     </>
   )
 }
-
-export default Roles

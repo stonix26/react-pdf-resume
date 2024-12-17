@@ -1,34 +1,30 @@
 import React from 'react'
 import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem
-} from '../ui/select'
-import {
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage
-} from '../ui/form'
-import { Input } from '../ui/input'
-import DynamicFormGroup from './DynamicFormGroup'
-import FormRowGroup from './FormRowGroup'
-import Roles from './Roles'
-import {
   Control,
   FieldArrayWithId,
   UseFieldArrayRemove,
   useWatch
 } from 'react-hook-form'
-import { InferredResumeSchema } from '@/types'
+import { type InferredResumeSchema } from '@/types'
 import { locationTypeSchema } from '@/schema'
+import { DynamicFormGroup, FormRowGroup, Roles } from '.'
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+  Input
+} from '../ui'
 
 const locationTypeOptions = locationTypeSchema.options
 
-const Experience: React.FC<{
+export const Experience: React.FC<{
   control: Control<InferredResumeSchema>
   fields: FieldArrayWithId<InferredResumeSchema>
   index: number
@@ -41,8 +37,8 @@ const Experience: React.FC<{
 
   return (
     <DynamicFormGroup
-      groupLabel={companyName.length ? companyName : 'New company'}
       key={fields.id}
+      groupLabel={companyName.length ? companyName : 'New company'}
       onDelete={() => remove(index)}
     >
       <FormRowGroup>
@@ -66,7 +62,15 @@ const Experience: React.FC<{
             <FormItem className='flex-1'>
               <FormLabel>Company Logo</FormLabel>
               <FormControl>
-                <Input {...field} placeholder='https://logo.com/pic' />
+                <Input
+                  // {...field}
+                  type='file'
+                  accept='image/*'
+                  onChange={e => {
+                    const file = e.target.files?.[0] || null
+                    field.onChange(file)
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -117,5 +121,3 @@ const Experience: React.FC<{
     </DynamicFormGroup>
   )
 }
-
-export default Experience

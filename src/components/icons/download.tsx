@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Download: React.FC<React.SVGProps<SVGSVGElement>> = props => {
+export const Download: React.FC<React.SVGProps<SVGSVGElement>> = props => {
   return (
     <svg
       width={15}
@@ -19,5 +19,3 @@ const Download: React.FC<React.SVGProps<SVGSVGElement>> = props => {
     </svg>
   )
 }
-
-export default Download

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CloseLine: React.FC<React.SVGProps<SVGSVGElement>> = props => {
+export const CloseLine: React.FC<React.SVGProps<SVGSVGElement>> = props => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -13,5 +13,3 @@ const CloseLine: React.FC<React.SVGProps<SVGSVGElement>> = props => {
     </svg>
   )
 }
-
-export default CloseLine

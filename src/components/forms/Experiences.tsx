@@ -1,11 +1,11 @@
 import React from 'react'
-import { Control, useFieldArray } from 'react-hook-form'
+import { type Control, useFieldArray } from 'react-hook-form'
 import { InferredResumeSchema } from '@/types'
-import { Button } from '../ui/button'
-import AddLine from '../icons/add-line'
-import Experience from './Experience'
+import { Button } from '../ui'
+import { AddLine } from '../icons'
+import { Experience } from '.'
 
-const Experiences: React.FC<{
+export const Experiences: React.FC<{
   control: Control<InferredResumeSchema>
 }> = ({ control }) => {
   const { fields, append, remove } = useFieldArray({
@@ -17,6 +17,7 @@ const Experiences: React.FC<{
     <>
       {fields.map((expFields, experienceIndex) => (
         <Experience
+          key={experienceIndex}
           control={control}
           fields={expFields}
           index={experienceIndex}
@@ -42,5 +43,3 @@ const Experiences: React.FC<{
     </>
   )
 }
-
-export default Experiences

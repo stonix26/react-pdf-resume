@@ -1,19 +1,19 @@
 import React from 'react'
-import { Control } from 'react-hook-form'
+import type { Control } from 'react-hook-form'
 import { InferredResumeSchema } from '@/types'
+import { FormRowGroup } from '.'
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
-  FormMessage
-} from '../ui/form'
-import { Input } from '../ui/input'
-import FormRowGroup from './FormRowGroup'
+  FormMessage,
+  Input
+} from '../ui'
 
-const Header: React.FC<{ control: Control<InferredResumeSchema> }> = ({
-  control
-}) => (
+export const Header: React.FC<{
+  control: Control<InferredResumeSchema>
+}> = ({ control }) => (
   <>
     <FormRowGroup>
       <FormField
@@ -59,15 +59,19 @@ const Header: React.FC<{ control: Control<InferredResumeSchema> }> = ({
 
     <FormRowGroup>
       <FormField
-        name='header.profileUrl'
+        name='header.profilePicture'
         control={control}
         render={({ field }) => (
           <FormItem className='flex-1'>
             <FormLabel>Profile URL</FormLabel>
             <FormControl>
               <Input
-                {...field}
-                placeholder='https://avatars.githubusercontent.com'
+                type='file'
+                accept='image/*'
+                onChange={e => {
+                  const file = e.target.files?.[0] || null
+                  field.onChange(file)
+                }}
               />
             </FormControl>
             <FormMessage />
@@ -103,5 +107,3 @@ const Header: React.FC<{ control: Control<InferredResumeSchema> }> = ({
     </FormRowGroup>
   </>
 )
-
-export default Header

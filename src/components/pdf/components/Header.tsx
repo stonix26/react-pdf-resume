@@ -26,7 +26,7 @@ import {
 } from './icons'
 
 const Header: React.FC<InferredHeaderSchema> = ({
-  profileUrl,
+  profilePicture,
   firstName,
   middleName,
   lastName,
@@ -45,7 +45,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
       }}
     >
       <ProfileImage
-        profileUrl={profileUrl}
+        profileUrl={profilePicture}
         firstName={firstName}
         lastName={lastName}
       />

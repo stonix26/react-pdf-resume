@@ -3,6 +3,13 @@ import { isValidDate } from './utils'
 
 export const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/
 
+export const fileSchema = z
+  .instanceof(File)
+  .refine(file => file.type.startsWith('image/'), {
+    message: 'Must be an image file'
+  })
+  .or(z.string())
+
 export const linkTypeSchema = z.enum([
   'Behance',
   'Bluesky',
@@ -42,15 +49,8 @@ export const linkSchema = z.object({
   type: linkTypeSchema
 })
 
-export const profileUrlSchema = z
-  .string()
-  .optional()
-  .refine(value => !value || z.string().url().safeParse(value).success, {
-    message: 'Must be a valid URL or empty'
-  })
-
 export const headerSchema = z.object({
-  profileUrl: profileUrlSchema,
+  profilePicture: fileSchema.optional(),
   firstName: z.string(),
   middleName: z.string(),
   lastName: z.string(),
@@ -102,12 +102,7 @@ export const locationTypeSchema = z.enum(['On-site', 'Hybrid', 'Remote'])
 
 export const experienceSchema = z.object({
   companyName: z.string(),
-  companyLogo: z
-    .string()
-    .optional()
-    .refine(value => !value || z.string().url().safeParse(value).success, {
-      message: 'Invalid URL'
-    }),
+  companyLogo: fileSchema.optional(),
   location: z.string(),
   locationType: locationTypeSchema,
   roles: z.array(roleSchema)

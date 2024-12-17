@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { Document, Page, View, Text } from '@react-pdf/renderer'
 import { InferredResumeSchema } from '@/types'
 import Header from './components/Header'
@@ -81,9 +81,9 @@ const Resume: React.FC<InferredResumeSchema> = ({
         <Text
           style={{
             position: 'absolute',
-            fontSize: 8,
+            fontSize: 6,
             bottom: 22,
-            right: 32,
+            right: 30,
             textAlign: 'center',
             color: 'grey'
           }}
@@ -97,4 +97,4 @@ const Resume: React.FC<InferredResumeSchema> = ({
   )
 }
 
-export default memo(Resume)
+export default Resume

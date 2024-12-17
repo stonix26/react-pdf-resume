@@ -1,15 +1,12 @@
 import React from 'react'
 import { Image, Text, View } from '@react-pdf/renderer'
-import { profileUrlSchema } from '@/schema'
 
 const ProfileImage: React.FC<{
-  profileUrl?: string
+  profileUrl?: string | File
   firstName: string
   lastName: string
 }> = ({ profileUrl, firstName, lastName }) => {
-  const isValidUrl = profileUrlSchema.safeParse(profileUrl).success
-
-  if (isValidUrl && profileUrl) {
+  if (profileUrl) {
     return (
       <Image
         src={profileUrl}

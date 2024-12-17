@@ -1,12 +1,13 @@
-import { resumeSchema } from '@/schema'
-import { InferredResumeSchema } from '@/types'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useLocalStorage } from 'usehooks-ts'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { resumeSchema } from '@/schema'
+import type { InferredResumeSchema } from '@/types'
 
-const DEFAULT_FORM = {
+const DEFAULT_FORM: InferredResumeSchema = {
   header: {
-    profileUrl: '',
+    profilePicture: undefined,
     firstName: '',
     middleName: '',
     lastName: '',
@@ -22,12 +23,11 @@ const DEFAULT_FORM = {
   reference: []
 }
 
+const LS_KEY = 'linkedInResumeFormatData'
+
 const useResume = () => {
   const [storedData, setStoredData, resetLSData] =
-    useLocalStorage<InferredResumeSchema | null>(
-      'linkedInResumeFormatData',
-      null
-    )
+    useLocalStorage<InferredResumeSchema | null>(LS_KEY, null)
 
   const form = useForm<InferredResumeSchema>({
     resolver: zodResolver(resumeSchema),
@@ -36,13 +36,63 @@ const useResume = () => {
 
   const { reset } = form
 
-  const onSubmit: SubmitHandler<InferredResumeSchema> = values => {
-    setStoredData(values)
+  const validateFile = async (file: unknown): Promise<string | undefined> => {
+    if (!file) return undefined
+
+    try {
+      // Validate using fileSchema
+      const parsedFile = z
+        .instanceof(File)
+        .refine(file => file.type.startsWith('image/'), {
+          message: 'Must be an image file'
+        })
+        .parse(file)
+
+      // Convert the file to base64
+      return new Promise<string>(resolve => {
+        const reader = new FileReader()
+        reader.onload = () => resolve(reader.result as string)
+        reader.readAsDataURL(parsedFile)
+      })
+    } catch (e) {
+      console.error('File validation failed:', e)
+      return undefined
+    }
+  }
+
+  const onSubmit: SubmitHandler<InferredResumeSchema> = async values => {
+    // Handle profile picture
+    const profilePicture =
+      values.header.profilePicture instanceof File
+        ? await validateFile(values.header.profilePicture)
+        : values.header.profilePicture
+
+    // Handle company logos in experiences
+    const experiences = await Promise.all(
+      values.experiences.map(async experience => {
+        const companyLogo =
+          experience.companyLogo instanceof File
+            ? await validateFile(experience.companyLogo)
+            : experience.companyLogo
+
+        return { ...experience, companyLogo }
+      })
+    )
+
+    // Construct the final processed form data
+    const processedValues = {
+      ...values,
+      header: { ...values.header, profilePicture },
+      experiences
+    }
+
+    // Persist the processed values
+    setStoredData(processedValues)
   }
 
   const handleExport = () => {
     if (!storedData) {
-      alert('No data found in localStorage for the specified key.')
+      alert(`No data found in localStorage for ${LS_KEY} key.`)
       return
     }
 

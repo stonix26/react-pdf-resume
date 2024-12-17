@@ -14,5 +14,3 @@ export const FormRowGroup = React.forwardRef<
   </div>
 ))
 FormRowGroup.displayName = 'FormRowGroup'
-
-export default FormRowGroup

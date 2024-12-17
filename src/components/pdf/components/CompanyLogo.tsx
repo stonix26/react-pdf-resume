@@ -2,7 +2,7 @@ import React from 'react'
 import { Image, Svg, Path } from '@react-pdf/renderer'
 
 const CompanyLogo: React.FC<{
-  src?: string
+  src?: string | File
 }> = ({ src }) => {
   if (!src || src === undefined) {
     return (

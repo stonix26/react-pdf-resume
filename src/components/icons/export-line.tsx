@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ExportLine: React.FC<React.SVGProps<SVGSVGElement>> = props => {
+export const ExportLine: React.FC<React.SVGProps<SVGSVGElement>> = props => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -12,5 +12,3 @@ const ExportLine: React.FC<React.SVGProps<SVGSVGElement>> = props => {
     </svg>
   )
 }
-
-export default ExportLine

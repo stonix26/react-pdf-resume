@@ -14,10 +14,7 @@ import {
   FormMessage
 } from '../ui/form'
 import { Input } from '../ui/input'
-import Descriptions from './Descriptions'
-import DynamicFormGroup from './DynamicFormGroup'
-import FormRowGroup from './FormRowGroup'
-import Skills from './Skills'
+import { Descriptions, DynamicFormGroup, FormRowGroup, Skills } from '.'
 import {
   Control,
   FieldArrayWithId,
@@ -29,7 +26,7 @@ import { employmentTypeSchema } from '@/schema'
 
 const employmentTypeOptions = employmentTypeSchema.options
 
-const Role: React.FC<{
+export const Role: React.FC<{
   control: Control<InferredResumeSchema>
   fields: FieldArrayWithId<InferredResumeSchema>
   experienceIndex: number
@@ -134,5 +131,3 @@ const Role: React.FC<{
     </DynamicFormGroup>
   )
 }
-
-export default Role

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Github: React.FC<React.SVGProps<SVGSVGElement>> = props => {
+export const Github: React.FC<React.SVGProps<SVGSVGElement>> = props => {
   return (
     <svg
       width={15}
@@ -19,5 +19,3 @@ const Github: React.FC<React.SVGProps<SVGSVGElement>> = props => {
     </svg>
   )
 }
-
-export default Github

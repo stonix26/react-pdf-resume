@@ -1,15 +1,18 @@
 import React, { Fragment } from 'react'
-import { Control, useFieldArray } from 'react-hook-form'
-import { InferredResumeSchema } from '@/types'
-import DynamicFormGroup from './DynamicFormGroup'
-import FormRowGroup from './FormRowGroup'
-import { FormControl, FormField, FormItem, FormMessage } from '../ui/form'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import AddLine from '../icons/add-line'
-import CloseLine from '../icons/close-line'
+import { type Control, useFieldArray } from 'react-hook-form'
+import { type InferredResumeSchema } from '@/types'
+import { DynamicFormGroup, FormRowGroup } from '.'
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+  Input,
+  Button
+} from '../ui'
+import { AddLine, CloseLine } from '../icons'
 
-const Skills: React.FC<{
+export const Skills: React.FC<{
   control: Control<InferredResumeSchema>
   experienceIndex: number
   roleIndex: number
@@ -60,5 +63,3 @@ const Skills: React.FC<{
     </DynamicFormGroup>
   )
 }
-
-export default Skills
