@@ -5,7 +5,7 @@ import Header from './components/Header'
 import Summary from './components/Summary'
 import Education from './components/Education'
 import KeySkills from './components/KeySkills'
-import Portfolio from './components/Portfolio'
+import Project from './components/Project'
 import Reference from './components/Reference'
 import Experience from './components/Experience'
 import { styles } from './styles'
@@ -16,7 +16,7 @@ const Resume: React.FC<InferredResumeSchema> = ({
   experiences,
   additionalSkills = [],
   education,
-  portfolio,
+  projects,
   reference
 }) => {
   // Extract all skills from the roles
@@ -71,9 +71,9 @@ const Resume: React.FC<InferredResumeSchema> = ({
 
         {education.length > 0 && <Education items={education} />}
 
-        {portfolio !== undefined && portfolio.length > 0 ? (
-          <Portfolio links={portfolio} />
-        ) : null}
+        {projects !== undefined && projects.length > 0 && (
+          <Project projects={projects} />
+        )}
 
         {reference !== undefined && reference.length > 0 && (
           <Reference data={reference} />

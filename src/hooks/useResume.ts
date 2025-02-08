@@ -19,7 +19,7 @@ const DEFAULT_FORM: InferredResumeSchema = {
   experiences: [],
   additionalSkills: [],
   education: [],
-  portfolio: [],
+  projects: [],
   reference: []
 }
 

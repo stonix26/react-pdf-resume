@@ -4,7 +4,7 @@ import {
   educationSchema,
   experienceSchema,
   headerSchema,
-  portfolioSchema,
+  projectSchema,
   referenceSchema,
   resumeSchema
 } from './schema'
@@ -17,7 +17,7 @@ export type InferredDescriptionSchema = z.infer<typeof descriptionSchema>
 
 export type InferredExperienceSchema = z.infer<typeof experienceSchema>
 
-export type InferredPortfolioSchema = z.infer<typeof portfolioSchema>
+export type InferredProjectSchema = z.infer<typeof projectSchema>
 
 export type InferredReferenceSchema = z.infer<typeof referenceSchema>
 

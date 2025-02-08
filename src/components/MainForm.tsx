@@ -21,7 +21,7 @@ import {
   Experiences,
   AdditionalSkills,
   Education,
-  Portfolios,
+  Projects,
   References
 } from './forms'
 
@@ -80,7 +80,7 @@ const MainForm: React.FC = () => {
         <Experiences control={control} />
         <AdditionalSkills control={control} />
         <Education control={control} />
-        <Portfolios control={control} />
+        <Projects control={control} />
         <References control={control} />
         <Button
           type='submit'

@@ -115,9 +115,17 @@ export const educationSchema = z.object({
   schoolYear: z.string()
 })
 
-export const portfolioSchema = z.object({
-  src: z.string().url(),
-  text: z.string()
+export const projectSchema = z.object({
+  name: z.string(),
+  type: z.string(),
+  link: z
+    .object({
+      src: z.string(),
+      label: z.string()
+    })
+    .optional(),
+  description: z.string(),
+  techStack: z.array(z.object({ tech: z.string() }))
 })
 
 export const referenceSchema = z.object({
@@ -133,6 +141,6 @@ export const resumeSchema = z.object({
   experiences: z.array(experienceSchema),
   additionalSkills: z.array(skillSchema).optional(),
   education: z.array(educationSchema),
-  portfolio: z.array(portfolioSchema).optional(),
+  projects: z.array(projectSchema).optional(),
   reference: z.array(referenceSchema).optional()
 })
