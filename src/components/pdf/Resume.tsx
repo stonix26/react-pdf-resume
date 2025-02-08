@@ -69,11 +69,11 @@ const Resume: React.FC<InferredResumeSchema> = ({
 
         {uniqueSkills.length > 0 && <KeySkills skills={uniqueSkills} />}
 
-        {education.length > 0 && <Education items={education} />}
-
         {projects !== undefined && projects.length > 0 && (
           <Project projects={projects} />
         )}
+
+        {education.length > 0 && <Education items={education} />}
 
         {reference !== undefined && reference.length > 0 && (
           <Reference data={reference} />
