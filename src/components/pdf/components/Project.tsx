@@ -10,10 +10,10 @@ const Project: React.FC<{
   projects: InferredProjectSchema[]
 }> = ({ projects }) => {
   return (
-    <View style={[styles.section, { marginTop: 20.7 }]}>
+    <View style={styles.section}>
       <Text style={styles.subHeader}>Project / Portfolio</Text>
-      {projects.map((project, index) => (
-        <View wrap={false} key={index} style={styles.section}>
+      {projects.map(project => (
+        <View wrap={false} key={project.name} style={styles.section}>
           <View
             style={{
               display: 'flex',
@@ -27,7 +27,6 @@ const Project: React.FC<{
           </View>
 
           <View
-            key={index}
             style={{
               display: 'flex',
               flexDirection: 'row',
