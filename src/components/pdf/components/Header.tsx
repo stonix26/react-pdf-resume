@@ -108,60 +108,85 @@ const Header: React.FC<InferredHeaderSchema> = ({
               padding: '0 1pt 0 1pt'
             }}
           >
-            {links.map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 4
-                }}
-              >
-                {item.type === 'Behance' ? (
-                  <Behance />
-                ) : item.type === 'Bluesky' ? (
-                  <Bluesky />
-                ) : item.type === 'Discord' ? (
-                  <Discord />
-                ) : item.type === 'Dribbble' ? (
-                  <Dribbble />
-                ) : item.type === 'Facebook' ? (
-                  <Facebook />
-                ) : item.type === 'Github' ? (
-                  <Github />
-                ) : item.type === 'Gitlab' ? (
-                  <Gitlab />
-                ) : item.type === 'Instagram' ? (
-                  <Instagram />
-                ) : item.type === 'LinkedIn' ? (
-                  <LinkedIn />
-                ) : item.type === 'Mail' ? (
-                  <Mail />
-                ) : item.type === 'Medium' ? (
-                  <Medium />
-                ) : item.type === 'React' ? (
-                  <ReactIcon />
-                ) : item.type === 'Stack Overflow' ? (
-                  <StackOverflow />
-                ) : item.type === 'Terminal' ? (
-                  <TerminalBox />
-                ) : item.type === 'Threads' ? (
-                  <Threads />
-                ) : item.type === 'Tiktok' ? (
-                  <Tiktok />
-                ) : item.type === 'Twitter / X' ? (
-                  <TwitterX />
-                ) : null}
-
-                <Link
-                  style={[styles.links, { color: 'gray', fontSize: 8 }]}
-                  src={item.type === 'Mail' ? `mailto: ${item.url}` : item.url}
+            {links.map(item => {
+              let IconComponent: React.ReactNode = null
+              switch (item.type) {
+                case 'Behance':
+                  IconComponent = <Behance />
+                  break
+                case 'Bluesky':
+                  IconComponent = <Bluesky />
+                  break
+                case 'Discord':
+                  IconComponent = <Discord />
+                  break
+                case 'Dribbble':
+                  IconComponent = <Dribbble />
+                  break
+                case 'Facebook':
+                  IconComponent = <Facebook />
+                  break
+                case 'Github':
+                  IconComponent = <Github />
+                  break
+                case 'Gitlab':
+                  IconComponent = <Gitlab />
+                  break
+                case 'Instagram':
+                  IconComponent = <Instagram />
+                  break
+                case 'LinkedIn':
+                  IconComponent = <LinkedIn />
+                  break
+                case 'Mail':
+                  IconComponent = <Mail />
+                  break
+                case 'Medium':
+                  IconComponent = <Medium />
+                  break
+                case 'React':
+                  IconComponent = <ReactIcon />
+                  break
+                case 'Stack Overflow':
+                  IconComponent = <StackOverflow />
+                  break
+                case 'Terminal':
+                  IconComponent = <TerminalBox />
+                  break
+                case 'Threads':
+                  IconComponent = <Threads />
+                  break
+                case 'Tiktok':
+                  IconComponent = <Tiktok />
+                  break
+                case 'Twitter / X':
+                  IconComponent = <TwitterX />
+                  break
+                default:
+                // do nothing, IconComponent remains null
+              }
+              return (
+                <View
+                  key={item.url}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 4
+                  }}
                 >
-                  {item.text.trim()}
-                </Link>
-              </View>
-            ))}
+                  {IconComponent}
+                  <Link
+                    style={[styles.links, { color: 'gray', fontSize: 8 }]}
+                    src={
+                      item.type === 'Mail' ? `mailto: ${item.url}` : item.url
+                    }
+                  >
+                    {item.text.trim()}
+                  </Link>
+                </View>
+              )
+            })}
           </View>
         )}
       </View>
