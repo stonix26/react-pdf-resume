@@ -5,6 +5,7 @@ import {
   parseISO,
   isValid
 } from 'date-fns'
+import { fileSchema } from '@/schema'
 
 export function formatDateRange(startDate: string, endDate?: string) {
   const start = new Date(startDate)
@@ -42,7 +43,23 @@ export function sortStringsAlphabetically(arr: (string | undefined)[]) {
   })
 }
 
-// Date validation
+export async function serializeFileField(
+  value: File | string | undefined
+): Promise<string | undefined> {
+  if (!value) return undefined
+  if (typeof value === 'string') return value
+
+  const parsed = fileSchema.safeParse(value)
+  if (!parsed.success) return undefined
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = reject
+    reader.readAsDataURL(value)
+  })
+}
+
 export const isValidDate = (date: string) => {
   try {
     const parsedDate = parseISO(date) // Parses a string in ISO format

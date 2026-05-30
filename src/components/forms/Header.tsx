@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Control } from 'react-hook-form'
 import { InferredResumeSchema } from '@/types'
-import { FormRowGroup } from '.'
+import { FormRowGroup } from '@/components/forms'
 import {
   FormField,
   FormItem,
@@ -9,7 +9,7 @@ import {
   FormControl,
   FormMessage,
   Input
-} from '../ui'
+} from '@/components/ui'
 
 export const Header: React.FC<{
   control: Control<InferredResumeSchema>
@@ -63,7 +63,7 @@ export const Header: React.FC<{
         control={control}
         render={({ field }) => (
           <FormItem className='flex-1'>
-            <FormLabel>Profile URL</FormLabel>
+            <FormLabel>Profile Picture</FormLabel>
             <FormControl>
               <Input
                 type='file'

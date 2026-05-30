@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Control, useFieldArray } from 'react-hook-form'
 import { InferredResumeSchema } from '@/types'
-import { DynamicFormGroup, FormRowGroup } from '.'
+import { DynamicFormGroup, FormRowGroup } from '@/components/forms'
 import {
   FormControl,
   FormField,
@@ -9,8 +9,8 @@ import {
   FormMessage,
   Input,
   Button
-} from '../ui'
-import { AddLine, CloseLine } from '../icons'
+} from '@/components/ui'
+import { AddLine, CloseLine } from '@/components/icons'
 
 export const AdditionalSkills: React.FC<{
   control: Control<InferredResumeSchema>
@@ -38,6 +38,7 @@ export const AdditionalSkills: React.FC<{
               )}
             />
             <Button
+              type='button'
               variant='ghost'
               className='hover:text-red-500'
               size='icon'
@@ -49,6 +50,7 @@ export const AdditionalSkills: React.FC<{
         ))}
       </FormRowGroup>
       <Button
+        type='button'
         variant='outline'
         onClick={() =>
           append({

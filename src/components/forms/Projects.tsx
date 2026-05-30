@@ -6,7 +6,7 @@ import {
   useWatch
 } from 'react-hook-form'
 import { type InferredResumeSchema } from '@/types'
-import { DynamicFormGroup, FormRowGroup } from '.'
+import { DynamicFormGroup, FormRowGroup } from '@/components/forms'
 import {
   FormControl,
   FormField,
@@ -15,8 +15,8 @@ import {
   Input,
   Button,
   Textarea
-} from '../ui'
-import { AddLine, CloseLine } from '../icons'
+} from '@/components/ui'
+import { AddLine, CloseLine } from '@/components/icons'
 
 export const Projects: React.FC<{
   control: Control<InferredResumeSchema>
@@ -25,12 +25,19 @@ export const Projects: React.FC<{
     control,
     name: 'projects'
   })
+
   return (
     <DynamicFormGroup groupLabel='Project / Portfolio'>
-      {fields.map((_, index) => (
-        <Project key={index} control={control} index={index} remove={remove} />
+      {fields.map((projectFields, index) => (
+        <Project
+          key={projectFields.id}
+          control={control}
+          index={index}
+          remove={remove}
+        />
       ))}
       <Button
+        type='button'
         variant='outline'
         onClick={() =>
           append({
@@ -57,10 +64,10 @@ const Project: React.FC<{
     control,
     name: `projects.${index}.name`
   })
+
   return (
     <DynamicFormGroup
-      key={index}
-      groupLabel={projectName.length ? projectName : 'New project'}
+      groupLabel={projectName?.length ? projectName : 'New project'}
       onDelete={() => remove(index)}
     >
       <FormRowGroup>
@@ -141,6 +148,7 @@ const TechStacks: React.FC<{
     control,
     name: `projects.${index}.techStack`
   })
+
   return (
     <FormRowGroup>
       {fields.map((techFields, techIndex) => (
@@ -158,6 +166,7 @@ const TechStacks: React.FC<{
             )}
           />
           <Button
+            type='button'
             variant='ghost'
             className='hover:text-red-500'
             size='icon'
@@ -167,7 +176,11 @@ const TechStacks: React.FC<{
           </Button>
         </Fragment>
       ))}
-      <Button variant='outline' onClick={() => append({ tech: '' })}>
+      <Button
+        type='button'
+        variant='outline'
+        onClick={() => append({ tech: '' })}
+      >
         <AddLine /> Add Tech
       </Button>
     </FormRowGroup>

@@ -1,28 +1,21 @@
-import React from 'react'
 import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer'
-import useResume from '@/hooks/useResume'
-import { Download } from './icons'
-import { Button } from './ui'
-import Resume from './pdf/Resume'
+import { useResumeForm } from '@/contexts/resume-form-context'
+import { Download } from '@/components/icons'
+import { Button } from '@/components/ui'
+import Resume from '@/components/pdf/Resume'
 
-const Previewer: React.FC = () => {
-  const { storedData } = useResume()
+function Previewer() {
+  const { storedData } = useResumeForm()
+
   return (
     <div className='relative flex-1 h-screen'>
-      {!storedData ? null : (
+      {storedData ? (
         <PDFViewer className='w-full h-full'>
           <Resume {...storedData} />
         </PDFViewer>
-      )}
+      ) : null}
 
-      {!storedData ? (
-        <Button
-          className='absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-4'
-          disabled
-        >
-          <Download /> Download PDF
-        </Button>
-      ) : (
+      {storedData ? (
         <Button
           className='absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-4'
           asChild
@@ -33,6 +26,13 @@ const Previewer: React.FC = () => {
           >
             <Download /> Download PDF
           </PDFDownloadLink>
+        </Button>
+      ) : (
+        <Button
+          className='absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-4'
+          disabled
+        >
+          <Download /> Download PDF
         </Button>
       )}
     </div>

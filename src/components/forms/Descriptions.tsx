@@ -8,9 +8,9 @@ import {
   FormMessage,
   Input,
   Button
-} from '../ui'
-import { CloseLine, AddLine } from '../icons'
-import { DynamicFormGroup, FormRowGroup } from '.'
+} from '@/components/ui'
+import { CloseLine, AddLine } from '@/components/icons'
+import { DynamicFormGroup, FormRowGroup } from '@/components/forms'
 
 export const Descriptions: React.FC<{
   control: Control<InferredResumeSchema>
@@ -39,6 +39,7 @@ export const Descriptions: React.FC<{
             )}
           />
           <Button
+            type='button'
             variant='ghost'
             className='self-end hover:text-red-500'
             size='icon'
@@ -50,6 +51,7 @@ export const Descriptions: React.FC<{
       ))}
 
       <Button
+        type='button'
         variant='outline'
         onClick={() =>
           append({

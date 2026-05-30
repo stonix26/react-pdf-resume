@@ -6,9 +6,9 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormMessage
-} from '../ui/form'
-import { Textarea } from '../ui/textarea'
+  FormMessage,
+  Textarea
+} from '@/components/ui'
 
 export const Summary: React.FC<{ control: Control<InferredResumeSchema> }> = ({
   control

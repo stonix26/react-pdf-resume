@@ -91,7 +91,7 @@ export const roleSchema = z.object({
     .string()
     .regex(dateRegex, { message: 'End date must be in YYYY-MM-DD format' })
     .refine(date => isValidDate(date), {
-      message: 'Invalid date (e.g., invalid day or leap year issue'
+      message: 'Invalid date (e.g., invalid day or leap year issue)'
     })
     .optional(),
   descriptions: z.array(descriptionSchema),

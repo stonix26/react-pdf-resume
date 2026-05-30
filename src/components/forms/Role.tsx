@@ -1,23 +1,20 @@
+import React from 'react'
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
-  SelectItem
-} from '../ui/select'
-import React from 'react'
-import {
+  SelectItem,
   FormField,
   FormItem,
   FormLabel,
   FormControl,
-  FormMessage
-} from '../ui/form'
-import { Input } from '../ui/input'
-import { Descriptions, DynamicFormGroup, FormRowGroup, Skills } from '.'
+  FormMessage,
+  Input
+} from '@/components/ui'
+import { Descriptions, DynamicFormGroup, FormRowGroup, Skills } from '@/components/forms'
 import {
   Control,
-  FieldArrayWithId,
   UseFieldArrayRemove,
   useWatch
 } from 'react-hook-form'
@@ -28,11 +25,10 @@ const employmentTypeOptions = employmentTypeSchema.options
 
 export const Role: React.FC<{
   control: Control<InferredResumeSchema>
-  fields: FieldArrayWithId<InferredResumeSchema>
   experienceIndex: number
   roleIndex: number
   remove: UseFieldArrayRemove
-}> = ({ control, fields, experienceIndex, roleIndex, remove }) => {
+}> = ({ control, experienceIndex, roleIndex, remove }) => {
   const roleName = useWatch({
     control,
     name: `experiences.${experienceIndex}.roles.${roleIndex}.role`
@@ -40,8 +36,7 @@ export const Role: React.FC<{
 
   return (
     <DynamicFormGroup
-      key={fields.id}
-      groupLabel={roleName.length ? roleName : 'New role'}
+      groupLabel={roleName?.length ? roleName : 'New role'}
       onDelete={() => remove(roleIndex)}
     >
       <FormRowGroup>
@@ -64,7 +59,7 @@ export const Role: React.FC<{
           render={({ field }) => (
             <FormItem className='flex-none w-32'>
               <FormLabel>Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder='Select an employment type.' />
@@ -109,7 +104,7 @@ export const Role: React.FC<{
                       e.target.value === '' ? undefined : e.target.value
                     )
                   }
-                  value={field.value}
+                  value={field.value ?? ''}
                   placeholder='2024-02-29'
                 />
               </FormControl>

@@ -15,9 +15,9 @@ import {
   FormMessage,
   FormLabel,
   Input
-} from '../ui'
-import { AddLine, CloseLine } from '../icons'
-import { DynamicFormGroup, FormRowGroup } from '.'
+} from '@/components/ui'
+import { AddLine, CloseLine } from '@/components/icons'
+import { DynamicFormGroup, FormRowGroup } from '@/components/forms'
 
 const linkTypeOptions = linkTypeSchema.options
 
@@ -69,10 +69,7 @@ export const HeaderLinks: React.FC<{
             render={({ field }) => (
               <FormItem className='flex-none w-32'>
                 <FormLabel>Icon</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder='Select a link type for the icon.' />
@@ -91,6 +88,7 @@ export const HeaderLinks: React.FC<{
             )}
           />
           <Button
+            type='button'
             variant='ghost'
             className='self-end hover:text-red-500'
             size='icon'
@@ -102,6 +100,7 @@ export const HeaderLinks: React.FC<{
       ))}
 
       <Button
+        type='button'
         variant='outline'
         onClick={() => appendLink({ text: '', url: '', type: 'Mail' })}
       >

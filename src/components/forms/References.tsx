@@ -1,7 +1,7 @@
 import React from 'react'
 import { type Control, useFieldArray } from 'react-hook-form'
 import { type InferredResumeSchema } from '@/types'
-import { DynamicFormGroup, FormRowGroup } from '.'
+import { DynamicFormGroup, FormRowGroup } from '@/components/forms'
 import {
   FormControl,
   FormField,
@@ -9,8 +9,8 @@ import {
   FormMessage,
   Input,
   Button
-} from '../ui'
-import { AddLine, CloseLine } from '../icons'
+} from '@/components/ui'
+import { AddLine, CloseLine } from '@/components/icons'
 
 export const References: React.FC<{
   control: Control<InferredResumeSchema>
@@ -19,6 +19,7 @@ export const References: React.FC<{
     control,
     name: 'reference'
   })
+
   return (
     <DynamicFormGroup groupLabel='References'>
       {fields.map((referenceFields, index) => (
@@ -73,6 +74,7 @@ export const References: React.FC<{
           />
 
           <Button
+            type='button'
             variant='ghost'
             className='hover:text-red-500'
             size='icon'
@@ -84,6 +86,7 @@ export const References: React.FC<{
       ))}
 
       <Button
+        type='button'
         variant='outline'
         onClick={() =>
           append({

@@ -1,6 +1,5 @@
-import React from 'react'
-import useResume from '@/hooks/useResume'
-import { FilePdfLine, ExportLine, DeleteBinLine, Github } from './icons'
+import { useResumeForm } from '@/contexts/resume-form-context'
+import { FilePdfLine, ExportLine, DeleteBinLine, Github } from '@/components/icons'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,7 +12,7 @@ import {
   AlertDialogTrigger,
   Form,
   Button
-} from './ui'
+} from '@/components/ui'
 import {
   Header,
   HeaderLinks,
@@ -23,11 +22,12 @@ import {
   Education,
   Projects,
   References
-} from './forms'
+} from '@/components/forms'
 
-const MainForm: React.FC = () => {
-  const { form, onSubmit, handleExport, handleResetData } = useResume()
+function MainForm() {
+  const { form, onSubmit, handleExport, handleResetData } = useResumeForm()
   const { control } = form
+
   return (
     <Form {...form}>
       <form
@@ -39,6 +39,7 @@ const MainForm: React.FC = () => {
             <a
               href='https://github.com/stonix26/react-pdf-resume'
               target='_blank'
+              rel='noreferrer'
             >
               <Github /> Source Code
             </a>
@@ -46,7 +47,7 @@ const MainForm: React.FC = () => {
           <div className='flex gap-4'>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant='destructive'>
+                <Button type='button' variant='destructive'>
                   <DeleteBinLine /> Reset Data
                 </Button>
               </AlertDialogTrigger>
@@ -68,7 +69,7 @@ const MainForm: React.FC = () => {
               </AlertDialogContent>
             </AlertDialog>
 
-            <Button onClick={handleExport} variant='secondary'>
+            <Button type='button' onClick={handleExport} variant='secondary'>
               <ExportLine />
               Export Data
             </Button>

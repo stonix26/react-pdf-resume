@@ -1,13 +1,12 @@
 import React from 'react'
 import {
   Control,
-  FieldArrayWithId,
   UseFieldArrayRemove,
   useWatch
 } from 'react-hook-form'
 import { type InferredResumeSchema } from '@/types'
 import { locationTypeSchema } from '@/schema'
-import { DynamicFormGroup, FormRowGroup, Roles } from '.'
+import { DynamicFormGroup, FormRowGroup, Roles } from '@/components/forms'
 import {
   Select,
   SelectTrigger,
@@ -20,16 +19,15 @@ import {
   FormControl,
   FormMessage,
   Input
-} from '../ui'
+} from '@/components/ui'
 
 const locationTypeOptions = locationTypeSchema.options
 
 export const Experience: React.FC<{
   control: Control<InferredResumeSchema>
-  fields: FieldArrayWithId<InferredResumeSchema>
   index: number
   remove: UseFieldArrayRemove
-}> = ({ control, fields, index, remove }) => {
+}> = ({ control, index, remove }) => {
   const companyName = useWatch({
     control,
     name: `experiences.${index}.companyName`
@@ -37,8 +35,7 @@ export const Experience: React.FC<{
 
   return (
     <DynamicFormGroup
-      key={fields.id}
-      groupLabel={companyName.length ? companyName : 'New company'}
+      groupLabel={companyName?.length ? companyName : 'New company'}
       onDelete={() => remove(index)}
     >
       <FormRowGroup>
@@ -63,7 +60,6 @@ export const Experience: React.FC<{
               <FormLabel>Company Logo</FormLabel>
               <FormControl>
                 <Input
-                  // {...field}
                   type='file'
                   accept='image/*'
                   onChange={e => {
@@ -95,7 +91,7 @@ export const Experience: React.FC<{
           render={({ field }) => (
             <FormItem className='flex-none w-32'>
               <FormLabel>Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder='Select a location type.' />
@@ -115,9 +111,7 @@ export const Experience: React.FC<{
         />
       </FormRowGroup>
 
-      {/* Roles */}
       <Roles control={control} experienceIndex={index} />
-      {/* --- Roles END --- */}
     </DynamicFormGroup>
   )
 }

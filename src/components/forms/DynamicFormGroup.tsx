@@ -1,7 +1,7 @@
 import React from 'react'
 import { cn } from '@/lib/utils'
-import { Button } from '../ui'
-import { DeleteBinLine } from '../icons'
+import { Button } from '@/components/ui'
+import { DeleteBinLine } from '@/components/icons'
 
 export const DynamicFormGroup = React.forwardRef<
   HTMLDivElement,
@@ -15,8 +15,9 @@ export const DynamicFormGroup = React.forwardRef<
       <p className='text-xs font-medium text-muted-foreground uppercase leading-none my-4'>
         {groupLabel}
       </p>
-      {!onDelete ? null : (
+      {onDelete ? (
         <Button
+          type='button'
           onClick={onDelete}
           variant='ghost'
           className='hover:text-red-500'
@@ -24,8 +25,7 @@ export const DynamicFormGroup = React.forwardRef<
         >
           <DeleteBinLine />
         </Button>
-      )}
-      {}
+      ) : null}
     </div>
     <div className='pl-4 space-y-6'>{children}</div>
   </div>
