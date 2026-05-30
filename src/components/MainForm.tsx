@@ -3,6 +3,7 @@ import type { Control } from 'react-hook-form'
 import { useResumeForm } from '@/contexts/resume-form-context'
 import type { InferredResumeSchema } from '@/types'
 import { FilePdfLine, ExportLine, DeleteBinLine, Github } from '@/components/icons'
+import { ThemeSwitcher } from '@/components/theme-switcher'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -128,7 +129,8 @@ function MainForm() {
               <Github /> Source Code
             </a>
           </Button>
-          <div className='flex flex-wrap gap-2'>
+          <div className='flex flex-wrap items-center gap-2'>
+            <ThemeSwitcher />
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button type='button' variant='destructive'>
