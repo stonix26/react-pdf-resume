@@ -14,7 +14,13 @@ export const Experiences: React.FC<{
   })
 
   return (
-    <>
+    <div className='space-y-4'>
+      {fields.length === 0 ? (
+        <p className='text-xs text-muted-foreground'>
+          No work experience added yet. Add your first company to get started.
+        </p>
+      ) : null}
+
       {fields.map((expFields, experienceIndex) => (
         <Experience
           key={expFields.id}
@@ -38,8 +44,8 @@ export const Experiences: React.FC<{
         }
       >
         <AddLine />
-        Add experience
+        Add company
       </Button>
-    </>
+    </div>
   )
 }

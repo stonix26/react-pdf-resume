@@ -10,9 +10,16 @@ export const DynamicFormGroup = React.forwardRef<
     onDelete?: React.MouseEventHandler<HTMLButtonElement>
   }
 >(({ groupLabel, className, children, onDelete, ...props }, ref) => (
-  <div ref={ref} className={cn('pl-2', className)} {...props}>
-    <div className='flex gap-4 items-center'>
-      <p className='text-xs font-medium text-muted-foreground uppercase leading-none my-4'>
+  <div
+    ref={ref}
+    className={cn(
+      'rounded-lg border border-border bg-muted/20 p-4 space-y-4',
+      className
+    )}
+    {...props}
+  >
+    <div className='flex items-center justify-between gap-4'>
+      <p className='text-xs font-medium uppercase tracking-wide text-foreground'>
         {groupLabel}
       </p>
       {onDelete ? (
@@ -27,7 +34,7 @@ export const DynamicFormGroup = React.forwardRef<
         </Button>
       ) : null}
     </div>
-    <div className='pl-4 space-y-6'>{children}</div>
+    <div className='space-y-4'>{children}</div>
   </div>
 ))
 DynamicFormGroup.displayName = 'DynamicFormGroup'
