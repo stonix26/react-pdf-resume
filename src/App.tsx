@@ -7,12 +7,12 @@ const Previewer = lazy(() => import('@/components/Previewer'))
 function App() {
   return (
     <ResumeFormProvider>
-      <div className='flex w-full h-screen'>
+      <div className='flex h-screen w-full'>
         <MainForm />
-        <Suspense fallback={null}>
-          <Previewer />
-        </Suspense>
       </div>
+      <Suspense fallback={null}>
+        <Previewer />
+      </Suspense>
     </ResumeFormProvider>
   )
 }

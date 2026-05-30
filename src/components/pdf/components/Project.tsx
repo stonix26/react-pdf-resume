@@ -26,22 +26,24 @@ const Project: React.FC<{
             <Text style={{ color: 'gray', fontSize: 8 }}>— {project.type}</Text>
           </View>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 2
-            }}
-          >
-            <Link
-              style={[styles.links, { fontSize: 8 }]}
-              src={project.link?.src}
+          {project.link?.src ? (
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 2
+              }}
             >
-              {project.link?.label}
-            </Link>
-            <ExternalLink />
-          </View>
+              <Link
+                style={[styles.links, { fontSize: 8 }]}
+                src={project.link.src}
+              >
+                {project.link.label}
+              </Link>
+              <ExternalLink />
+            </View>
+          ) : null}
           <Text>{project.description}</Text>
           {project.techStack.length ? (
             <View

@@ -167,7 +167,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
               }
               return (
                 <View
-                  key={item.url}
+                  key={`${item.type}-${item.text}-${item.url ?? 'no-url'}`}
                   style={{
                     display: 'flex',
                     flexDirection: 'row',
@@ -176,14 +176,22 @@ const Header: React.FC<InferredHeaderSchema> = ({
                   }}
                 >
                   {IconComponent}
-                  <Link
-                    style={[styles.links, { color: 'gray', fontSize: 8 }]}
-                    src={
-                      item.type === 'Mail' ? `mailto: ${item.url}` : item.url
-                    }
-                  >
-                    {item.text.trim()}
-                  </Link>
+                  {item.url ? (
+                    <Link
+                      style={[styles.links, { color: 'gray', fontSize: 8 }]}
+                      src={
+                        item.type === 'Mail'
+                          ? `mailto:${item.url}`
+                          : item.url
+                      }
+                    >
+                      {item.text.trim()}
+                    </Link>
+                  ) : (
+                    <Text style={{ color: 'gray', fontSize: 8 }}>
+                      {item.text.trim()}
+                    </Text>
+                  )}
                 </View>
               )
             })}

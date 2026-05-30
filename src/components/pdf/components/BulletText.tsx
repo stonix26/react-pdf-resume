@@ -21,7 +21,7 @@ const BulletText: React.FC<{
         style={{
           width: 4,
           height: 4,
-          borderRadius: '50%',
+          borderRadius: 2,
           backgroundColor: 'currentColor',
           top: 5.5
         }}

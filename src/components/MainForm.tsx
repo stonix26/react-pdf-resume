@@ -25,14 +25,15 @@ import {
 } from '@/components/forms'
 
 function MainForm() {
-  const { form, onSubmit, handleExport, handleResetData } = useResumeForm()
+  const { form, onSubmit, handleExport, handleResetData, storedData, openPreview } =
+    useResumeForm()
   const { control } = form
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='relative flex flex-col flex-1 p-4 pb-0 overflow-auto space-y-6'
+        className='relative mx-auto flex w-full max-w-4xl flex-col flex-1 p-4 pb-0 overflow-auto space-y-6'
       >
         <div className='flex justify-between gap-4'>
           <Button variant='secondary' asChild>
@@ -73,6 +74,16 @@ function MainForm() {
               <ExportLine />
               Export Data
             </Button>
+            {storedData ? (
+              <Button
+                type='button'
+                variant='secondary'
+                onClick={openPreview}
+              >
+                <FilePdfLine />
+                Open Preview
+              </Button>
+            ) : null}
           </div>
         </div>
         <Header control={control} />

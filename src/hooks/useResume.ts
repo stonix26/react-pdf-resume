@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useLocalStorage } from 'usehooks-ts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { resumeSchema } from '@/schema'
 import type { InferredResumeSchema } from '@/types'
+import { prepareResumeForPdf } from '@/lib/prepare-resume-for-pdf'
 import { serializeFileField } from '@/utils'
 
 export const DEFAULT_FORM: InferredResumeSchema = {
@@ -26,6 +28,11 @@ export const DEFAULT_FORM: InferredResumeSchema = {
 const LS_KEY = 'linkedInResumeFormatData'
 
 const useResume = () => {
+  const [previewOpen, setPreviewOpen] = useState(false)
+  const [previewRevision, setPreviewRevision] = useState(0)
+  const [previewData, setPreviewData] = useState<InferredResumeSchema | null>(
+    null
+  )
   const [storedData, setStoredData, resetLSData] =
     useLocalStorage<InferredResumeSchema | null>(LS_KEY, null)
 
@@ -46,11 +53,25 @@ const useResume = () => {
       }))
     )
 
-    setStoredData({
+    const processedValues = prepareResumeForPdf({
       ...values,
       header: { ...values.header, profilePicture },
       experiences
     })
+
+    setPreviewData(processedValues)
+    setStoredData(processedValues)
+    setPreviewRevision(revision => revision + 1)
+    setPreviewOpen(true)
+  }
+
+  const openPreview = () => {
+    const data = previewData ?? storedData
+    if (!data) return
+
+    setPreviewData(prepareResumeForPdf(data))
+    setPreviewRevision(revision => revision + 1)
+    setPreviewOpen(true)
   }
 
   const handleExport = () => {
@@ -75,11 +96,18 @@ const useResume = () => {
 
   const handleResetData = () => {
     resetLSData()
+    setPreviewData(null)
+    setPreviewOpen(false)
     reset(DEFAULT_FORM)
   }
 
   return {
     storedData,
+    previewData,
+    previewRevision,
+    previewOpen,
+    setPreviewOpen,
+    openPreview,
     form,
     onSubmit,
     handleExport,

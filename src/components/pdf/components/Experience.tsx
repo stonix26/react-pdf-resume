@@ -105,7 +105,7 @@ const Experience: React.FC<InferredExperienceSchema> = ({
                   width: 5,
                   height: 5,
                   backgroundColor: 'gray',
-                  borderRadius: '50%'
+                  borderRadius: 2.5
                 }}
               />
 

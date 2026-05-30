@@ -1,18 +1,18 @@
 import { Font, StyleSheet } from '@react-pdf/renderer'
-import OpenSansRegular from '@/assets/Open_Sans/static/OpenSans-Regular.ttf'
-import OpenSansBold from '@/assets/Open_Sans/static/OpenSans-Bold.ttf'
+import OpenSansRegular from '@/assets/Open_Sans/static/OpenSans-Regular.ttf?url'
+import OpenSansBold from '@/assets/Open_Sans/static/OpenSans-Bold.ttf?url'
 
-Font.register({
-  family: 'Open Sans',
-  src: OpenSansRegular,
-  fontWeight: 'normal'
-})
-
-Font.register({
-  family: 'Open Sans',
-  src: OpenSansBold,
-  fontWeight: 'bold'
-})
+try {
+  Font.register({
+    family: 'Open Sans',
+    fonts: [
+      { src: OpenSansRegular, fontWeight: 400 },
+      { src: OpenSansBold, fontWeight: 700 }
+    ]
+  })
+} catch {
+  // Font family already registered during HMR.
+}
 
 export const styles = StyleSheet.create({
   section: {

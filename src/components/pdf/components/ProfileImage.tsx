@@ -6,27 +6,27 @@ const ProfileImage: React.FC<{
   firstName: string
   lastName: string
 }> = ({ profileUrl, firstName, lastName }) => {
-  if (profileUrl) {
+  if (typeof profileUrl === 'string' && profileUrl.length > 0) {
     return (
       <Image
         src={profileUrl}
         style={{
           width: 100,
           height: 100,
-          borderRadius: '50%'
+          borderRadius: 50
         }}
       />
     )
   }
 
-  if (!profileUrl && !!firstName && !!lastName) {
+  if (firstName.trim() && lastName.trim()) {
     const initials = `${firstName[0]?.toUpperCase()}${lastName[0]?.toUpperCase()}`
     return (
       <View
         style={{
           width: 100,
           height: 100,
-          borderRadius: '50%',
+          borderRadius: 50,
           borderStyle: 'solid',
           borderColor: 'gray',
           borderWidth: 1,
@@ -39,7 +39,7 @@ const ProfileImage: React.FC<{
           style={{
             color: 'gray',
             fontSize: 36,
-            fontWeight: 'extrabold'
+            fontWeight: 'bold'
           }}
         >
           {initials}
