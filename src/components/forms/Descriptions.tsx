@@ -10,14 +10,14 @@ import {
   Button
 } from '@/components/ui'
 import { CloseLine, AddLine } from '@/components/icons'
-import { DynamicFormGroup, FormRowGroup } from '@/components/forms'
+import { DynamicFormGroup, FormRowGroup, OrderControls, getFieldArrayOrderProps } from '@/components/forms'
 
 export const Descriptions: React.FC<{
   control: Control<InferredResumeSchema>
   experienceIndex: number
   roleIndex: number
 }> = ({ control, experienceIndex, roleIndex }) => {
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control,
     name: `experiences.${experienceIndex}.roles.${roleIndex}.descriptions`
   })
@@ -36,6 +36,14 @@ export const Descriptions: React.FC<{
                 </FormControl>
                 <FormMessage />
               </FormItem>
+            )}
+          />
+          <OrderControls
+            className='flex items-center self-end'
+            {...getFieldArrayOrderProps(
+              descriptionIndex,
+              fields.length,
+              move
             )}
           />
           <Button

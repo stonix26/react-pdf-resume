@@ -10,7 +10,8 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle
+  DrawerTitle,
+  ScrollArea
 } from '@/components/ui'
 import Resume from '@/components/pdf/Resume'
 
@@ -114,11 +115,11 @@ function Previewer() {
           </DrawerDescription>
         </DrawerHeader>
 
-        <div className='flex min-h-0 flex-1 flex-col px-4'>
+        <ScrollArea className='min-h-0 flex-1 px-4'>
           {previewOpen && previewData ? (
             <PdfPreviewFrame revision={previewRevision} />
           ) : null}
-        </div>
+        </ScrollArea>
 
         <DrawerFooter className='border-t border-border'>
           {preparedData ? (

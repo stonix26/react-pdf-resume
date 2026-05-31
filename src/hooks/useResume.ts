@@ -1,12 +1,11 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useLocalStorage } from 'usehooks-ts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { resumeSchema } from '@/schema'
 import type { InferredResumeSchema } from '@/types'
 import { prepareResumeForPdf } from '@/lib/prepare-resume-for-pdf'
-import { serializeFileField } from '@/utils'
-
+import { persistResumeValues } from '@/lib/persist-resume-values'
 import { parseImportedResumeFile } from '@/lib/import-resume'
 
 export const DEFAULT_FORM: InferredResumeSchema = {
@@ -43,23 +42,41 @@ const useResume = () => {
     defaultValues: storedData || DEFAULT_FORM
   })
 
-  const { reset } = form
+  const { reset, getValues } = form
+  const formRef = useRef<HTMLFormElement>(null)
+  const persistTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
+
+  const saveToLocalStorage = useCallback(async () => {
+    const processedValues = await persistResumeValues(getValues())
+    setStoredData(processedValues)
+    return processedValues
+  }, [getValues, setStoredData])
+
+  const scheduleBlurSave = useCallback(() => {
+    clearTimeout(persistTimeoutRef.current)
+    persistTimeoutRef.current = setTimeout(() => {
+      void saveToLocalStorage()
+    }, 200)
+  }, [saveToLocalStorage])
+
+  useEffect(() => {
+    const form = formRef.current
+    if (!form) return
+
+    const handleFocusOut = () => {
+      scheduleBlurSave()
+    }
+
+    form.addEventListener('focusout', handleFocusOut)
+
+    return () => {
+      form.removeEventListener('focusout', handleFocusOut)
+      clearTimeout(persistTimeoutRef.current)
+    }
+  }, [scheduleBlurSave])
 
   const onSubmit: SubmitHandler<InferredResumeSchema> = async values => {
-    const profilePicture = await serializeFileField(values.header.profilePicture)
-
-    const experiences = await Promise.all(
-      values.experiences.map(async experience => ({
-        ...experience,
-        companyLogo: await serializeFileField(experience.companyLogo)
-      }))
-    )
-
-    const processedValues = prepareResumeForPdf({
-      ...values,
-      header: { ...values.header, profilePicture },
-      experiences
-    })
+    const processedValues = await persistResumeValues(values)
 
     setPreviewData(processedValues)
     setStoredData(processedValues)
@@ -129,7 +146,8 @@ const useResume = () => {
     onSubmit,
     handleExport,
     handleImport,
-    handleResetData
+    handleResetData,
+    formRef
   }
 }
 

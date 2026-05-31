@@ -27,6 +27,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  ScrollArea,
   Separator
 } from '@/components/ui'
 import {
@@ -90,6 +91,7 @@ function MainForm() {
     handleExport,
     handleImport,
     handleResetData,
+    formRef,
     storedData,
     openPreview
   } = useResumeForm()
@@ -150,6 +152,7 @@ function MainForm() {
   return (
     <Form {...form}>
       <form
+        ref={formRef}
         onSubmit={form.handleSubmit(onSubmit)}
         className='flex h-full w-full flex-col'
       >
@@ -244,14 +247,16 @@ function MainForm() {
             onStepChange={goToStep}
           />
 
-          <Card className='flex min-h-0 flex-1 flex-col'>
-            <CardHeader className='border-b border-border'>
+          <Card className='flex min-h-0 flex-1 flex-col gap-0 py-0'>
+            <CardHeader className='shrink-0 border-b border-border'>
               <CardTitle>{step.title}</CardTitle>
               <CardDescription>{step.description}</CardDescription>
             </CardHeader>
-            <CardContent className='flex-1 overflow-auto pt-6'>
-              <StepPanel stepId={step.id} control={control} />
-            </CardContent>
+            <ScrollArea className='min-h-0 flex-1'>
+              <CardContent className='pt-6'>
+                <StepPanel stepId={step.id} control={control} />
+              </CardContent>
+            </ScrollArea>
           </Card>
         </div>
 

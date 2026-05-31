@@ -17,7 +17,7 @@ import {
   Input
 } from '@/components/ui'
 import { AddLine, CloseLine } from '@/components/icons'
-import { DynamicFormGroup, FormRowGroup } from '@/components/forms'
+import { DynamicFormGroup, FormRowGroup, OrderControls, getFieldArrayOrderProps } from '@/components/forms'
 
 const linkTypeOptions = linkTypeSchema.options
 
@@ -27,7 +27,8 @@ export const HeaderLinks: React.FC<{
   const {
     fields,
     append: appendLink,
-    remove: removeLink
+    remove: removeLink,
+    move: moveLink
   } = useFieldArray({
     control,
     name: 'header.links'
@@ -85,6 +86,14 @@ export const HeaderLinks: React.FC<{
                 </Select>
                 <FormMessage />
               </FormItem>
+            )}
+          />
+          <OrderControls
+            className='flex items-center self-end'
+            {...getFieldArrayOrderProps(
+              headerLinksIndex,
+              fields.length,
+              moveLink
             )}
           />
           <Button

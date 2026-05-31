@@ -1,4 +1,6 @@
 export * from './add-line'
+export * from './arrow-down-line'
+export * from './arrow-up-line'
 export * from './close-line'
 export * from './delete-bin-line'
 export * from './download'

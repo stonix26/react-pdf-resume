@@ -1,7 +1,7 @@
 import React from 'react'
 import { type Control, useFieldArray } from 'react-hook-form'
 import { type InferredResumeSchema } from '@/types'
-import { DynamicFormGroup, FormRowGroup } from '@/components/forms'
+import { DynamicFormGroup, FormRowGroup, OrderControls, getFieldArrayOrderProps } from '@/components/forms'
 import {
   FormControl,
   FormField,
@@ -15,7 +15,7 @@ import { AddLine, CloseLine } from '@/components/icons'
 export const References: React.FC<{
   control: Control<InferredResumeSchema>
 }> = ({ control }) => {
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control,
     name: 'reference'
   })
@@ -73,6 +73,9 @@ export const References: React.FC<{
             )}
           />
 
+          <OrderControls
+            {...getFieldArrayOrderProps(index, fields.length, move)}
+          />
           <Button
             type='button'
             variant='ghost'

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { type Control, useFieldArray } from 'react-hook-form'
 import { type InferredResumeSchema } from '@/types'
-import { DynamicFormGroup, FormRowGroup } from '@/components/forms'
+import { DynamicFormGroup, FormRowGroup, OrderControls, getFieldArrayOrderProps } from '@/components/forms'
 import {
   FormControl,
   FormField,
@@ -17,7 +17,7 @@ export const Skills: React.FC<{
   experienceIndex: number
   roleIndex: number
 }> = ({ control, experienceIndex, roleIndex }) => {
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control,
     name: `experiences.${experienceIndex}.roles.${roleIndex}.skills`
   })
@@ -38,6 +38,9 @@ export const Skills: React.FC<{
                   <FormMessage />
                 </FormItem>
               )}
+            />
+            <OrderControls
+              {...getFieldArrayOrderProps(skillIndex, fields.length, move)}
             />
             <Button
               type='button'

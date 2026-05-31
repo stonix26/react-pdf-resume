@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import type { FormStep } from '@/components/forms/form-steps'
 
 type FormStepperProps = {
@@ -14,7 +15,8 @@ export function FormStepper({
 }: FormStepperProps) {
   return (
     <nav aria-label='Resume form progress' className='w-full'>
-      <ol className='flex w-full min-w-0 gap-1 overflow-x-auto pb-1'>
+      <ScrollArea className='w-full pb-1'>
+        <ol className='flex w-max min-w-full gap-1'>
         {steps.map((step, index) => {
           const isComplete = index < currentStep
           const isCurrent = index === currentStep
@@ -70,7 +72,9 @@ export function FormStepper({
             </li>
           )
         })}
-      </ol>
+        </ol>
+        <ScrollBar orientation='horizontal' />
+      </ScrollArea>
     </nav>
   )
 }

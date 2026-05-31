@@ -12,14 +12,21 @@ import {
   FormMessage,
   Input
 } from '@/components/ui'
-import { Descriptions, DynamicFormGroup, FormRowGroup, Skills } from '@/components/forms'
 import {
   Control,
+  UseFieldArrayMove,
   UseFieldArrayRemove,
   useWatch
 } from 'react-hook-form'
 import { InferredResumeSchema } from '@/types'
 import { employmentTypeSchema } from '@/schema'
+import {
+  Descriptions,
+  DynamicFormGroup,
+  FormRowGroup,
+  Skills,
+  getFieldArrayOrderProps
+} from '@/components/forms'
 
 const employmentTypeOptions = employmentTypeSchema.options
 
@@ -27,17 +34,22 @@ export const Role: React.FC<{
   control: Control<InferredResumeSchema>
   experienceIndex: number
   roleIndex: number
+  totalCount: number
   remove: UseFieldArrayRemove
-}> = ({ control, experienceIndex, roleIndex, remove }) => {
+  move: UseFieldArrayMove
+}> = ({ control, experienceIndex, roleIndex, totalCount, remove, move }) => {
   const roleName = useWatch({
     control,
     name: `experiences.${experienceIndex}.roles.${roleIndex}.role`
   })
 
+  const orderProps = getFieldArrayOrderProps(roleIndex, totalCount, move)
+
   return (
     <DynamicFormGroup
       groupLabel={roleName?.length ? roleName : 'New role'}
       onDelete={() => remove(roleIndex)}
+      {...orderProps}
     >
       <FormRowGroup>
         <FormField

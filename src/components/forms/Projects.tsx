@@ -2,11 +2,17 @@ import React, { Fragment } from 'react'
 import {
   type Control,
   useFieldArray,
+  UseFieldArrayMove,
   UseFieldArrayRemove,
   useWatch
 } from 'react-hook-form'
 import { type InferredResumeSchema } from '@/types'
-import { DynamicFormGroup, FormRowGroup } from '@/components/forms'
+import {
+  DynamicFormGroup,
+  FormRowGroup,
+  OrderControls,
+  getFieldArrayOrderProps
+} from '@/components/forms'
 import {
   FormControl,
   FormField,
@@ -21,7 +27,7 @@ import { AddLine, CloseLine } from '@/components/icons'
 export const Projects: React.FC<{
   control: Control<InferredResumeSchema>
 }> = ({ control }) => {
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control,
     name: 'projects'
   })
@@ -33,7 +39,9 @@ export const Projects: React.FC<{
           key={projectFields.id}
           control={control}
           index={index}
+          totalCount={fields.length}
           remove={remove}
+          move={move}
         />
       ))}
       <Button
@@ -58,17 +66,22 @@ export const Projects: React.FC<{
 const Project: React.FC<{
   control: Control<InferredResumeSchema>
   index: number
+  totalCount: number
   remove: UseFieldArrayRemove
-}> = ({ control, index, remove }) => {
+  move: UseFieldArrayMove
+}> = ({ control, index, totalCount, remove, move }) => {
   const projectName = useWatch({
     control,
     name: `projects.${index}.name`
   })
 
+  const orderProps = getFieldArrayOrderProps(index, totalCount, move)
+
   return (
     <DynamicFormGroup
       groupLabel={projectName?.length ? projectName : 'New project'}
       onDelete={() => remove(index)}
+      {...orderProps}
     >
       <FormRowGroup>
         <FormField
@@ -144,7 +157,7 @@ const TechStacks: React.FC<{
   control: Control<InferredResumeSchema>
   index: number
 }> = ({ control, index }) => {
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control,
     name: `projects.${index}.techStack`
   })
@@ -164,6 +177,9 @@ const TechStacks: React.FC<{
                 <FormMessage />
               </FormItem>
             )}
+          />
+          <OrderControls
+            {...getFieldArrayOrderProps(techIndex, fields.length, move)}
           />
           <Button
             type='button'

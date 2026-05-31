@@ -1,12 +1,18 @@
 import React from 'react'
 import {
   Control,
+  UseFieldArrayMove,
   UseFieldArrayRemove,
   useWatch
 } from 'react-hook-form'
 import { type InferredResumeSchema } from '@/types'
 import { locationTypeSchema } from '@/schema'
-import { DynamicFormGroup, FormRowGroup, Roles } from '@/components/forms'
+import {
+  DynamicFormGroup,
+  FormRowGroup,
+  Roles,
+  getFieldArrayOrderProps
+} from '@/components/forms'
 import {
   Select,
   SelectTrigger,
@@ -26,17 +32,22 @@ const locationTypeOptions = locationTypeSchema.options
 export const Experience: React.FC<{
   control: Control<InferredResumeSchema>
   index: number
+  totalCount: number
   remove: UseFieldArrayRemove
-}> = ({ control, index, remove }) => {
+  move: UseFieldArrayMove
+}> = ({ control, index, totalCount, remove, move }) => {
   const companyName = useWatch({
     control,
     name: `experiences.${index}.companyName`
   })
 
+  const orderProps = getFieldArrayOrderProps(index, totalCount, move)
+
   return (
     <DynamicFormGroup
       groupLabel={companyName?.length ? companyName : 'New company'}
       onDelete={() => remove(index)}
+      {...orderProps}
     >
       <FormRowGroup>
         <FormField

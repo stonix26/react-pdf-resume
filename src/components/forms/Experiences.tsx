@@ -8,7 +8,7 @@ import { Experience } from '@/components/forms'
 export const Experiences: React.FC<{
   control: Control<InferredResumeSchema>
 }> = ({ control }) => {
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control,
     name: 'experiences'
   })
@@ -26,7 +26,9 @@ export const Experiences: React.FC<{
           key={expFields.id}
           control={control}
           index={experienceIndex}
+          totalCount={fields.length}
           remove={remove}
+          move={move}
         />
       ))}
 

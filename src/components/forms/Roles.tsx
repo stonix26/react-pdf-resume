@@ -10,7 +10,7 @@ export const Roles: React.FC<{
   control: Control<InferredResumeSchema>
   experienceIndex: number
 }> = ({ control, experienceIndex }) => {
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control,
     name: `experiences.${experienceIndex}.roles`
   })
@@ -23,7 +23,9 @@ export const Roles: React.FC<{
           control={control}
           experienceIndex={experienceIndex}
           roleIndex={roleIndex}
+          totalCount={fields.length}
           remove={remove}
+          move={move}
         />
       ))}
 
