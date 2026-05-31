@@ -10,8 +10,8 @@ const Education: React.FC<{ items: InferredEducationSchema[] }> = ({
     <View wrap={false} style={styles.section}>
       <Text style={styles.subHeader}>Education</Text>
       <View style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        {items.map((item, i) => (
-          <View key={i}>
+        {items.map(item => (
+          <View key={`${item.course}-${item.schoolName}-${item.schoolYear}`}>
             <Text style={{ fontWeight: 'bold' }}>{item.course}</Text>
             <Text>{item.schoolName}</Text>
             <Text

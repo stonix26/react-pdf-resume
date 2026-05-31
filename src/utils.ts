@@ -1,9 +1,7 @@
 import {
   format,
   differenceInMonths,
-  differenceInYears,
-  parseISO,
-  isValid
+  differenceInYears
 } from 'date-fns'
 import { fileSchema } from '@/schema'
 
@@ -25,11 +23,6 @@ export function formatDateRange(startDate: string, endDate?: string) {
     .join(' ')
 
   return { formattedStartDate, formattedEndDate, timeDifference }
-}
-
-// Get asset images
-export function getImageURL(name: string) {
-  return new URL(`./assets/${name}`, import.meta.url).href
 }
 
 export function sortStringsAlphabetically(arr: (string | undefined)[]) {
@@ -58,13 +51,4 @@ export async function serializeFileField(
     reader.onerror = reject
     reader.readAsDataURL(value)
   })
-}
-
-export const isValidDate = (date: string) => {
-  try {
-    const parsedDate = parseISO(date) // Parses a string in ISO format
-    return isValid(parsedDate) // Validates if the parsed date is valid
-  } catch {
-    return false
-  }
 }

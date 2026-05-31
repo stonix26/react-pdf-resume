@@ -3,7 +3,7 @@ import React from 'react'
 import { styles } from '../styles'
 import { InferredProjectSchema } from '@/types'
 import ExternalLink from './icons/ExternalLink'
-import { ServerStack } from './icons'
+import ServerStack from './icons/ServerStack'
 import { sortStringsAlphabetically } from '@/utils'
 
 const Project: React.FC<{
@@ -23,7 +23,7 @@ const Project: React.FC<{
             }}
           >
             <Text style={{ fontWeight: 'bold' }}>{project.name}</Text>
-            <Text style={{ color: 'gray', fontSize: 8 }}>— {project.type}</Text>
+            <Text style={{ color: 'gray', fontSize: 8 }}>· {project.type}</Text>
           </View>
 
           {project.link?.src ? (

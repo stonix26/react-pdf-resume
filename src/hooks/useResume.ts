@@ -71,7 +71,8 @@ const useResume = () => {
 
     return () => {
       form.removeEventListener('focusout', handleFocusOut)
-      clearTimeout(persistTimeoutRef.current)
+      const timeoutId = persistTimeoutRef.current
+      clearTimeout(timeoutId)
     }
   }, [scheduleBlurSave])
 

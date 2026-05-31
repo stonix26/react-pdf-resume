@@ -1,7 +1,5 @@
 import { z } from 'zod'
-import { isValidDate } from './utils'
-
-export const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/
+import { dateRegex, isValidDate } from './date-validation'
 
 export const fileSchema = z
   .instanceof(File)
@@ -30,7 +28,7 @@ export const linkTypeSchema = z.enum([
   'Twitter / X'
 ])
 
-export const linkSchema = z.object({
+const linkSchema = z.object({
   text: z.string(),
   url: z
     .string()
@@ -74,11 +72,11 @@ export const descriptionSchema = z.object({
   description: z.string()
 })
 
-export const skillSchema = z.object({
+const skillSchema = z.object({
   skill: z.string()
 })
 
-export const roleSchema = z.object({
+const roleSchema = z.object({
   role: z.string(),
   employmentType: employmentTypeSchema,
   startDate: z

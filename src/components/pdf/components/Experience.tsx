@@ -83,18 +83,18 @@ const Experience: React.FC<InferredExperienceSchema> = ({
         </View>
 
         {/* Positions */}
-        {roles.map((item, index) => {
+        {roles.map((item, roleIndex) => {
           const { formattedStartDate, formattedEndDate, timeDifference } =
             formatDateRange(item.startDate, item.endDate)
 
           return (
             <View
-              key={index}
+              key={`${item.role}-${item.startDate}`}
               wrap={false}
               style={{
                 position: 'relative',
                 paddingLeft: 15,
-                paddingBottom: roles.length - 1 !== index ? 5 : 0
+                paddingBottom: roles.length - 1 !== roleIndex ? 5 : 0
               }}
             >
               <View
@@ -109,7 +109,7 @@ const Experience: React.FC<InferredExperienceSchema> = ({
                 }}
               />
 
-              {roles.length - 1 !== index ? (
+              {roles.length - 1 !== roleIndex ? (
                 <View
                   style={{
                     position: 'absolute',

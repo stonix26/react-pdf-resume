@@ -5,14 +5,15 @@ import { serializeFileField } from '@/utils'
 export async function persistResumeValues(
   values: InferredResumeSchema
 ): Promise<InferredResumeSchema> {
-  const profilePicture = await serializeFileField(values.header.profilePicture)
-
-  const experiences = await Promise.all(
-    values.experiences.map(async experience => ({
-      ...experience,
-      companyLogo: await serializeFileField(experience.companyLogo)
-    }))
-  )
+  const [profilePicture, experiences] = await Promise.all([
+    serializeFileField(values.header.profilePicture),
+    Promise.all(
+      values.experiences.map(async experience => ({
+        ...experience,
+        companyLogo: await serializeFileField(experience.companyLogo)
+      }))
+    )
+  ])
 
   return prepareResumeForPdf({
     ...values,

@@ -10,11 +10,13 @@ import Reference from './components/Reference'
 import Experience from './components/Experience'
 import { styles } from './styles'
 
+const EMPTY_SKILLS: { skill: string }[] = []
+
 const Resume: React.FC<InferredResumeSchema> = ({
   header,
   summary,
   experiences,
-  additionalSkills = [],
+  additionalSkills = EMPTY_SKILLS,
   education,
   projects,
   reference
@@ -61,8 +63,11 @@ const Resume: React.FC<InferredResumeSchema> = ({
             <Text style={[styles.subHeader, { marginBottom: 4 }]}>
               Work Experience
             </Text>
-            {experiences.map((item, index) => (
-              <Experience key={index} {...item} />
+            {experiences.map(item => (
+              <Experience
+                key={`${item.companyName}-${item.location}-${item.roles[0]?.startDate ?? ''}`}
+                {...item}
+              />
             ))}
           </View>
         )}

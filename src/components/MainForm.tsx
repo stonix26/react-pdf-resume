@@ -209,6 +209,7 @@ function MainForm() {
               type='file'
               accept='application/json,.json'
               className='hidden'
+              aria-label='Import resume JSON file'
               onChange={handleFileChange}
             />
             <AlertDialog
@@ -240,7 +241,7 @@ function MainForm() {
           </div>
         </header>
 
-        <div className='flex min-h-0 flex-1 flex-col gap-6 overflow-hidden px-6 py-6'>
+        <div className='flex min-h-0 flex-1 flex-col gap-6 overflow-hidden p-6'>
           <FormStepper
             steps={FORM_STEPS}
             currentStep={currentStep}
@@ -280,7 +281,7 @@ function MainForm() {
               </Button>
             ) : (
               <Button type='button' onClick={handleNext}>
-                Continue
+                Next step
               </Button>
             )}
           </div>

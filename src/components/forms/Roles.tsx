@@ -6,6 +6,17 @@ import { Button } from '@/components/ui'
 import { AddLine } from '@/components/icons'
 import { Role } from '@/components/forms'
 
+function createEmptyRole() {
+  return {
+    role: '',
+    employmentType: 'Full-time' as const,
+    startDate: format(new Date(), 'yyyy-MM-dd'),
+    endDate: undefined,
+    descriptions: [],
+    skills: undefined
+  }
+}
+
 export const Roles: React.FC<{
   control: Control<InferredResumeSchema>
   experienceIndex: number
@@ -32,16 +43,7 @@ export const Roles: React.FC<{
       <Button
         type='button'
         variant='outline'
-        onClick={() =>
-          append({
-            role: '',
-            employmentType: 'Full-time',
-            startDate: format(new Date(), 'yyyy-MM-dd'),
-            endDate: undefined,
-            descriptions: [],
-            skills: undefined
-          })
-        }
+        onClick={() => append(createEmptyRole())}
       >
         <AddLine />
         Add role

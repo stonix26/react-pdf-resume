@@ -3,27 +3,25 @@ import { View, Text, Link } from '@react-pdf/renderer'
 import { InferredHeaderSchema } from '@/types'
 import { styles } from '../styles'
 import ProfileImage from './ProfileImage'
-import {
-  Behance,
-  Bluesky,
-  Discord,
-  Dribbble,
-  Facebook,
-  Github,
-  Gitlab,
-  Instagram,
-  LinkedIn,
-  Mail,
-  MapPin,
-  Medium,
-  Phone,
-  React as ReactIcon,
-  StackOverflow,
-  TerminalBox,
-  Threads,
-  Tiktok,
-  TwitterX
-} from './icons'
+import Behance from './icons/Behance'
+import Bluesky from './icons/Bluesky'
+import Discord from './icons/Discord'
+import Dribbble from './icons/Dribbble'
+import Facebook from './icons/Facebook'
+import Github from './icons/Github'
+import Gitlab from './icons/Gitlab'
+import Instagram from './icons/Instagram'
+import LinkedIn from './icons/LinkedIn'
+import Mail from './icons/Mail'
+import MapPin from './icons/MapPin'
+import Medium from './icons/Medium'
+import Phone from './icons/Phone'
+import ReactIcon from './icons/React'
+import StackOverflow from './icons/StackOverflow'
+import TerminalBox from './icons/TerminalBox'
+import Threads from './icons/Threads'
+import Tiktok from './icons/Tiktok'
+import TwitterX from './icons/TwitterX'
 
 const Header: React.FC<InferredHeaderSchema> = ({
   profilePicture,

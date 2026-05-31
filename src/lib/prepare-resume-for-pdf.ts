@@ -29,18 +29,25 @@ export function prepareResumeForPdf(
     additionalSkills: data.additionalSkills?.filter(
       item => item.skill.trim().length > 0
     ),
-    projects: data.projects
-      ?.map(project => ({
-        ...project,
-        link:
-          project.link?.src?.trim() && project.link.label?.trim()
-            ? {
-                src: project.link.src.trim(),
-                label: project.link.label.trim()
-              }
-            : undefined
-      }))
-      .filter(project => project.name.trim().length > 0),
+    projects: data.projects?.reduce<NonNullable<InferredResumeSchema['projects']>>(
+      (acc, project) => {
+        if (project.name.trim().length === 0) return acc
+
+        acc.push({
+          ...project,
+          link:
+            project.link?.src?.trim() && project.link.label?.trim()
+              ? {
+                  src: project.link.src.trim(),
+                  label: project.link.label.trim()
+                }
+              : undefined
+        })
+
+        return acc
+      },
+      []
+    ),
     reference: data.reference?.filter(
       item =>
         item.name.trim().length > 0 ||
