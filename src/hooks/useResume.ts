@@ -89,6 +89,7 @@ const useResume = () => {
     const data = previewData ?? storedData
     if (!data) return
 
+    ;(document.activeElement as HTMLElement | null)?.blur()
     setPreviewData(prepareResumeForPdf(data))
     setPreviewRevision(revision => revision + 1)
     setPreviewOpen(true)

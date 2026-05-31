@@ -10,7 +10,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
       <App />
-      <Analytics />
+      <Analytics debug={false} />
     </ThemeProvider>
   </StrictMode>
 )

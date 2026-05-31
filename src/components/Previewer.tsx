@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useReducer } from 'react'
-import { pdf, PDFDownloadLink } from '@react-pdf/renderer'
+import { useEffect, useMemo, useReducer, useState } from 'react'
 import { useResumeForm } from '@/contexts/resume-form-context'
 import { prepareResumeForPdf } from '@/lib/prepare-resume-for-pdf'
 import type { InferredResumeSchema } from '@/types'
@@ -53,13 +52,14 @@ function PdfPreviewFrame({
   useEffect(() => {
     let cancelled = false
 
-    pdf(<Resume {...preparedData} />)
-      .toBlob()
-      .then(blob => {
+    void (async () => {
+      try {
+        const { pdf } = await import('@react-pdf/renderer')
+        const blob = await pdf(<Resume {...preparedData} />).toBlob()
+
         if (cancelled) return
         dispatch({ type: 'success', url: URL.createObjectURL(blob) })
-      })
-      .catch(err => {
+      } catch (err) {
         if (cancelled) return
 
         console.error('PDF preview error:', err)
@@ -68,7 +68,8 @@ function PdfPreviewFrame({
           message:
             err instanceof Error ? err.message : 'Failed to generate preview'
         })
-      })
+      }
+    })()
 
     return () => {
       cancelled = true
@@ -101,10 +102,11 @@ function PdfPreviewFrame({
   if (!preview.url) return null
 
   return (
-    <iframe
+    <embed
       src={preview.url}
+      type='application/pdf'
       title='Resume preview'
-      sandbox='allow-same-origin'
+      aria-label='Resume preview'
       className='h-[calc(100vh-10rem)] w-full rounded-md border border-border bg-white'
     />
   )
@@ -113,6 +115,7 @@ function PdfPreviewFrame({
 function Previewer() {
   const { previewData, previewOpen, setPreviewOpen, previewRevision } =
     useResumeForm()
+  const [downloading, setDownloading] = useState(false)
 
   const preparedData = useMemo(
     () => (previewData ? prepareResumeForPdf(previewData) : null),
@@ -123,6 +126,25 @@ function Previewer() {
     () => (preparedData ? <Resume {...preparedData} /> : null),
     [preparedData]
   )
+
+  const handleDownload = async () => {
+    if (!preparedData || !downloadDocument || downloading) return
+
+    setDownloading(true)
+
+    try {
+      const { pdf } = await import('@react-pdf/renderer')
+      const blob = await pdf(downloadDocument).toBlob()
+      const url = URL.createObjectURL(blob)
+      const anchor = document.createElement('a')
+      anchor.href = url
+      anchor.download = `${preparedData.header.firstName.toUpperCase()} ${preparedData.header.lastName.toUpperCase()} - RESUME.pdf`
+      anchor.click()
+      URL.revokeObjectURL(url)
+    } finally {
+      setDownloading(false)
+    }
+  }
 
   return (
     <Drawer open={previewOpen} onOpenChange={setPreviewOpen} direction='right'>
@@ -144,20 +166,13 @@ function Previewer() {
         </ScrollArea>
 
         <DrawerFooter className='border-t border-border'>
-          {preparedData && downloadDocument ? (
-            <Button className='w-full' asChild>
-              <PDFDownloadLink
-                document={downloadDocument}
-                fileName={`${preparedData.header.firstName.toUpperCase()} ${preparedData.header.lastName.toUpperCase()} - RESUME.pdf`}
-              >
-                <Download /> Download PDF
-              </PDFDownloadLink>
-            </Button>
-          ) : (
-            <Button className='w-full' disabled>
-              <Download /> Download PDF
-            </Button>
-          )}
+          <Button
+            className='w-full'
+            disabled={!preparedData || !downloadDocument || downloading}
+            onClick={() => void handleDownload()}
+          >
+            <Download /> {downloading ? 'Preparing PDF…' : 'Download PDF'}
+          </Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
