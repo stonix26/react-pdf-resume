@@ -1,8 +1,14 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { Control } from 'react-hook-form'
 import { useResumeForm } from '@/contexts/resume-form-context'
 import type { InferredResumeSchema } from '@/types'
-import { FilePdfLine, ExportLine, DeleteBinLine, Github } from '@/components/icons'
+import {
+  FilePdfLine,
+  ExportLine,
+  ImportLine,
+  DeleteBinLine,
+  Github
+} from '@/components/icons'
 import { ThemeSwitcher } from '@/components/theme-switcher'
 import {
   AlertDialog,
@@ -82,12 +88,18 @@ function MainForm() {
     form,
     onSubmit,
     handleExport,
+    handleImport,
     handleResetData,
     storedData,
     openPreview
   } = useResumeForm()
   const { control } = form
   const [currentStep, setCurrentStep] = useState(0)
+  const [importError, setImportError] = useState<{
+    title: string
+    details: string
+  } | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const step = FORM_STEPS[currentStep]
   const isFirstStep = currentStep === 0
@@ -112,6 +124,28 @@ function MainForm() {
 
   const handleNext = () => goToStep(currentStep + 1)
   const handleBack = () => goToStep(currentStep - 1)
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+
+    if (!file) return
+
+    const result = await handleImport(file)
+
+    if (!result.ok) {
+      setImportError({ title: result.title, details: result.details })
+      return
+    }
+
+    setCurrentStep(0)
+  }
 
   return (
     <Form {...form}>
@@ -159,6 +193,41 @@ function MainForm() {
               <ExportLine />
               Export Data
             </Button>
+            <Button
+              type='button'
+              onClick={handleImportClick}
+              variant='secondary'
+            >
+              <ImportLine />
+              Import Data
+            </Button>
+            <input
+              ref={fileInputRef}
+              type='file'
+              accept='application/json,.json'
+              className='hidden'
+              onChange={handleFileChange}
+            />
+            <AlertDialog
+              open={importError !== null}
+              onOpenChange={open => {
+                if (!open) setImportError(null)
+              }}
+            >
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>{importError?.title}</AlertDialogTitle>
+                  <AlertDialogDescription className='whitespace-pre-wrap font-mono text-xs'>
+                    {importError?.details}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogAction onClick={() => setImportError(null)}>
+                    Close
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
             {storedData ? (
               <Button type='button' variant='secondary' onClick={openPreview}>
                 <FilePdfLine />

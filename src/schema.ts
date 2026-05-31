@@ -144,3 +144,16 @@ export const resumeSchema = z.object({
   projects: z.array(projectSchema).optional(),
   reference: z.array(referenceSchema).optional()
 })
+
+const importedFileSchema = z.string().optional()
+
+export const importedResumeSchema = resumeSchema.extend({
+  header: headerSchema
+    .omit({ profilePicture: true })
+    .extend({ profilePicture: importedFileSchema }),
+  experiences: z.array(
+    experienceSchema
+      .omit({ companyLogo: true })
+      .extend({ companyLogo: importedFileSchema })
+  )
+})

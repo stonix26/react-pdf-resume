@@ -7,6 +7,8 @@ import type { InferredResumeSchema } from '@/types'
 import { prepareResumeForPdf } from '@/lib/prepare-resume-for-pdf'
 import { serializeFileField } from '@/utils'
 
+import { parseImportedResumeFile } from '@/lib/import-resume'
+
 export const DEFAULT_FORM: InferredResumeSchema = {
   header: {
     profilePicture: undefined,
@@ -101,6 +103,21 @@ const useResume = () => {
     reset(DEFAULT_FORM)
   }
 
+  const handleImport = async (file: File) => {
+    const result = await parseImportedResumeFile(file)
+
+    if (!result.ok) {
+      return result
+    }
+
+    setStoredData(result.data)
+    reset(result.data)
+    setPreviewData(null)
+    setPreviewOpen(false)
+
+    return result
+  }
+
   return {
     storedData,
     previewData,
@@ -111,6 +128,7 @@ const useResume = () => {
     form,
     onSubmit,
     handleExport,
+    handleImport,
     handleResetData
   }
 }
