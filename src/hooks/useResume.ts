@@ -7,6 +7,7 @@ import type { InferredResumeSchema } from '@/types'
 import { prepareResumeForPdf } from '@/lib/prepare-resume-for-pdf'
 import { persistResumeValues } from '@/lib/persist-resume-values'
 import { parseImportedResumeFile } from '@/lib/import-resume'
+import { SAMPLE_RESUME } from '@/lib/sample-resume'
 
 export const DEFAULT_FORM: InferredResumeSchema = {
   header: {
@@ -27,6 +28,9 @@ export const DEFAULT_FORM: InferredResumeSchema = {
 }
 
 const LS_KEY = 'linkedInResumeFormatData'
+const AUTOSAVE_DELAY_MS = 500
+
+export type SaveState = 'idle' | 'saving' | 'saved'
 
 const useResume = () => {
   const [previewOpen, setPreviewOpen] = useState(false)
@@ -34,6 +38,8 @@ const useResume = () => {
   const [previewData, setPreviewData] = useState<InferredResumeSchema | null>(
     null
   )
+  const [saveState, setSaveState] = useState<SaveState>('idle')
+  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null)
   const [storedData, setStoredData, resetLSData] =
     useLocalStorage<InferredResumeSchema | null>(LS_KEY, null)
 
@@ -44,64 +50,90 @@ const useResume = () => {
 
   const { reset, getValues } = form
   const formRef = useRef<HTMLFormElement>(null)
-  const persistTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
+  const saveTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
+  const dirtyRef = useRef(false)
+  const skipNextSaveRef = useRef(false)
 
   const saveToLocalStorage = useCallback(async () => {
-    const processedValues = await persistResumeValues(getValues())
-    setStoredData(processedValues)
-    return processedValues
+    if (skipNextSaveRef.current) {
+      skipNextSaveRef.current = false
+      dirtyRef.current = false
+      setSaveState('idle')
+      return null
+    }
+
+    setSaveState('saving')
+    try {
+      const processedValues = await persistResumeValues(getValues())
+      setStoredData(processedValues)
+      dirtyRef.current = false
+      setLastSavedAt(new Date())
+      setSaveState('saved')
+      return processedValues
+    } catch {
+      setSaveState('idle')
+      return null
+    }
   }, [getValues, setStoredData])
 
-  const scheduleBlurSave = useCallback(() => {
-    clearTimeout(persistTimeoutRef.current)
-    persistTimeoutRef.current = setTimeout(() => {
+  const scheduleSave = useCallback(() => {
+    dirtyRef.current = true
+    clearTimeout(saveTimeoutRef.current)
+    saveTimeoutRef.current = setTimeout(() => {
       void saveToLocalStorage()
-    }, 200)
+    }, AUTOSAVE_DELAY_MS)
   }, [saveToLocalStorage])
 
   useEffect(() => {
-    const form = formRef.current
-    if (!form) return
-
-    const handleFocusOut = () => {
-      scheduleBlurSave()
-    }
-
-    form.addEventListener('focusout', handleFocusOut)
+    const subscription = form.watch(() => scheduleSave())
 
     return () => {
-      form.removeEventListener('focusout', handleFocusOut)
-      const timeoutId = persistTimeoutRef.current
-      clearTimeout(timeoutId)
+      subscription.unsubscribe()
+      clearTimeout(saveTimeoutRef.current)
     }
-  }, [scheduleBlurSave])
+  }, [form, scheduleSave])
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (!dirtyRef.current) return
+      event.preventDefault()
+      event.returnValue = ''
+    }
+
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+  }, [])
 
   const onSubmit: SubmitHandler<InferredResumeSchema> = async values => {
     const processedValues = await persistResumeValues(values)
 
     setPreviewData(processedValues)
     setStoredData(processedValues)
+    dirtyRef.current = false
+    setLastSavedAt(new Date())
+    setSaveState('saved')
     setPreviewRevision(revision => revision + 1)
     setPreviewOpen(true)
   }
 
-  const openPreview = () => {
-    const data = previewData ?? storedData
-    if (!data) return
+  const openPreviewFromForm = async () => {
+    const processedValues =
+      (await saveToLocalStorage()) ?? (getValues() as InferredResumeSchema)
 
-    ;(document.activeElement as HTMLElement | null)?.blur()
-    setPreviewData(prepareResumeForPdf(data))
+    setPreviewData(prepareResumeForPdf(processedValues))
     setPreviewRevision(revision => revision + 1)
     setPreviewOpen(true)
   }
 
-  const handleExport = () => {
-    if (!storedData) {
+  const handleExport = async () => {
+    const exported = await saveToLocalStorage()
+
+    if (!exported) {
       alert(`No data found in localStorage for ${LS_KEY} key.`)
       return
     }
 
-    const json = JSON.stringify(storedData, null, 2)
+    const json = JSON.stringify(exported, null, 2)
     const blob = new Blob([json], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
 
@@ -116,9 +148,14 @@ const useResume = () => {
   }
 
   const handleResetData = () => {
+    skipNextSaveRef.current = true
+    clearTimeout(saveTimeoutRef.current)
     resetLSData()
     setPreviewData(null)
     setPreviewOpen(false)
+    dirtyRef.current = false
+    setSaveState('idle')
+    setLastSavedAt(null)
     reset(DEFAULT_FORM)
   }
 
@@ -129,12 +166,29 @@ const useResume = () => {
       return result
     }
 
+    skipNextSaveRef.current = true
+    clearTimeout(saveTimeoutRef.current)
     setStoredData(result.data)
     reset(result.data)
     setPreviewData(null)
     setPreviewOpen(false)
+    dirtyRef.current = false
+    setLastSavedAt(new Date())
+    setSaveState('saved')
 
     return result
+  }
+
+  const handleLoadSample = () => {
+    skipNextSaveRef.current = true
+    clearTimeout(saveTimeoutRef.current)
+    setStoredData(SAMPLE_RESUME)
+    reset(SAMPLE_RESUME)
+    setPreviewData(null)
+    setPreviewOpen(false)
+    dirtyRef.current = false
+    setLastSavedAt(new Date())
+    setSaveState('saved')
   }
 
   return {
@@ -143,12 +197,15 @@ const useResume = () => {
     previewRevision,
     previewOpen,
     setPreviewOpen,
-    openPreview,
+    openPreviewFromForm,
+    saveState,
+    lastSavedAt,
     form,
     onSubmit,
     handleExport,
     handleImport,
     handleResetData,
+    handleLoadSample,
     formRef
   }
 }

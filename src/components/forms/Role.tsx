@@ -9,6 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormControl,
+  FormDescription,
   FormMessage,
   Input
 } from '@/components/ui'
@@ -96,7 +97,7 @@ export const Role: React.FC<{
             <FormItem className='flex-1'>
               <FormLabel>Start Date</FormLabel>
               <FormControl>
-                <Input {...field} placeholder='2024-01-31' />
+                <Input type='date' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -110,6 +111,7 @@ export const Role: React.FC<{
               <FormLabel>End Date</FormLabel>
               <FormControl>
                 <Input
+                  type='date'
                   {...field}
                   onChange={e =>
                     field.onChange(
@@ -117,9 +119,11 @@ export const Role: React.FC<{
                     )
                   }
                   value={field.value ?? ''}
-                  placeholder='2024-02-29'
                 />
               </FormControl>
+              <FormDescription>
+                Leave blank if this is your current role.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

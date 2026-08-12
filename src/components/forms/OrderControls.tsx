@@ -24,6 +24,7 @@ export const OrderControls: React.FC<OrderControlsProps> = ({
       size='icon'
       disabled={!canMoveUp}
       aria-label='Move up'
+      title='Move up'
       onClick={onMoveUp}
     >
       <ArrowUpLine />
@@ -34,6 +35,7 @@ export const OrderControls: React.FC<OrderControlsProps> = ({
       size='icon'
       disabled={!canMoveDown}
       aria-label='Move down'
+      title='Move down'
       onClick={onMoveDown}
     >
       <ArrowDownLine />

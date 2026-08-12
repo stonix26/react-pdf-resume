@@ -127,6 +127,19 @@ function Previewer() {
     [preparedData]
   )
 
+  const downloadName = useMemo(() => {
+    if (!preparedData) return null
+    const { firstName, lastName } = preparedData.header
+    return `${firstName.toUpperCase()} ${lastName.toUpperCase()} - RESUME.pdf`
+  }, [preparedData])
+
+  const downloadLabel = useMemo(() => {
+    if (!preparedData) return 'Download PDF'
+    const { firstName, lastName } = preparedData.header
+    const name = `${firstName} ${lastName}`.trim()
+    return name ? `Download ${name}` : 'Download PDF'
+  }, [preparedData])
+
   const handleDownload = async () => {
     if (!preparedData || !downloadDocument || downloading) return
 
@@ -138,7 +151,7 @@ function Previewer() {
       const url = URL.createObjectURL(blob)
       const anchor = document.createElement('a')
       anchor.href = url
-      anchor.download = `${preparedData.header.firstName.toUpperCase()} ${preparedData.header.lastName.toUpperCase()} - RESUME.pdf`
+      anchor.download = downloadName ?? 'resume.pdf'
       anchor.click()
       URL.revokeObjectURL(url)
     } finally {
@@ -153,6 +166,7 @@ function Previewer() {
           <DrawerTitle>Resume Preview</DrawerTitle>
           <DrawerDescription>
             Review your PDF before downloading.
+            {downloadName ? ` It will download as ${downloadName}.` : ''}
           </DrawerDescription>
         </DrawerHeader>
 
@@ -171,7 +185,8 @@ function Previewer() {
             disabled={!preparedData || !downloadDocument || downloading}
             onClick={() => void handleDownload()}
           >
-            <Download /> {downloading ? 'Preparing PDF…' : 'Download PDF'}
+            <Download />
+            {downloading ? 'Preparing PDF…' : downloadLabel}
           </Button>
         </DrawerFooter>
       </DrawerContent>

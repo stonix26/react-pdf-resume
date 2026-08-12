@@ -10,6 +10,7 @@ import { locationTypeSchema } from '@/schema'
 import {
   DynamicFormGroup,
   FormRowGroup,
+  ImageUploadInput,
   Roles,
   getFieldArrayOrderProps
 } from '@/components/forms'
@@ -70,14 +71,7 @@ export const Experience: React.FC<{
             <FormItem className='flex-1'>
               <FormLabel>Company Logo</FormLabel>
               <FormControl>
-                <Input
-                  type='file'
-                  accept='image/*'
-                  onChange={e => {
-                    const file = e.target.files?.[0] || null
-                    field.onChange(file)
-                  }}
-                />
+                <ImageUploadInput value={field.value} onChange={field.onChange} />
               </FormControl>
               <FormMessage />
             </FormItem>

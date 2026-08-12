@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Control } from 'react-hook-form'
 import { InferredResumeSchema } from '@/types'
-import { FormRowGroup } from '@/components/forms'
+import { FormRowGroup, ImageUploadInput } from '@/components/forms'
 import {
   FormField,
   FormItem,
@@ -65,14 +65,7 @@ export const Header: React.FC<{
           <FormItem className='flex-1'>
             <FormLabel>Profile Picture</FormLabel>
             <FormControl>
-              <Input
-                type='file'
-                accept='image/*'
-                onChange={e => {
-                  const file = e.target.files?.[0] || null
-                  field.onChange(file)
-                }}
-              />
+              <ImageUploadInput value={field.value} onChange={field.onChange} />
             </FormControl>
             <FormMessage />
           </FormItem>

@@ -29,15 +29,31 @@ export const FORM_STEPS: FormStep[] = [
     fields: ['experiences']
   },
   {
-    id: 'skills-education',
-    title: 'Skills & Education',
-    description: 'Additional skills and academic history',
-    fields: ['additionalSkills', 'education']
+    id: 'skills',
+    title: 'Skills',
+    description: 'Skills you bring to the table',
+    fields: ['additionalSkills'],
+    optional: true
   },
   {
-    id: 'projects-references',
-    title: 'Projects & References',
-    description: 'Portfolio highlights and references (optional)',
+    id: 'education',
+    title: 'Education',
+    description: 'Academic history and certifications',
+    fields: ['education'],
+    optional: true
+  },
+  {
+    id: 'projects',
+    title: 'Projects',
+    description: 'Portfolio highlights (optional)',
+    fields: ['projects'],
+    optional: true
+  },
+  {
+    id: 'references',
+    title: 'References',
+    description: 'People who can vouch for you (optional)',
+    fields: ['reference'],
     optional: true
   }
 ]

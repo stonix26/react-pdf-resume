@@ -1,12 +1,15 @@
 import { useRef, useState } from 'react'
 import type { Control } from 'react-hook-form'
 import { useResumeForm } from '@/contexts/resume-form-context'
+import type { SaveState } from '@/hooks/useResume'
 import type { InferredResumeSchema } from '@/types'
 import {
+  EyeLine,
   FilePdfLine,
   ExportLine,
   ImportLine,
   DeleteBinLine,
+  SparklesLine,
   Github
 } from '@/components/icons'
 import { ThemeSwitcher } from '@/components/theme-switcher'
@@ -27,6 +30,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  Input,
   ScrollArea,
   Separator
 } from '@/components/ui'
@@ -63,25 +67,38 @@ function StepPanel({
       return <Summary control={control} />
     case 'experience':
       return <Experiences control={control} />
-    case 'skills-education':
-      return (
-        <div className='space-y-8'>
-          <AdditionalSkills control={control} />
-          <Separator />
-          <Education control={control} />
-        </div>
-      )
-    case 'projects-references':
-      return (
-        <div className='space-y-8'>
-          <Projects control={control} />
-          <Separator />
-          <References control={control} />
-        </div>
-      )
+    case 'skills':
+      return <AdditionalSkills control={control} />
+    case 'education':
+      return <Education control={control} />
+    case 'projects':
+      return <Projects control={control} />
+    case 'references':
+      return <References control={control} />
     default:
       return null
   }
+}
+
+function SaveStatus({
+  saveState,
+  lastSavedAt
+}: {
+  saveState: SaveState
+  lastSavedAt: Date | null
+}) {
+  if (saveState === 'saving') return <p className='text-xs text-muted-foreground'>Saving…</p>
+
+  if (saveState === 'saved' && lastSavedAt) {
+    const isRecent = Date.now() - lastSavedAt.getTime() < 30_000
+    return (
+      <p className='text-xs text-emerald-500'>
+        {isRecent ? 'Saved just now' : `Saved ${lastSavedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`}
+      </p>
+    )
+  }
+
+  return null
 }
 
 function MainForm() {
@@ -91,12 +108,17 @@ function MainForm() {
     handleExport,
     handleImport,
     handleResetData,
+    handleLoadSample,
+    openPreviewFromForm,
+    saveState,
+    lastSavedAt,
     formRef,
-    storedData,
-    openPreview
+    storedData
   } = useResumeForm()
   const { control } = form
   const [currentStep, setCurrentStep] = useState(0)
+  const [stepErrors, setStepErrors] = useState<Record<number, boolean>>({})
+  const [resetConfirm, setResetConfirm] = useState('')
   const [importError, setImportError] = useState<{
     title: string
     details: string
@@ -107,25 +129,23 @@ function MainForm() {
   const isFirstStep = currentStep === 0
   const isLastStep = currentStep === FORM_STEPS.length - 1
 
-  const goToStep = async (nextStep: number) => {
-    if (nextStep < currentStep) {
-      setCurrentStep(nextStep)
-      return
-    }
-
-    if (nextStep > currentStep) {
-      const fields = step.fields
-      if (fields?.length && !step.optional) {
-        const valid = await form.trigger(fields)
-        if (!valid) return
-      }
-    }
-
+  const goToStep = (nextStep: number) => {
     setCurrentStep(nextStep)
   }
 
-  const handleNext = () => goToStep(currentStep + 1)
-  const handleBack = () => goToStep(currentStep - 1)
+  const handleNext = async () => {
+    if (step.fields?.length && !step.optional) {
+      const valid = await form.trigger(step.fields)
+      if (!valid) {
+        setStepErrors(prev => ({ ...prev, [currentStep]: true }))
+        return
+      }
+    }
+    setStepErrors(prev => ({ ...prev, [currentStep]: false }))
+    setCurrentStep(currentStep + 1)
+  }
+
+  const handleBack = () => setCurrentStep(currentStep - 1)
 
   const handleImportClick = () => {
     fileInputRef.current?.click()
@@ -168,7 +188,11 @@ function MainForm() {
           </Button>
           <div className='flex flex-wrap items-center gap-2'>
             <ThemeSwitcher />
-            <AlertDialog>
+            <AlertDialog
+              onOpenChange={open => {
+                if (!open) setResetConfirm('')
+              }}
+            >
               <AlertDialogTrigger asChild>
                 <Button type='button' variant='destructive'>
                   <DeleteBinLine /> Reset Data
@@ -178,21 +202,33 @@ function MainForm() {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your data in localStorage. Please export your data first
-                    before continuing.
+                    This action cannot be undone. It will permanently delete
+                    your resume data stored in this browser. Please export your
+                    data first before continuing.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
+                <Input
+                  value={resetConfirm}
+                  onChange={e => setResetConfirm(e.target.value)}
+                  placeholder='Type "reset" to confirm'
+                  aria-label='Type reset to confirm'
+                />
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleResetData}>
-                    Continue
+                  <AlertDialogAction
+                    disabled={resetConfirm.trim().toLowerCase() !== 'reset'}
+                    onClick={() => {
+                      setResetConfirm('')
+                      handleResetData()
+                    }}
+                  >
+                    Reset everything
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
 
-            <Button type='button' onClick={handleExport} variant='secondary'>
+            <Button type='button' onClick={() => void handleExport()} variant='secondary'>
               <ExportLine />
               Export Data
             </Button>
@@ -232,12 +268,6 @@ function MainForm() {
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-            {storedData ? (
-              <Button type='button' variant='secondary' onClick={openPreview}>
-                <FilePdfLine />
-                Open Preview
-              </Button>
-            ) : null}
           </div>
         </header>
 
@@ -246,7 +276,33 @@ function MainForm() {
             steps={FORM_STEPS}
             currentStep={currentStep}
             onStepChange={goToStep}
+            stepErrors={stepErrors}
           />
+
+          {!storedData && currentStep === 0 ? (
+            <Card>
+              <CardContent className='flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between'>
+                <div>
+                  <p className='text-sm font-medium'>New here?</p>
+                  <p className='text-xs text-muted-foreground'>
+                    Start from a sample resume and preview the PDF right away,
+                    then make it your own.
+                  </p>
+                </div>
+                <Button
+                  type='button'
+                  variant='secondary'
+                  className='max-w-fit'
+                  onClick={() => {
+                    handleLoadSample()
+                    setCurrentStep(0)
+                  }}
+                >
+                  <SparklesLine /> Load sample resume
+                </Button>
+              </CardContent>
+            </Card>
+          ) : null}
 
           <Card className='flex min-h-0 flex-1 flex-col gap-0 py-0'>
             <CardHeader className='shrink-0 border-b border-border'>
@@ -262,10 +318,17 @@ function MainForm() {
         </div>
 
         <footer className='flex shrink-0 items-center justify-between gap-4 border-t border-border px-6 py-4'>
-          <p className='text-xs text-muted-foreground'>
-            Step {currentStep + 1} of {FORM_STEPS.length}
-          </p>
+          <div className='flex flex-col gap-0.5'>
+            <p className='text-xs text-muted-foreground'>
+              Step {currentStep + 1} of {FORM_STEPS.length}
+            </p>
+            <SaveStatus saveState={saveState} lastSavedAt={lastSavedAt} />
+          </div>
           <div className='flex gap-2'>
+            <Button type='button' variant='outline' onClick={() => void openPreviewFromForm()}>
+              <EyeLine />
+              Preview
+            </Button>
             <Button
               type='button'
               variant='outline'
@@ -280,7 +343,7 @@ function MainForm() {
                 Preview PDF
               </Button>
             ) : (
-              <Button type='button' onClick={handleNext}>
+              <Button type='button' onClick={() => void handleNext()}>
                 Next step
               </Button>
             )}
