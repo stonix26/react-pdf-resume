@@ -22,7 +22,8 @@ import {
   Button,
   Textarea
 } from '@/components/ui'
-import { AddLine, CloseLine } from '@/components/icons'
+import { AddLine, CloseLine, SparklesLine } from '@/components/icons'
+import { SectionEmptyState } from '@/components/forms/SectionEmptyState'
 
 export const Projects: React.FC<{
   control: Control<InferredResumeSchema>
@@ -34,31 +35,51 @@ export const Projects: React.FC<{
 
   return (
     <DynamicFormGroup groupLabel='Project / Portfolio'>
-      {fields.map((projectFields, index) => (
-        <Project
-          key={projectFields.id}
-          control={control}
-          index={index}
-          totalCount={fields.length}
-          remove={remove}
-          move={move}
+      {fields.length === 0 ? (
+        <SectionEmptyState
+          icon={<SparklesLine className='size-5' />}
+          title='No projects yet'
+          description='Showcase portfolio highlights and side projects.'
+          ctaLabel='Add your first project'
+          onCta={() =>
+            append({
+              type: '',
+              name: '',
+              description: '',
+              techStack: [],
+              link: { src: '', label: '' }
+            })
+          }
         />
-      ))}
-      <Button
-        type='button'
-        variant='outline'
-        onClick={() =>
-          append({
-            type: '',
-            name: '',
-            description: '',
-            techStack: [],
-            link: { src: '', label: '' }
-          })
-        }
-      >
-        <AddLine /> Add Project
-      </Button>
+      ) : (
+        <>
+          {fields.map((projectFields, index) => (
+            <Project
+              key={projectFields.id}
+              control={control}
+              index={index}
+              totalCount={fields.length}
+              remove={remove}
+              move={move}
+            />
+          ))}
+          <Button
+            type='button'
+            variant='outline'
+            onClick={() =>
+              append({
+                type: '',
+                name: '',
+                description: '',
+                techStack: [],
+                link: { src: '', label: '' }
+              })
+            }
+          >
+            <AddLine /> Add Project
+          </Button>
+        </>
+      )}
     </DynamicFormGroup>
   )
 }

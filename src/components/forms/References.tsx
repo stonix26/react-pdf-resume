@@ -10,7 +10,8 @@ import {
   Input,
   Button
 } from '@/components/ui'
-import { AddLine, CloseLine } from '@/components/icons'
+import { AddLine, CloseLine, SparklesLine } from '@/components/icons'
+import { SectionEmptyState } from '@/components/forms/SectionEmptyState'
 
 export const References: React.FC<{
   control: Control<InferredResumeSchema>
@@ -22,87 +23,106 @@ export const References: React.FC<{
 
   return (
     <DynamicFormGroup groupLabel='References'>
-      {fields.map((referenceFields, index) => (
-        <FormRowGroup key={referenceFields.id}>
-          <FormField
-            name={`reference.${index}.name`}
-            control={control}
-            render={({ field }) => (
-              <FormItem className='flex-1'>
-                <FormControl>
-                  <Input {...field} placeholder='Name' />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name={`reference.${index}.company`}
-            control={control}
-            render={({ field }) => (
-              <FormItem className='flex-1'>
-                <FormControl>
-                  <Input {...field} placeholder='Company' />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name={`reference.${index}.role`}
-            control={control}
-            render={({ field }) => (
-              <FormItem className='flex-1'>
-                <FormControl>
-                  <Input {...field} placeholder='Role / Position' />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name={`reference.${index}.contactNumber`}
-            control={control}
-            render={({ field }) => (
-              <FormItem className='flex-1'>
-                <FormControl>
-                  <Input {...field} placeholder='Contact Number' />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      {fields.length === 0 ? (
+        <SectionEmptyState
+          icon={<SparklesLine className='size-5' />}
+          title='No references yet'
+          description='Add people who can vouch for you and your work.'
+          ctaLabel='Add your first reference'
+          onCta={() =>
+            append({
+              name: '',
+              company: '',
+              role: '',
+              contactNumber: ''
+            })
+          }
+        />
+      ) : (
+        <>
+          {fields.map((referenceFields, index) => (
+            <FormRowGroup key={referenceFields.id}>
+              <FormField
+                name={`reference.${index}.name`}
+                control={control}
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormControl>
+                      <Input {...field} placeholder='Name' />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name={`reference.${index}.company`}
+                control={control}
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormControl>
+                      <Input {...field} placeholder='Company' />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name={`reference.${index}.role`}
+                control={control}
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormControl>
+                      <Input {...field} placeholder='Role / Position' />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name={`reference.${index}.contactNumber`}
+                control={control}
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormControl>
+                      <Input {...field} placeholder='Contact Number' />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <OrderControls
-            {...getFieldArrayOrderProps(index, fields.length, move)}
-          />
+              <OrderControls
+                {...getFieldArrayOrderProps(index, fields.length, move)}
+              />
+              <Button
+                type='button'
+                variant='ghost'
+                className='hover:text-red-500'
+                size='icon'
+                onClick={() => remove(index)}
+              >
+                <CloseLine />
+              </Button>
+            </FormRowGroup>
+          ))}
+
           <Button
             type='button'
-            variant='ghost'
-            className='hover:text-red-500'
-            size='icon'
-            onClick={() => remove(index)}
+            variant='outline'
+            onClick={() =>
+              append({
+                name: '',
+                company: '',
+                role: '',
+                contactNumber: ''
+              })
+            }
           >
-            <CloseLine />
+            <AddLine />
+            Add reference
           </Button>
-        </FormRowGroup>
-      ))}
-
-      <Button
-        type='button'
-        variant='outline'
-        onClick={() =>
-          append({
-            name: '',
-            company: '',
-            role: '',
-            contactNumber: ''
-          })
-        }
-      >
-        <AddLine />
-        Add reference
-      </Button>
+        </>
+      )}
     </DynamicFormGroup>
   )
 }

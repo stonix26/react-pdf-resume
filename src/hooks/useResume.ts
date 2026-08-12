@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useLocalStorage } from 'usehooks-ts'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
 import { resumeSchema } from '@/schema'
 import type { InferredResumeSchema } from '@/types'
 import { prepareResumeForPdf } from '@/lib/prepare-resume-for-pdf'
@@ -29,6 +30,7 @@ export const DEFAULT_FORM: InferredResumeSchema = {
 
 const LS_KEY = 'linkedInResumeFormatData'
 const AUTOSAVE_DELAY_MS = 500
+const LIVE_PREVIEW_DELAY_MS = 400
 
 export type SaveState = 'idle' | 'saving' | 'saved'
 
@@ -51,6 +53,7 @@ const useResume = () => {
   const { reset, getValues } = form
   const formRef = useRef<HTMLFormElement>(null)
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
+  const livePreviewTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
   const dirtyRef = useRef(false)
   const skipNextSaveRef = useRef(false)
 
@@ -84,6 +87,12 @@ const useResume = () => {
     }, AUTOSAVE_DELAY_MS)
   }, [saveToLocalStorage])
 
+  const flushSave = useCallback(() => {
+    clearTimeout(saveTimeoutRef.current)
+    dirtyRef.current = false
+    void saveToLocalStorage()
+  }, [saveToLocalStorage])
+
   useEffect(() => {
     const subscription = form.watch(() => scheduleSave())
 
@@ -92,6 +101,25 @@ const useResume = () => {
       clearTimeout(saveTimeoutRef.current)
     }
   }, [form, scheduleSave])
+
+  const schedulePreviewRefresh = useCallback(() => {
+    clearTimeout(livePreviewTimeoutRef.current)
+    livePreviewTimeoutRef.current = setTimeout(() => {
+      setPreviewData(prepareResumeForPdf(getValues()))
+      setPreviewRevision(revision => revision + 1)
+    }, LIVE_PREVIEW_DELAY_MS)
+  }, [getValues])
+
+  useEffect(() => {
+    if (!previewOpen) return
+
+    const subscription = form.watch(() => schedulePreviewRefresh())
+
+    return () => {
+      subscription.unsubscribe()
+      clearTimeout(livePreviewTimeoutRef.current)
+    }
+  }, [previewOpen, form, schedulePreviewRefresh])
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -129,7 +157,9 @@ const useResume = () => {
     const exported = await saveToLocalStorage()
 
     if (!exported) {
-      alert(`No data found in localStorage for ${LS_KEY} key.`)
+      toast.error('No resume data found', {
+        description: 'Fill in some fields first, then try exporting again.'
+      })
       return
     }
 
@@ -145,6 +175,10 @@ const useResume = () => {
     document.body.removeChild(a)
 
     URL.revokeObjectURL(url)
+
+    toast.success('Resume data exported', {
+      description: 'Saved as resume-data.json'
+    })
   }
 
   const handleResetData = () => {
@@ -157,6 +191,9 @@ const useResume = () => {
     setSaveState('idle')
     setLastSavedAt(null)
     reset(DEFAULT_FORM)
+    toast.success('Data cleared', {
+      description: 'Your resume data has been reset.'
+    })
   }
 
   const handleImport = async (file: File) => {
@@ -176,6 +213,10 @@ const useResume = () => {
     setLastSavedAt(new Date())
     setSaveState('saved')
 
+    toast.success('Resume imported', {
+      description: 'Your data has been loaded.'
+    })
+
     return result
   }
 
@@ -189,6 +230,9 @@ const useResume = () => {
     dirtyRef.current = false
     setLastSavedAt(new Date())
     setSaveState('saved')
+    toast.success('Sample resume loaded', {
+      description: 'Make it your own from here.'
+    })
   }
 
   return {
@@ -201,6 +245,7 @@ const useResume = () => {
     saveState,
     lastSavedAt,
     form,
+    flushSave,
     onSubmit,
     handleExport,
     handleImport,
