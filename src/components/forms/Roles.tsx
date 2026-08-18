@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import { type InferredResumeSchema } from '@/types'
 import { Button } from '@/components/ui'
 import { AddLine } from '@/components/icons'
-import { Role } from '@/components/forms'
+import { Role } from '@/components/forms/Role'
 
 function createEmptyRole() {
   return {

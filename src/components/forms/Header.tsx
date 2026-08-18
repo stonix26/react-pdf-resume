@@ -1,7 +1,8 @@
 import React from 'react'
 import type { Control } from 'react-hook-form'
 import { InferredResumeSchema } from '@/types'
-import { FormRowGroup, ImageUploadInput } from '@/components/forms'
+import { FormRowGroup } from '@/components/forms/FormRowGroup'
+import { ImageUploadInput } from '@/components/forms/ImageUploadInput'
 import {
   FormField,
   FormItem,

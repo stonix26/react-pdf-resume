@@ -73,5 +73,3 @@ export function ImageUploadInput({
     </div>
   )
 }
-
-export default ImageUploadInput

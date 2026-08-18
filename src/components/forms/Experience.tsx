@@ -7,13 +7,11 @@ import {
 } from 'react-hook-form'
 import { type InferredResumeSchema } from '@/types'
 import { locationTypeSchema } from '@/schema'
-import {
-  DynamicFormGroup,
-  FormRowGroup,
-  ImageUploadInput,
-  Roles,
-  getFieldArrayOrderProps
-} from '@/components/forms'
+import { DynamicFormGroup } from '@/components/forms/DynamicFormGroup'
+import { FormRowGroup } from '@/components/forms/FormRowGroup'
+import { ImageUploadInput } from '@/components/forms/ImageUploadInput'
+import { Roles } from '@/components/forms/Roles'
+import { getFieldArrayOrderProps } from '@/components/forms/order-controls-utils'
 import {
   Select,
   SelectTrigger,

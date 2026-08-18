@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react'
 import { type Control, useFieldArray } from 'react-hook-form'
 import { type InferredResumeSchema } from '@/types'
-import { DynamicFormGroup, FormRowGroup, OrderControls, getFieldArrayOrderProps } from '@/components/forms'
+import { DynamicFormGroup } from '@/components/forms/DynamicFormGroup'
+import { FormRowGroup } from '@/components/forms/FormRowGroup'
+import { OrderControls } from '@/components/forms/OrderControls'
+import { getFieldArrayOrderProps } from '@/components/forms/order-controls-utils'
 import {
   FormControl,
   FormField,

@@ -23,6 +23,26 @@ import Threads from './icons/Threads'
 import Tiktok from './icons/Tiktok'
 import TwitterX from './icons/TwitterX'
 
+const ICON_BY_TYPE: Record<string, React.ReactNode> = {
+  Behance: <Behance />,
+  Bluesky: <Bluesky />,
+  Discord: <Discord />,
+  Dribbble: <Dribbble />,
+  Facebook: <Facebook />,
+  Github: <Github />,
+  Gitlab: <Gitlab />,
+  Instagram: <Instagram />,
+  LinkedIn: <LinkedIn />,
+  Mail: <Mail />,
+  Medium: <Medium />,
+  React: <ReactIcon />,
+  'Stack Overflow': <StackOverflow />,
+  Terminal: <TerminalBox />,
+  Threads: <Threads />,
+  Tiktok: <Tiktok />,
+  'Twitter / X': <TwitterX />
+}
+
 const Header: React.FC<InferredHeaderSchema> = ({
   profilePicture,
   firstName,
@@ -107,62 +127,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
             }}
           >
             {links.map(item => {
-              let IconComponent: React.ReactNode = null
-              switch (item.type) {
-                case 'Behance':
-                  IconComponent = <Behance />
-                  break
-                case 'Bluesky':
-                  IconComponent = <Bluesky />
-                  break
-                case 'Discord':
-                  IconComponent = <Discord />
-                  break
-                case 'Dribbble':
-                  IconComponent = <Dribbble />
-                  break
-                case 'Facebook':
-                  IconComponent = <Facebook />
-                  break
-                case 'Github':
-                  IconComponent = <Github />
-                  break
-                case 'Gitlab':
-                  IconComponent = <Gitlab />
-                  break
-                case 'Instagram':
-                  IconComponent = <Instagram />
-                  break
-                case 'LinkedIn':
-                  IconComponent = <LinkedIn />
-                  break
-                case 'Mail':
-                  IconComponent = <Mail />
-                  break
-                case 'Medium':
-                  IconComponent = <Medium />
-                  break
-                case 'React':
-                  IconComponent = <ReactIcon />
-                  break
-                case 'Stack Overflow':
-                  IconComponent = <StackOverflow />
-                  break
-                case 'Terminal':
-                  IconComponent = <TerminalBox />
-                  break
-                case 'Threads':
-                  IconComponent = <Threads />
-                  break
-                case 'Tiktok':
-                  IconComponent = <Tiktok />
-                  break
-                case 'Twitter / X':
-                  IconComponent = <TwitterX />
-                  break
-                default:
-                // do nothing, IconComponent remains null
-              }
+              const IconComponent = ICON_BY_TYPE[item.type]
               return (
                 <View
                   key={`${item.type}-${item.text}-${item.url ?? 'no-url'}`}

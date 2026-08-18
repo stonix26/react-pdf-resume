@@ -1,5 +1,5 @@
 import { Path, Svg } from '@react-pdf/renderer'
-import { Style } from '@react-pdf/types'
+import type { Style } from '@react-pdf/types'
 import React from 'react'
 
 const ServerStack: React.FC<{ style?: Style }> = ({ style }) => {

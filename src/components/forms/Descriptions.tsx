@@ -10,7 +10,10 @@ import {
   Button
 } from '@/components/ui'
 import { CloseLine, AddLine } from '@/components/icons'
-import { DynamicFormGroup, FormRowGroup, OrderControls, getFieldArrayOrderProps } from '@/components/forms'
+import { DynamicFormGroup } from '@/components/forms/DynamicFormGroup'
+import { FormRowGroup } from '@/components/forms/FormRowGroup'
+import { OrderControls } from '@/components/forms/OrderControls'
+import { getFieldArrayOrderProps } from '@/components/forms/order-controls-utils'
 
 export const Descriptions: React.FC<{
   control: Control<InferredResumeSchema>

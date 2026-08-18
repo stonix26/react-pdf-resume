@@ -21,13 +21,11 @@ import {
 } from 'react-hook-form'
 import { InferredResumeSchema } from '@/types'
 import { employmentTypeSchema } from '@/schema'
-import {
-  Descriptions,
-  DynamicFormGroup,
-  FormRowGroup,
-  Skills,
-  getFieldArrayOrderProps
-} from '@/components/forms'
+import { Descriptions } from '@/components/forms/Descriptions'
+import { DynamicFormGroup } from '@/components/forms/DynamicFormGroup'
+import { FormRowGroup } from '@/components/forms/FormRowGroup'
+import { Skills } from '@/components/forms/Skills'
+import { getFieldArrayOrderProps } from '@/components/forms/order-controls-utils'
 
 const employmentTypeOptions = employmentTypeSchema.options
 

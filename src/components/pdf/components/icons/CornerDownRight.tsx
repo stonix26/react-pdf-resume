@@ -1,6 +1,6 @@
 import React from 'react'
 import { Svg, Path } from '@react-pdf/renderer'
-import { Style } from '@react-pdf/types'
+import type { Style } from '@react-pdf/types'
 
 const CornerDownRight: React.FC<{ style?: Style }> = ({ style }) => {
   return (

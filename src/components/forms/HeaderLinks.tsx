@@ -17,7 +17,10 @@ import {
   Input
 } from '@/components/ui'
 import { AddLine, CloseLine } from '@/components/icons'
-import { DynamicFormGroup, FormRowGroup, OrderControls, getFieldArrayOrderProps } from '@/components/forms'
+import { DynamicFormGroup } from '@/components/forms/DynamicFormGroup'
+import { FormRowGroup } from '@/components/forms/FormRowGroup'
+import { OrderControls } from '@/components/forms/OrderControls'
+import { getFieldArrayOrderProps } from '@/components/forms/order-controls-utils'
 
 const linkTypeOptions = linkTypeSchema.options
 

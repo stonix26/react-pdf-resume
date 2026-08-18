@@ -10,7 +10,7 @@ import { persistResumeValues } from '@/lib/persist-resume-values'
 import { parseImportedResumeFile } from '@/lib/import-resume'
 import { SAMPLE_RESUME } from '@/lib/sample-resume'
 
-export const DEFAULT_FORM: InferredResumeSchema = {
+const DEFAULT_FORM: InferredResumeSchema = {
   header: {
     profilePicture: undefined,
     firstName: '',

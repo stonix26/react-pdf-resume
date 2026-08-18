@@ -4,7 +4,7 @@ import { InferredResumeSchema } from '@/types'
 import { Button } from '@/components/ui'
 import { AddLine, SparklesLine } from '@/components/icons'
 import { SectionEmptyState } from '@/components/forms/SectionEmptyState'
-import { Experience } from '@/components/forms'
+import { Experience } from '@/components/forms/Experience'
 
 export const Experiences: React.FC<{
   control: Control<InferredResumeSchema>
