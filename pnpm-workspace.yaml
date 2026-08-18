@@ -1,6 +1,15 @@
 packages:
   - '.'
 
+minimumReleaseAge: 10080
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  - 'tailwind-merge@2.6.1'
+  - 'vite@5.4.21'
+  - 'semver@6.3.1'
+  - 'undici-types@6.21.0'
+blockExoticSubdeps: true
+
 allowBuilds:
   '@swc/core': true
   esbuild: true

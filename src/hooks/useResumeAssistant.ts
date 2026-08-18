@@ -15,7 +15,7 @@ type ApiResult =
   | { ok: true; data: unknown }
   | { ok: false; error: string }
 
-export type AssistantStatus = 'idle' | 'thinking' | 'generating'
+type AssistantStatus = 'idle' | 'thinking' | 'generating'
 
 let messageId = 0
 

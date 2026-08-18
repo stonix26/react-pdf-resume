@@ -42,7 +42,7 @@ export function ImageUploadInput({
         <div className='flex items-center gap-3'>
           <img
             src={previewUrl}
-            alt='Image preview'
+            alt='Uploaded preview'
             className='size-14 rounded-md border border-border object-cover'
           />
           <Button
