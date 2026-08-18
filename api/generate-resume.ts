@@ -11,7 +11,7 @@ type ChatMessage = {
 const GEMINI_BASE_URL =
   process.env.GEMINI_BASE_URL ??
   'https://generativelanguage.googleapis.com/v1beta/openai'
-const GEMINI_MODEL = process.env.GEMINI_MODEL ?? 'gemini-2.5-flash'
+const GEMINI_MODEL = process.env.GEMINI_MODEL ?? 'gemini-3.6-flash'
 
 const RESUME_SCHEMA_JSON = JSON.stringify(
   zodToJsonSchema(importedResumeSchema, 'resume'),
