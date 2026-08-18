@@ -196,6 +196,21 @@ const useResume = () => {
     })
   }
 
+  const applyResumeData = useCallback(
+    (data: InferredResumeSchema) => {
+      skipNextSaveRef.current = true
+      clearTimeout(saveTimeoutRef.current)
+      setStoredData(data)
+      reset(data)
+      setPreviewData(null)
+      setPreviewOpen(false)
+      dirtyRef.current = false
+      setLastSavedAt(new Date())
+      setSaveState('saved')
+    },
+    [reset, setStoredData]
+  )
+
   const handleImport = async (file: File) => {
     const result = await parseImportedResumeFile(file)
 
@@ -203,15 +218,7 @@ const useResume = () => {
       return result
     }
 
-    skipNextSaveRef.current = true
-    clearTimeout(saveTimeoutRef.current)
-    setStoredData(result.data)
-    reset(result.data)
-    setPreviewData(null)
-    setPreviewOpen(false)
-    dirtyRef.current = false
-    setLastSavedAt(new Date())
-    setSaveState('saved')
+    applyResumeData(result.data)
 
     toast.success('Resume imported', {
       description: 'Your data has been loaded.'
@@ -219,6 +226,17 @@ const useResume = () => {
 
     return result
   }
+
+  const applyGeneratedResume = useCallback(
+    (data: InferredResumeSchema) => {
+      applyResumeData(data)
+
+      toast.success('Resume generated', {
+        description: 'Your AI-generated resume has been loaded into the form.'
+      })
+    },
+    [applyResumeData]
+  )
 
   const handleLoadSample = () => {
     skipNextSaveRef.current = true
@@ -249,6 +267,7 @@ const useResume = () => {
     onSubmit,
     handleExport,
     handleImport,
+    applyGeneratedResume,
     handleResetData,
     handleLoadSample,
     formRef

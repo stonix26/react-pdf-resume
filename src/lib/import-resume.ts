@@ -32,43 +32,45 @@ function normalizeImportedResume(data: InferredResumeSchema): InferredResumeSche
   }
 }
 
+export function parseImportedResumeJson(jsonText: string): ImportResult {
+  let parsed: unknown
+
+  try {
+    parsed = JSON.parse(jsonText)
+  } catch {
+    return {
+      ok: false as const,
+      title: 'Invalid JSON',
+      details: 'The AI response was not valid JSON.'
+    }
+  }
+
+  const result = importedResumeSchema.safeParse(parsed)
+
+  if (!result.success) {
+    const details = result.error.issues
+      .map(issue => {
+        const path = issue.path.length > 0 ? issue.path.join('.') : 'root'
+        return `${path}: ${issue.message}`
+      })
+      .join('\n')
+
+    return {
+      ok: false as const,
+      title: 'Schema validation failed',
+      details
+    }
+  }
+
+  const data = prepareResumeForPdf(normalizeImportedResume(result.data))
+
+  return { ok: true as const, data }
+}
+
 export function parseImportedResumeFile(file: File): Promise<ImportResult> {
   return file
     .text()
-    .then(text => {
-      let parsed: unknown
-
-      try {
-        parsed = JSON.parse(text)
-      } catch {
-        return {
-          ok: false as const,
-          title: 'Invalid JSON',
-          details: 'The selected file is not valid JSON.'
-        }
-      }
-
-      const result = importedResumeSchema.safeParse(parsed)
-
-      if (!result.success) {
-        const details = result.error.issues
-          .map(issue => {
-            const path = issue.path.length > 0 ? issue.path.join('.') : 'root'
-            return `${path}: ${issue.message}`
-          })
-          .join('\n')
-
-        return {
-          ok: false as const,
-          title: 'Schema validation failed',
-          details
-        }
-      }
-
-      const data = prepareResumeForPdf(normalizeImportedResume(result.data))
-
-      return { ok: true as const, data }
-    })
+    .then(text => parseImportedResumeJson(text))
     .catch(() => ({
       ok: false as const,
       title: 'Import failed',

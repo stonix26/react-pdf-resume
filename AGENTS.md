@@ -8,6 +8,7 @@ Vite + React 18 + TypeScript SPA that builds a resume in a multi-step form and r
 - `pnpm dev` — Vite dev server (port 5173)
 - `pnpm build` — `tsc -b && vite build`; this **is** the typecheck. For typecheck alone: `npx tsc -b`
 - `pnpm lint` — eslint (baseline is 0 errors / 3 `react-refresh/only-export-components` warnings in context/barrel files; don't chase those)
+- `vercel dev` — runs the Vite app AND the `api/` serverless functions locally (needed to test the AI assistant, since plain `pnpm dev` has no backend).
 - No test framework exists — don't invent test commands.
 - After React edits, run `npx react-doctor@latest --verbose --diff` (skill: `.agents/skills/react-doctor/SKILL.md`, script: `pnpm doctor`) and fix regressions before committing.
 - Add shadcn components with `pnpm dlx shadcn add <name>` (`components.json`: style `radix-mira`).
@@ -25,6 +26,8 @@ Vite + React 18 + TypeScript SPA that builds a resume in a multi-step form and r
 ## Gotchas
 
 - File uploads (`header.profilePicture`, `experience.companyLogo`) are `File | string(data URL) | undefined`. They must go through `serializeFileField` (`src/utils.ts`) before persisting or rendering to PDF.
+- **AI Assistant**: `api/generate-resume.ts` is a Vercel serverless function proxying to Gemini (OpenAI-compatible, free tier). It generates the resume JSON Schema from `importedResumeSchema` via `zod-to-json-schema` (keeps the schema as single source of truth) and validates the model output with the same schema. Env vars: `GEMINI_API_KEY` (required), optional `GEMINI_MODEL`, `GEMINI_BASE_URL`. Chat + generation state lives in `src/hooks/useResumeAssistant.ts`, UI in `src/components/ResumeAssistant.tsx` (bottom sheet). AI data flows through `parseImportedResumeJson` → `applyGeneratedResume` → same reset/autosave path as imports.
+- The `api/` folder is included in `tsconfig.node.json` (so `tsc -b` typechecks it) and eslint'd with node globals; it must stay importable without `@/` alias resolution (use relative imports) since Vercel bundles it separately from Vite.
 - `@react-pdf/renderer` must be **dynamically imported** (`await import('@react-pdf/renderer')`) when generating blobs (see `Previewer.tsx`). Fonts are registered in `src/components/pdf/styles.ts` via `?url` asset imports (imported once in `main.tsx`).
 - Dates are enforced as `YYYY-MM-DD` (`src/date-validation.ts` regex + `date-fns` `isValid`); display formatting lives in `src/utils.ts` (`formatDateRange`).
 - Icons: `@hugeicons/react` through wrappers in `src/components/icons/` (barrel `index.ts`, `createIcon` helper). Do not add lucide-react; new shadcn components default to lucide icons — swap them for the local wrappers.
