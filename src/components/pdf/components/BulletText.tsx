@@ -12,9 +12,9 @@ const BulletText: React.FC<{
         {
           display: 'flex',
           flexDirection: 'row',
-          gap: 4
+          gap: 4,
         },
-        style ?? {}
+        style ?? {},
       ]}
     >
       <View
@@ -23,7 +23,7 @@ const BulletText: React.FC<{
           height: 4,
           borderRadius: 2,
           backgroundColor: 'currentColor',
-          top: 5.5
+          top: 5.5,
         }}
       />
       <Text style={{ width: '90%' }}>{text}</Text>

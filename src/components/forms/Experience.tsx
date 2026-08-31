@@ -3,7 +3,7 @@ import {
   Control,
   UseFieldArrayMove,
   UseFieldArrayRemove,
-  useWatch
+  useWatch,
 } from 'react-hook-form'
 import { type InferredResumeSchema } from '@/types'
 import { locationTypeSchema } from '@/schema'
@@ -23,7 +23,7 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-  Input
+  Input,
 } from '@/components/ui'
 
 const locationTypeOptions = locationTypeSchema.options
@@ -37,7 +37,7 @@ export const Experience: React.FC<{
 }> = ({ control, index, totalCount, remove, move }) => {
   const companyName = useWatch({
     control,
-    name: `experiences.${index}.companyName`
+    name: `experiences.${index}.companyName`,
   })
 
   const orderProps = getFieldArrayOrderProps(index, totalCount, move)
@@ -69,7 +69,10 @@ export const Experience: React.FC<{
             <FormItem className='flex-1'>
               <FormLabel>Company Logo</FormLabel>
               <FormControl>
-                <ImageUploadInput value={field.value} onChange={field.onChange} />
+                <ImageUploadInput
+                  value={field.value}
+                  onChange={field.onChange}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -11,7 +11,7 @@ type ImageUploadInputProps = {
 export function ImageUploadInput({
   value,
   onChange,
-  accept = 'image/*'
+  accept = 'image/*',
 }: ImageUploadInputProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [inputKey, setInputKey] = useState(0)

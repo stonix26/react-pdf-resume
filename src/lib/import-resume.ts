@@ -13,22 +13,24 @@ const EMPTY_HEADER: InferredResumeSchema['header'] = {
   lastName: '',
   address: '',
   mobileNumber: '',
-  links: []
+  links: [],
 }
 
-function normalizeImportedResume(data: InferredResumeSchema): InferredResumeSchema {
+function normalizeImportedResume(
+  data: InferredResumeSchema
+): InferredResumeSchema {
   return {
     header: {
       ...EMPTY_HEADER,
       ...data.header,
-      links: data.header.links ?? []
+      links: data.header.links ?? [],
     },
     summary: data.summary ?? '',
     experiences: data.experiences ?? [],
     additionalSkills: data.additionalSkills ?? [],
     education: data.education ?? [],
     projects: data.projects ?? [],
-    reference: data.reference ?? []
+    reference: data.reference ?? [],
   }
 }
 
@@ -41,7 +43,7 @@ export function parseImportedResumeJson(jsonText: string): ImportResult {
     return {
       ok: false as const,
       title: 'Invalid JSON',
-      details: 'The AI response was not valid JSON.'
+      details: 'The AI response was not valid JSON.',
     }
   }
 
@@ -58,7 +60,7 @@ export function parseImportedResumeJson(jsonText: string): ImportResult {
     return {
       ok: false as const,
       title: 'Schema validation failed',
-      details
+      details,
     }
   }
 
@@ -74,6 +76,6 @@ export function parseImportedResumeFile(file: File): Promise<ImportResult> {
     .catch(() => ({
       ok: false as const,
       title: 'Import failed',
-      details: 'Could not read the selected file.'
+      details: 'Could not read the selected file.',
     }))
 }

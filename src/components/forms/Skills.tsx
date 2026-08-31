@@ -11,7 +11,7 @@ import {
   FormItem,
   FormMessage,
   Input,
-  Button
+  Button,
 } from '@/components/ui'
 import { AddLine, CloseLine } from '@/components/icons'
 
@@ -22,7 +22,7 @@ export const Skills: React.FC<{
 }> = ({ control, experienceIndex, roleIndex }) => {
   const { fields, append, remove, move } = useFieldArray({
     control,
-    name: `experiences.${experienceIndex}.roles.${roleIndex}.skills`
+    name: `experiences.${experienceIndex}.roles.${roleIndex}.skills`,
   })
 
   return (
@@ -62,7 +62,7 @@ export const Skills: React.FC<{
         variant='outline'
         onClick={() =>
           append({
-            skill: ''
+            skill: '',
           })
         }
       >

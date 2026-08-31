@@ -7,8 +7,8 @@ try {
     family: 'Open Sans',
     fonts: [
       { src: OpenSansRegular, fontWeight: 400 },
-      { src: OpenSansBold, fontWeight: 700 }
-    ]
+      { src: OpenSansBold, fontWeight: 700 },
+    ],
   })
 } catch {
   // Font family already registered during HMR.
@@ -16,14 +16,14 @@ try {
 
 export const styles = StyleSheet.create({
   section: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   subHeader: {
     fontSize: 14,
-    marginBottom: 2
+    marginBottom: 2,
   },
   links: {
     textDecoration: 'none',
-    color: 'inherit'
-  }
+    color: 'inherit',
+  },
 })

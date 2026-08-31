@@ -6,7 +6,7 @@ import {
   headerSchema,
   projectSchema,
   referenceSchema,
-  resumeSchema
+  resumeSchema,
 } from './schema'
 
 export type InferredHeaderSchema = z.infer<typeof headerSchema>

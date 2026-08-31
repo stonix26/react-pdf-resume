@@ -18,14 +18,14 @@ const DEFAULT_FORM: InferredResumeSchema = {
     lastName: '',
     address: '',
     mobileNumber: '',
-    links: []
+    links: [],
   },
   summary: '',
   experiences: [],
   additionalSkills: [],
   education: [],
   projects: [],
-  reference: []
+  reference: [],
 }
 
 const LS_KEY = 'linkedInResumeFormatData'
@@ -47,7 +47,7 @@ const useResume = () => {
 
   const form = useForm<InferredResumeSchema>({
     resolver: zodResolver(resumeSchema),
-    defaultValues: storedData || DEFAULT_FORM
+    defaultValues: storedData || DEFAULT_FORM,
   })
 
   const { reset, getValues } = form
@@ -158,7 +158,7 @@ const useResume = () => {
 
     if (!exported) {
       toast.error('No resume data found', {
-        description: 'Fill in some fields first, then try exporting again.'
+        description: 'Fill in some fields first, then try exporting again.',
       })
       return
     }
@@ -177,7 +177,7 @@ const useResume = () => {
     URL.revokeObjectURL(url)
 
     toast.success('Resume data exported', {
-      description: 'Saved as resume-data.json'
+      description: 'Saved as resume-data.json',
     })
   }
 
@@ -192,7 +192,7 @@ const useResume = () => {
     setLastSavedAt(null)
     reset(DEFAULT_FORM)
     toast.success('Data cleared', {
-      description: 'Your resume data has been reset.'
+      description: 'Your resume data has been reset.',
     })
   }
 
@@ -221,7 +221,7 @@ const useResume = () => {
     applyResumeData(result.data)
 
     toast.success('Resume imported', {
-      description: 'Your data has been loaded.'
+      description: 'Your data has been loaded.',
     })
 
     return result
@@ -232,7 +232,7 @@ const useResume = () => {
       applyResumeData(data)
 
       toast.success('Resume generated', {
-        description: 'Your AI-generated resume has been loaded into the form.'
+        description: 'Your AI-generated resume has been loaded into the form.',
       })
     },
     [applyResumeData]
@@ -249,7 +249,7 @@ const useResume = () => {
     setLastSavedAt(new Date())
     setSaveState('saved')
     toast.success('Sample resume loaded', {
-      description: 'Make it your own from here.'
+      description: 'Make it your own from here.',
     })
   }
 
@@ -270,7 +270,7 @@ const useResume = () => {
     applyGeneratedResume,
     handleResetData,
     handleLoadSample,
-    formRef
+    formRef,
   }
 }
 

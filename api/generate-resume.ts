@@ -42,7 +42,7 @@ Rules:
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
   })
 }
 
@@ -78,8 +78,7 @@ async function callGemini(
   messages: ChatMessage[],
   generate: boolean
 ): Promise<
-  | { ok: true; content: string }
-  | { ok: false; status: number; error: string }
+  { ok: true; content: string } | { ok: false; status: number; error: string }
 > {
   const url = `${GEMINI_BASE_URL}/chat/completions`
 
@@ -87,7 +86,7 @@ async function callGemini(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`
+      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
       model: GEMINI_MODEL,
@@ -96,11 +95,11 @@ async function callGemini(
       messages: [
         {
           role: 'system',
-          content: generate ? GENERATE_SYSTEM_PROMPT : CHAT_SYSTEM_PROMPT
+          content: generate ? GENERATE_SYSTEM_PROMPT : CHAT_SYSTEM_PROMPT,
         },
-        ...messages.slice(-12)
-      ]
-    })
+        ...messages.slice(-12),
+      ],
+    }),
   })
 
   if (!response.ok) {
@@ -108,7 +107,7 @@ async function callGemini(
     return {
       ok: false,
       status: response.status,
-      error: bodyText || `Gemini request failed (${response.status})`
+      error: bodyText || `Gemini request failed (${response.status})`,
     }
   }
 
@@ -118,7 +117,11 @@ async function callGemini(
   const content = data.choices?.[0]?.message?.content
 
   if (typeof content !== 'string' || content.length === 0) {
-    return { ok: false, status: 502, error: 'Gemini returned an empty response' }
+    return {
+      ok: false,
+      status: 502,
+      error: 'Gemini returned an empty response',
+    }
   }
 
   return { ok: true, content }
@@ -147,7 +150,10 @@ export async function POST(request: Request): Promise<Response> {
 
   if (!apiKey) {
     return json(
-      { ok: false, error: 'AI assistant is not configured (missing GEMINI_API_KEY).' },
+      {
+        ok: false,
+        error: 'AI assistant is not configured (missing GEMINI_API_KEY).',
+      },
       500
     )
   }
@@ -181,7 +187,10 @@ export async function POST(request: Request): Promise<Response> {
     const first = await callGemini(apiKey, messages, generate)
 
     if (!first.ok) {
-      return json({ ok: false, error: `AI request failed: ${first.error}` }, first.status)
+      return json(
+        { ok: false, error: `AI request failed: ${first.error}` },
+        first.status
+      )
     }
 
     if (!generate) {
@@ -200,14 +209,17 @@ export async function POST(request: Request): Promise<Response> {
         ...messages,
         {
           role: 'user',
-          content: `Your last response failed validation. Fix these issues and output only valid JSON:\n${generated.issues}`
-        }
+          content: `Your last response failed validation. Fix these issues and output only valid JSON:\n${generated.issues}`,
+        },
       ],
       true
     )
 
     if (!retry.ok) {
-      return json({ ok: false, error: `AI request failed: ${retry.error}` }, retry.status)
+      return json(
+        { ok: false, error: `AI request failed: ${retry.error}` },
+        retry.status
+      )
     }
 
     const retried = validateGeneratedResume(retry.content)
@@ -217,14 +229,18 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     return json(
-      { ok: false, error: `AI returned invalid resume data.\n${retried.issues}` },
+      {
+        ok: false,
+        error: `AI returned invalid resume data.\n${retried.issues}`,
+      },
       502
     )
   } catch (error) {
     return json(
       {
         ok: false,
-        error: error instanceof Error ? error.message : 'Unexpected server error.'
+        error:
+          error instanceof Error ? error.message : 'Unexpected server error.',
       },
       500
     )

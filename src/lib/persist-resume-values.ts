@@ -10,14 +10,14 @@ export async function persistResumeValues(
     Promise.all(
       values.experiences.map(async experience => ({
         ...experience,
-        companyLogo: await serializeFileField(experience.companyLogo)
+        companyLogo: await serializeFileField(experience.companyLogo),
       }))
-    )
+    ),
   ])
 
   return prepareResumeForPdf({
     ...values,
     header: { ...values.header, profilePicture },
-    experiences
+    experiences,
   })
 }

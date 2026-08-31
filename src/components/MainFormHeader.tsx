@@ -4,7 +4,7 @@ import {
   DeleteBinLine,
   ExportLine,
   Github,
-  ImportLine
+  ImportLine,
 } from '@/components/icons'
 import { ThemeSwitcher } from '@/components/theme-switcher'
 import {
@@ -18,7 +18,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Button,
-  Input
+  Input,
 } from '@/components/ui'
 
 type MainFormHeaderProps = {
@@ -32,7 +32,7 @@ export function MainFormHeader({
   onReset,
   onExport,
   onImport,
-  onImported
+  onImported,
 }: MainFormHeaderProps) {
   const [resetConfirm, setResetConfirm] = useState('')
   const [importError, setImportError] = useState<{

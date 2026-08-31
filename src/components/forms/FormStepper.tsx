@@ -4,7 +4,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from '@/components/ui'
 import { CheckLine, ChevronDownLine } from '@/components/icons'
 import type { FormStep } from '@/components/forms/form-steps'
@@ -20,7 +20,7 @@ function StepBadge({
   index,
   isCurrent,
   isComplete,
-  hasError
+  hasError,
 }: {
   index: number
   isCurrent: boolean
@@ -34,7 +34,10 @@ function StepBadge({
         isCurrent && 'bg-primary text-primary-foreground',
         isComplete && !isCurrent && 'bg-foreground text-background',
         hasError && !isCurrent && 'bg-destructive text-destructive-foreground',
-        !isCurrent && !isComplete && !hasError && 'bg-muted text-muted-foreground'
+        !isCurrent &&
+          !isComplete &&
+          !hasError &&
+          'bg-muted text-muted-foreground'
       )}
     >
       {isCurrent || (!isComplete && !hasError) ? (
@@ -52,7 +55,7 @@ function MobileStepPicker({
   steps,
   currentStep,
   onStepChange,
-  stepErrors
+  stepErrors,
 }: FormStepperProps) {
   const current = steps[currentStep]
   const progress = currentStep / steps.length
@@ -105,9 +108,7 @@ function MobileStepPicker({
                 key={step.id}
                 onClick={() => onStepChange(index)}
                 aria-current={isCurrent ? 'step' : undefined}
-                className={cn(
-                  isCurrent && 'bg-primary/10 focus:bg-primary/10'
-                )}
+                className={cn(isCurrent && 'bg-primary/10 focus:bg-primary/10')}
               >
                 <StepBadge
                   index={index}
@@ -152,7 +153,7 @@ export function FormStepper({
   steps,
   currentStep,
   onStepChange,
-  stepErrors
+  stepErrors,
 }: FormStepperProps) {
   return (
     <>
@@ -163,10 +164,7 @@ export function FormStepper({
         stepErrors={stepErrors}
       />
 
-      <nav
-        aria-label='Resume form progress'
-        className='hidden w-full sm:block'
-      >
+      <nav aria-label='Resume form progress' className='hidden w-full sm:block'>
         <ScrollArea className='w-full pb-1'>
           <ol className='flex w-max min-w-full gap-1'>
             {steps.map((step, index) => {
@@ -183,7 +181,8 @@ export function FormStepper({
                     onClick={() => onStepChange(index)}
                     className={cn(
                       'flex min-w-[8.5rem] flex-1 items-center gap-2 rounded-lg border px-3 py-2 text-left transition-colors',
-                      isCurrent && 'border-primary bg-primary/5 text-foreground',
+                      isCurrent &&
+                        'border-primary bg-primary/5 text-foreground',
                       isComplete &&
                         !isCurrent &&
                         'border-border bg-muted/40 text-foreground hover:bg-muted/60',
@@ -225,9 +224,7 @@ export function FormStepper({
                       aria-hidden
                       className={cn(
                         'mx-1 hidden h-px w-4 shrink-0 sm:block',
-                        index < currentStep
-                          ? 'bg-foreground/30'
-                          : 'bg-border'
+                        index < currentStep ? 'bg-foreground/30' : 'bg-border'
                       )}
                     />
                   ) : null}

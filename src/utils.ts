@@ -1,8 +1,4 @@
-import {
-  format,
-  differenceInMonths,
-  differenceInYears
-} from 'date-fns'
+import { format, differenceInMonths, differenceInYears } from 'date-fns'
 import { fileSchema } from '@/schema'
 
 function formatUnit(value: number, unit: 'yr' | 'mo') {
@@ -19,7 +15,10 @@ export function formatDateRange(startDate: string, endDate?: string) {
   const totalYears = differenceInYears(end, start)
   const totalMonths = differenceInMonths(end, start) % 12
 
-  const timeDifference = [formatUnit(totalYears, 'yr'), formatUnit(totalMonths, 'mo')]
+  const timeDifference = [
+    formatUnit(totalYears, 'yr'),
+    formatUnit(totalMonths, 'mo'),
+  ]
     .filter(Boolean)
     .join(' ')
 

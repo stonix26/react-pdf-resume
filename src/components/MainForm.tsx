@@ -5,7 +5,15 @@ import type { InferredResumeSchema } from '@/types'
 import { MainFormHeader } from '@/components/MainFormHeader'
 import { MainFormFooter } from '@/components/MainFormFooter'
 import { SampleBanner } from '@/components/SampleBanner'
-import { Form, Card, CardContent, CardDescription, CardHeader, CardTitle, ScrollArea } from '@/components/ui'
+import {
+  Form,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  ScrollArea,
+} from '@/components/ui'
 import {
   Header,
   HeaderLinks,
@@ -16,12 +24,12 @@ import {
   Projects,
   References,
   FormStepper,
-  FORM_STEPS
+  FORM_STEPS,
 } from '@/components/forms'
 
 function StepPanel({
   stepId,
-  control
+  control,
 }: {
   stepId: string
   control: Control<InferredResumeSchema>
@@ -64,7 +72,7 @@ function MainForm() {
     saveState,
     lastSavedAt,
     formRef,
-    storedData
+    storedData,
   } = useResumeForm()
   const { control } = form
   const [currentStep, setCurrentStep] = useState(0)
@@ -99,20 +107,28 @@ function MainForm() {
     setCurrentStep(0)
   }, [])
 
-  const [profileFirst, profileLast, summary, experiences, additionalSkills, education, projects, reference] =
-    useWatch({
-      control,
-      name: [
-        'header.firstName',
-        'header.lastName',
-        'summary',
-        'experiences',
-        'additionalSkills',
-        'education',
-        'projects',
-        'reference'
-      ]
-    })
+  const [
+    profileFirst,
+    profileLast,
+    summary,
+    experiences,
+    additionalSkills,
+    education,
+    projects,
+    reference,
+  ] = useWatch({
+    control,
+    name: [
+      'header.firstName',
+      'header.lastName',
+      'summary',
+      'experiences',
+      'additionalSkills',
+      'education',
+      'projects',
+      'reference',
+    ],
+  })
 
   const completedCount = [
     Boolean(profileFirst?.trim() && profileLast?.trim()),
@@ -121,7 +137,7 @@ function MainForm() {
     Array.isArray(additionalSkills) && additionalSkills.length > 0,
     Array.isArray(education) && education.length > 0,
     Array.isArray(projects) && projects.length > 0,
-    Array.isArray(reference) && reference.length > 0
+    Array.isArray(reference) && reference.length > 0,
   ].filter(Boolean).length
   const progressPercent = Math.round((completedCount / FORM_STEPS.length) * 100)
 
@@ -182,10 +198,7 @@ function MainForm() {
             </CardHeader>
             <ScrollArea className='min-h-0 flex-1'>
               <CardContent className='pt-6'>
-                <div
-                  key={step.id}
-                  className='panel-in'
-                >
+                <div key={step.id} className='panel-in'>
                   <StepPanel stepId={step.id} control={control} />
                 </div>
               </CardContent>

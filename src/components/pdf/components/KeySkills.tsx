@@ -4,7 +4,7 @@ import { sortStringsAlphabetically } from '@/utils'
 import { styles } from '../styles'
 
 const KeySkills: React.FC<{ skills: (string | undefined)[] }> = ({
-  skills
+  skills,
 }) => {
   const sortedSkills = sortStringsAlphabetically(skills)
   return (
@@ -15,7 +15,7 @@ const KeySkills: React.FC<{ skills: (string | undefined)[] }> = ({
           display: 'flex',
           flexDirection: 'row',
           flexWrap: 'wrap',
-          gap: 4
+          gap: 4,
         }}
       >
         {sortedSkills.map(skill => (
@@ -26,7 +26,7 @@ const KeySkills: React.FC<{ skills: (string | undefined)[] }> = ({
               fontSize: 8,
               padding: '1pt 4pt',
               borderRadius: 5,
-              textAlign: 'center'
+              textAlign: 'center',
             }}
           >
             <Text style={{ fontSize: 8 }}>{skill}</Text>

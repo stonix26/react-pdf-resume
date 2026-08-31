@@ -4,7 +4,7 @@ import { InferredEducationSchema } from '@/types'
 import { styles } from '../styles'
 
 const Education: React.FC<{ items: InferredEducationSchema[] }> = ({
-  items
+  items,
 }) => {
   return (
     <View wrap={false} style={styles.section}>
@@ -17,7 +17,7 @@ const Education: React.FC<{ items: InferredEducationSchema[] }> = ({
             <Text
               style={{
                 color: 'gray',
-                fontSize: 8
+                fontSize: 8,
               }}
             >
               {item.gpa

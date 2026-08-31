@@ -4,7 +4,7 @@ import {
   useFieldArray,
   UseFieldArrayMove,
   UseFieldArrayRemove,
-  useWatch
+  useWatch,
 } from 'react-hook-form'
 import { type InferredResumeSchema } from '@/types'
 import { DynamicFormGroup } from '@/components/forms/DynamicFormGroup'
@@ -18,7 +18,7 @@ import {
   FormMessage,
   Input,
   Button,
-  Textarea
+  Textarea,
 } from '@/components/ui'
 import { AddLine, CloseLine, SparklesLine } from '@/components/icons'
 import { SectionEmptyState } from '@/components/forms/SectionEmptyState'
@@ -28,7 +28,7 @@ export const Projects: React.FC<{
 }> = ({ control }) => {
   const { fields, append, remove, move } = useFieldArray({
     control,
-    name: 'projects'
+    name: 'projects',
   })
 
   return (
@@ -45,7 +45,7 @@ export const Projects: React.FC<{
               name: '',
               description: '',
               techStack: [],
-              link: { src: '', label: '' }
+              link: { src: '', label: '' },
             })
           }
         />
@@ -70,7 +70,7 @@ export const Projects: React.FC<{
                 name: '',
                 description: '',
                 techStack: [],
-                link: { src: '', label: '' }
+                link: { src: '', label: '' },
               })
             }
           >
@@ -91,7 +91,7 @@ const Project: React.FC<{
 }> = ({ control, index, totalCount, remove, move }) => {
   const projectName = useWatch({
     control,
-    name: `projects.${index}.name`
+    name: `projects.${index}.name`,
   })
 
   const orderProps = getFieldArrayOrderProps(index, totalCount, move)
@@ -178,7 +178,7 @@ const TechStacks: React.FC<{
 }> = ({ control, index }) => {
   const { fields, append, remove, move } = useFieldArray({
     control,
-    name: `projects.${index}.techStack`
+    name: `projects.${index}.techStack`,
   })
 
   return (

@@ -1,10 +1,9 @@
 import { useEffect, useRef } from 'react'
-import { useResumeAssistant, type AssistantMessage } from '@/hooks/useResumeAssistant'
 import {
-  ArrowUpLine,
-  DeleteBinLine,
-  SparklesLine
-} from '@/components/icons'
+  useResumeAssistant,
+  type AssistantMessage,
+} from '@/hooks/useResumeAssistant'
+import { ArrowUpLine, DeleteBinLine, SparklesLine } from '@/components/icons'
 import {
   Button,
   Drawer,
@@ -13,7 +12,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   ScrollArea,
-  Textarea
+  Textarea,
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
@@ -46,7 +45,7 @@ export function ResumeAssistant() {
     status,
     sendMessage,
     generateResume,
-    clearConversation
+    clearConversation,
   } = useResumeAssistant()
 
   const scrollRef = useRef<HTMLDivElement>(null)

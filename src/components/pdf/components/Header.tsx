@@ -40,7 +40,7 @@ const ICON_BY_TYPE: Record<string, React.ReactNode> = {
   Terminal: <TerminalBox />,
   Threads: <Threads />,
   Tiktok: <Tiktok />,
-  'Twitter / X': <TwitterX />
+  'Twitter / X': <TwitterX />,
 }
 
 const Header: React.FC<InferredHeaderSchema> = ({
@@ -50,7 +50,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
   lastName,
   address,
   mobileNumber,
-  links
+  links,
 }) => {
   return (
     <View
@@ -59,7 +59,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 18,
-        marginBottom: 10
+        marginBottom: 10,
       }}
     >
       <ProfileImage
@@ -72,7 +72,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
           style={{
             textTransform: 'uppercase',
             fontSize: 22,
-            lineHeight: 1.25
+            lineHeight: 1.25,
           }}
         >
           {firstName} {middleName.trim() ? middleName.trim()[0] + '.' : null}{' '}
@@ -84,7 +84,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
             flexDirection: 'row',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: 8
+            gap: 8,
           }}
         >
           {address && (
@@ -93,7 +93,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                gap: 4
+                gap: 4,
               }}
             >
               <MapPin />
@@ -106,7 +106,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                gap: 4
+                gap: 4,
               }}
             >
               <Phone />
@@ -123,7 +123,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
               flexWrap: 'wrap',
               columnGap: 8,
               width: '90%',
-              padding: '0 1pt 0 1pt'
+              padding: '0 1pt 0 1pt',
             }}
           >
             {links.map(item => {
@@ -135,7 +135,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    gap: 4
+                    gap: 4,
                   }}
                 >
                   {IconComponent}
@@ -143,9 +143,7 @@ const Header: React.FC<InferredHeaderSchema> = ({
                     <Link
                       style={[styles.links, { color: 'gray', fontSize: 8 }]}
                       src={
-                        item.type === 'Mail'
-                          ? `mailto:${item.url}`
-                          : item.url
+                        item.type === 'Mail' ? `mailto:${item.url}` : item.url
                       }
                     >
                       {item.text.trim()}

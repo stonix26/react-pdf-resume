@@ -11,7 +11,7 @@ export const Experiences: React.FC<{
 }> = ({ control }) => {
   const { fields, append, remove, move } = useFieldArray({
     control,
-    name: 'experiences'
+    name: 'experiences',
   })
 
   return (
@@ -27,7 +27,7 @@ export const Experiences: React.FC<{
               companyName: '',
               location: '',
               locationType: 'Remote',
-              roles: []
+              roles: [],
             })
           }
         />
@@ -54,7 +54,7 @@ export const Experiences: React.FC<{
               companyName: '',
               location: '',
               locationType: 'Remote',
-              roles: []
+              roles: [],
             })
           }
         >

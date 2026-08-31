@@ -19,7 +19,7 @@ const Resume: React.FC<InferredResumeSchema> = ({
   additionalSkills = EMPTY_SKILLS,
   education,
   projects,
-  reference
+  reference,
 }) => {
   // Extract all skills from the roles
   const allSkills = experiences.flatMap(experience =>
@@ -28,7 +28,7 @@ const Resume: React.FC<InferredResumeSchema> = ({
 
   // Remove duplicates using Set
   const uniqueSkills = [
-    ...new Set([...allSkills, ...additionalSkills.map(i => i.skill)])
+    ...new Set([...allSkills, ...additionalSkills.map(i => i.skill)]),
   ]
 
   const fullName = header.firstName + ' ' + header.lastName
@@ -39,7 +39,7 @@ const Resume: React.FC<InferredResumeSchema> = ({
     subject: `${fullName} - Resume`,
     keywords: uniqueSkills.sort().join(', '),
     creator: `react-pdf-resume app`,
-    producer: 'Ruston Emperua'
+    producer: 'Ruston Emperua',
   }
 
   return (
@@ -51,7 +51,7 @@ const Resume: React.FC<InferredResumeSchema> = ({
           fontFamily: 'Open Sans',
           fontSize: 10,
           fontWeight: 'normal',
-          position: 'relative'
+          position: 'relative',
         }}
       >
         {header && <Header {...header} />}
@@ -90,7 +90,7 @@ const Resume: React.FC<InferredResumeSchema> = ({
             bottom: 22,
             right: 30,
             textAlign: 'center',
-            color: 'grey'
+            color: 'grey',
           }}
           render={({ pageNumber, totalPages }) =>
             `${fullName} - ${pageNumber} / ${totalPages}`

@@ -13,7 +13,7 @@ function createEmptyRole() {
     startDate: format(new Date(), 'yyyy-MM-dd'),
     endDate: undefined,
     descriptions: [],
-    skills: undefined
+    skills: undefined,
   }
 }
 
@@ -23,7 +23,7 @@ export const Roles: React.FC<{
 }> = ({ control, experienceIndex }) => {
   const { fields, append, remove, move } = useFieldArray({
     control,
-    name: `experiences.${experienceIndex}.roles`
+    name: `experiences.${experienceIndex}.roles`,
   })
 
   return (

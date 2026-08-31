@@ -13,7 +13,7 @@ const ProfileImage: React.FC<{
         style={{
           width: 100,
           height: 100,
-          borderRadius: 50
+          borderRadius: 50,
         }}
       />
     )
@@ -32,14 +32,14 @@ const ProfileImage: React.FC<{
           borderWidth: 1,
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <Text
           style={{
             color: 'gray',
             fontSize: 36,
-            fontWeight: 'bold'
+            fontWeight: 'bold',
           }}
         >
           {initials}

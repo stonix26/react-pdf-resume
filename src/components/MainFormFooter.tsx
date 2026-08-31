@@ -17,18 +17,21 @@ type MainFormFooterProps = {
 
 function SaveStatus({
   saveState,
-  lastSavedAt
+  lastSavedAt,
 }: {
   saveState: SaveState
   lastSavedAt: Date | null
 }) {
-  if (saveState === 'saving') return <p className='text-xs text-muted-foreground'>Saving…</p>
+  if (saveState === 'saving')
+    return <p className='text-xs text-muted-foreground'>Saving…</p>
 
   if (saveState === 'saved' && lastSavedAt) {
     const isRecent = Date.now() - lastSavedAt.getTime() < 30_000
     return (
       <p className='text-xs text-emerald-500'>
-        {isRecent ? 'Saved just now' : `Saved ${lastSavedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`}
+        {isRecent
+          ? 'Saved just now'
+          : `Saved ${lastSavedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`}
       </p>
     )
   }
@@ -46,7 +49,7 @@ export function MainFormFooter({
   lastSavedAt,
   onBack,
   onNext,
-  onPreview
+  onPreview,
 }: MainFormFooterProps) {
   return (
     <footer className='flex shrink-0 items-center justify-between gap-4 border-t border-border px-6 py-4'>
@@ -71,7 +74,11 @@ export function MainFormFooter({
         <SaveStatus saveState={saveState} lastSavedAt={lastSavedAt} />
       </div>
       <div className='flex gap-2'>
-        <Button type='button' variant='outline' onClick={() => void onPreview()}>
+        <Button
+          type='button'
+          variant='outline'
+          onClick={() => void onPreview()}
+        >
           <EyeLine />
           Preview
         </Button>

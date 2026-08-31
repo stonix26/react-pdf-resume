@@ -33,7 +33,9 @@ export function useResumeAssistant() {
   const { applyGeneratedResume } = useResumeForm()
 
   const [open, setOpen] = useState(false)
-  const [messages, setMessages] = useState<AssistantMessage[]>([WELCOME_MESSAGE])
+  const [messages, setMessages] = useState<AssistantMessage[]>([
+    WELCOME_MESSAGE,
+  ])
   const [input, setInput] = useState('')
   const [status, setStatus] = useState<AssistantStatus>('idle')
 
@@ -42,21 +44,24 @@ export function useResumeAssistant() {
   }, [])
 
   const requestAssistant = useCallback(
-    async (history: AssistantMessage[], generate: boolean): Promise<ApiResult> => {
+    async (
+      history: AssistantMessage[],
+      generate: boolean
+    ): Promise<ApiResult> => {
       try {
         const response = await fetch('/api/generate-resume', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: history, generate })
+          body: JSON.stringify({ messages: history, generate }),
         })
 
         if (!response.ok) {
-          const payload = (await response.json().catch(() => null)) as
-            | { error?: string }
-            | null
+          const payload = (await response.json().catch(() => null)) as {
+            error?: string
+          } | null
           return {
             ok: false,
-            error: payload?.error ?? `Request failed (${response.status})`
+            error: payload?.error ?? `Request failed (${response.status})`,
           }
         }
 
@@ -65,7 +70,7 @@ export function useResumeAssistant() {
       } catch {
         return {
           ok: false,
-          error: 'Could not reach the AI assistant. Please try again.'
+          error: 'Could not reach the AI assistant. Please try again.',
         }
       }
     },
@@ -79,7 +84,7 @@ export function useResumeAssistant() {
 
     const history: AssistantMessage[] = [
       ...messages,
-      createMessage('user', text)
+      createMessage('user', text),
     ]
     setMessages(history)
     setInput('')
@@ -125,7 +130,10 @@ export function useResumeAssistant() {
 
     if (!('data' in result)) {
       appendMessage(
-        createMessage('assistant', "I couldn't generate a resume. Please try again.")
+        createMessage(
+          'assistant',
+          "I couldn't generate a resume. Please try again."
+        )
       )
       return
     }
@@ -150,7 +158,14 @@ export function useResumeAssistant() {
         'Your resume has been generated and loaded into the form. Review and tweak it, then export or preview the PDF.'
       )
     )
-  }, [input, messages, status, requestAssistant, applyGeneratedResume, appendMessage])
+  }, [
+    input,
+    messages,
+    status,
+    requestAssistant,
+    applyGeneratedResume,
+    appendMessage,
+  ])
 
   const clearConversation = useCallback(() => {
     setMessages([WELCOME_MESSAGE])
@@ -167,6 +182,6 @@ export function useResumeAssistant() {
     status,
     sendMessage,
     generateResume,
-    clearConversation
+    clearConversation,
   }
 }

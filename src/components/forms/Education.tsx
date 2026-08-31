@@ -11,7 +11,7 @@ import {
   FormItem,
   FormMessage,
   Input,
-  Button
+  Button,
 } from '@/components/ui'
 import { AddLine, CloseLine, SparklesLine } from '@/components/icons'
 import { SectionEmptyState } from '@/components/forms/SectionEmptyState'
@@ -21,7 +21,7 @@ export const Education: React.FC<{
 }> = ({ control }) => {
   const { fields, append, remove, move } = useFieldArray({
     control,
-    name: 'education'
+    name: 'education',
   })
 
   return (
@@ -36,7 +36,7 @@ export const Education: React.FC<{
             append({
               course: '',
               schoolName: '',
-              schoolYear: ''
+              schoolYear: '',
             })
           }
         />
@@ -114,7 +114,7 @@ export const Education: React.FC<{
               append({
                 course: '',
                 schoolName: '',
-                schoolYear: ''
+                schoolYear: '',
               })
             }
           >

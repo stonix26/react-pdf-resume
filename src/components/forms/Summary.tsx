@@ -7,11 +7,11 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-  Textarea
+  Textarea,
 } from '@/components/ui'
 
 export const Summary: React.FC<{ control: Control<InferredResumeSchema> }> = ({
-  control
+  control,
 }) => (
   <FormField
     name='summary'

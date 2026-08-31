@@ -11,7 +11,7 @@ import {
   FormItem,
   FormMessage,
   Input,
-  Button
+  Button,
 } from '@/components/ui'
 import { AddLine, CloseLine, SparklesLine } from '@/components/icons'
 import { SectionEmptyState } from '@/components/forms/SectionEmptyState'
@@ -21,7 +21,7 @@ export const AdditionalSkills: React.FC<{
 }> = ({ control }) => {
   const { fields, append, remove, move } = useFieldArray({
     control,
-    name: 'additionalSkills'
+    name: 'additionalSkills',
   })
 
   return (
@@ -71,7 +71,7 @@ export const AdditionalSkills: React.FC<{
             variant='outline'
             onClick={() =>
               append({
-                skill: ''
+                skill: '',
               })
             }
           >

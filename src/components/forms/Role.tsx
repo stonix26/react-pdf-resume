@@ -11,13 +11,13 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-  Input
+  Input,
 } from '@/components/ui'
 import {
   Control,
   UseFieldArrayMove,
   UseFieldArrayRemove,
-  useWatch
+  useWatch,
 } from 'react-hook-form'
 import { InferredResumeSchema } from '@/types'
 import { employmentTypeSchema } from '@/schema'
@@ -39,7 +39,7 @@ export const Role: React.FC<{
 }> = ({ control, experienceIndex, roleIndex, totalCount, remove, move }) => {
   const roleName = useWatch({
     control,
-    name: `experiences.${experienceIndex}.roles.${roleIndex}.role`
+    name: `experiences.${experienceIndex}.roles.${roleIndex}.role`,
   })
 
   const orderProps = getFieldArrayOrderProps(roleIndex, totalCount, move)

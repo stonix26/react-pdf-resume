@@ -4,7 +4,7 @@ import { InferredReferenceSchema } from '@/types'
 import { styles } from '../styles'
 
 const Reference: React.FC<{ data: InferredReferenceSchema[] | undefined }> = ({
-  data
+  data,
 }) => {
   return (
     <View wrap={false} style={styles.section}>

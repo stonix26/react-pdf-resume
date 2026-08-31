@@ -15,7 +15,7 @@ export const OrderControls: React.FC<OrderControlsProps> = ({
   canMoveDown,
   onMoveUp,
   onMoveDown,
-  className
+  className,
 }) => (
   <div className={className ?? 'flex items-center'}>
     <Button

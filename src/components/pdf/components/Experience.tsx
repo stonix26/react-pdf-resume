@@ -11,7 +11,7 @@ const Experience: React.FC<InferredExperienceSchema> = ({
   companyLogo,
   location,
   locationType,
-  roles
+  roles,
 }) => {
   // For single role
   if (roles.length === 1) {
@@ -25,7 +25,7 @@ const Experience: React.FC<InferredExperienceSchema> = ({
           marginBottom: 10,
           display: 'flex',
           flexDirection: 'row',
-          gap: 10
+          gap: 10,
         }}
       >
         <View style={{ width: 30, height: '100%' }}>
@@ -63,7 +63,7 @@ const Experience: React.FC<InferredExperienceSchema> = ({
         marginBottom: 10,
         display: 'flex',
         flexDirection: 'row',
-        gap: 10
+        gap: 10,
       }}
     >
       <View style={{ width: 30, height: '100%' }}>
@@ -94,7 +94,7 @@ const Experience: React.FC<InferredExperienceSchema> = ({
               style={{
                 position: 'relative',
                 paddingLeft: 15,
-                paddingBottom: roles.length - 1 !== roleIndex ? 5 : 0
+                paddingBottom: roles.length - 1 !== roleIndex ? 5 : 0,
               }}
             >
               <View
@@ -105,7 +105,7 @@ const Experience: React.FC<InferredExperienceSchema> = ({
                   width: 5,
                   height: 5,
                   backgroundColor: 'gray',
-                  borderRadius: 2.5
+                  borderRadius: 2.5,
                 }}
               />
 
@@ -117,7 +117,7 @@ const Experience: React.FC<InferredExperienceSchema> = ({
                     left: 2,
                     height: '90%',
                     width: 1,
-                    backgroundColor: 'gray'
+                    backgroundColor: 'gray',
                   }}
                 />
               ) : null}

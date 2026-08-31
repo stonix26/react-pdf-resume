@@ -11,7 +11,7 @@ import {
   FormItem,
   FormMessage,
   Input,
-  Button
+  Button,
 } from '@/components/ui'
 import { AddLine, CloseLine, SparklesLine } from '@/components/icons'
 import { SectionEmptyState } from '@/components/forms/SectionEmptyState'
@@ -21,7 +21,7 @@ export const References: React.FC<{
 }> = ({ control }) => {
   const { fields, append, remove, move } = useFieldArray({
     control,
-    name: 'reference'
+    name: 'reference',
   })
 
   return (
@@ -37,7 +37,7 @@ export const References: React.FC<{
               name: '',
               company: '',
               role: '',
-              contactNumber: ''
+              contactNumber: '',
             })
           }
         />
@@ -117,7 +117,7 @@ export const References: React.FC<{
                 name: '',
                 company: '',
                 role: '',
-                contactNumber: ''
+                contactNumber: '',
               })
             }
           >

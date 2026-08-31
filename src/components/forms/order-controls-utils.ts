@@ -7,6 +7,6 @@ export function getFieldArrayOrderProps(
     canMoveUp: index > 0,
     canMoveDown: index < total - 1,
     onMoveUp: () => move(index, index - 1),
-    onMoveDown: () => move(index, index + 1)
+    onMoveDown: () => move(index, index + 1),
   }
 }

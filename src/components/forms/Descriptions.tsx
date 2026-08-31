@@ -7,7 +7,7 @@ import {
   FormItem,
   FormMessage,
   Input,
-  Button
+  Button,
 } from '@/components/ui'
 import { CloseLine, AddLine } from '@/components/icons'
 import { DynamicFormGroup } from '@/components/forms/DynamicFormGroup'
@@ -22,7 +22,7 @@ export const Descriptions: React.FC<{
 }> = ({ control, experienceIndex, roleIndex }) => {
   const { fields, append, remove, move } = useFieldArray({
     control,
-    name: `experiences.${experienceIndex}.roles.${roleIndex}.descriptions`
+    name: `experiences.${experienceIndex}.roles.${roleIndex}.descriptions`,
   })
 
   return (
@@ -43,11 +43,7 @@ export const Descriptions: React.FC<{
           />
           <OrderControls
             className='flex items-center self-end'
-            {...getFieldArrayOrderProps(
-              descriptionIndex,
-              fields.length,
-              move
-            )}
+            {...getFieldArrayOrderProps(descriptionIndex, fields.length, move)}
           />
           <Button
             type='button'
@@ -66,7 +62,7 @@ export const Descriptions: React.FC<{
         variant='outline'
         onClick={() =>
           append({
-            description: ''
+            description: '',
           })
         }
       >

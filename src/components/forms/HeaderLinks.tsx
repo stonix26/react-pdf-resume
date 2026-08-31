@@ -14,7 +14,7 @@ import {
   FormControl,
   FormMessage,
   FormLabel,
-  Input
+  Input,
 } from '@/components/ui'
 import { AddLine, CloseLine } from '@/components/icons'
 import { DynamicFormGroup } from '@/components/forms/DynamicFormGroup'
@@ -31,10 +31,10 @@ export const HeaderLinks: React.FC<{
     fields,
     append: appendLink,
     remove: removeLink,
-    move: moveLink
+    move: moveLink,
   } = useFieldArray({
     control,
-    name: 'header.links'
+    name: 'header.links',
   })
 
   return (

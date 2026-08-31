@@ -11,7 +11,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  ScrollArea
+  ScrollArea,
 } from '@/components/ui'
 import Resume from '@/components/pdf/Resume'
 
@@ -22,8 +22,7 @@ type PreviewState = {
 }
 
 type PreviewAction =
-  | { type: 'success'; url: string }
-  | { type: 'error'; message: string }
+  { type: 'success'; url: string } | { type: 'error'; message: string }
 
 function previewReducer(
   state: PreviewState,
@@ -39,14 +38,14 @@ function previewReducer(
 }
 
 function PdfPreviewFrame({
-  preparedData
+  preparedData,
 }: {
   preparedData: InferredResumeSchema
 }) {
   const [preview, dispatch] = useReducer(previewReducer, {
     url: null,
     loading: true,
-    error: null
+    error: null,
   })
 
   useEffect(() => {
@@ -66,7 +65,7 @@ function PdfPreviewFrame({
         dispatch({
           type: 'error',
           message:
-            err instanceof Error ? err.message : 'Failed to generate preview'
+            err instanceof Error ? err.message : 'Failed to generate preview',
         })
       }
     })()

@@ -17,7 +17,7 @@ export function SectionEmptyState({
   description,
   ctaLabel,
   onCta,
-  className
+  className,
 }: SectionEmptyStateProps) {
   return (
     <div

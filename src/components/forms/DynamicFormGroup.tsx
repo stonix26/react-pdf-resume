@@ -29,8 +29,7 @@ export const DynamicFormGroup = React.forwardRef<
     },
     ref
   ) => {
-    const showOrderControls =
-      onMoveUp !== undefined && onMoveDown !== undefined
+    const showOrderControls = onMoveUp !== undefined && onMoveDown !== undefined
 
     return (
       <div

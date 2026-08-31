@@ -13,7 +13,7 @@ const Skills: React.FC<{
         display: 'flex',
         flexDirection: 'row',
         gap: 3,
-        marginTop: 3
+        marginTop: 3,
       }}
     >
       <CornerDownRight style={{ marginTop: 2 }} />

@@ -19,7 +19,7 @@ const Project: React.FC<{
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
-              gap: 2
+              gap: 2,
             }}
           >
             <Text style={{ fontWeight: 'bold' }}>{project.name}</Text>
@@ -32,7 +32,7 @@ const Project: React.FC<{
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                gap: 2
+                gap: 2,
               }}
             >
               <Link
@@ -51,7 +51,7 @@ const Project: React.FC<{
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                gap: 4
+                gap: 4,
               }}
             >
               <ServerStack />
